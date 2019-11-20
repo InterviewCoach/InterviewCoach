@@ -27,11 +27,12 @@ The user is then presented with performance feedback through reports and charts 
 - Chatbot library
  
 **Wireframes**
-See complete wireframe on Slack (is pinned).
+See complete wireframe through this link.
 ![Screenshot](InterviewCoach.pdf)
 
 **Schema Design**
-See complete schema on Slack (is pinned).
+See complete schema through this link.
+![Screenshot](InterviewCoach.pdf)
 
 **Technical Challenges**
 - Integrating so many outside libraries
