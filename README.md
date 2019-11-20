@@ -15,16 +15,16 @@ Ability to provide feedback on the relevance and quality of the answer
 Store historical data on the user’s performance
 
 **Tech Stack**
-React Native
-Firebase
-Tensor Flow
-Cube.js
+- React Native
+- Firebase
+- Tensor Flow
+- Cube.js
 
 **Libraries:**
-React Native Charts (or Victory, Chart.js)
-React-native-voice
-React-native-camera
-Chatbot library
+- React Native Charts (or Victory, Chart.js)
+- React-native-voice
+- React-native-camera
+- Chatbot library
  
 **Wireframes**
 See complete wireframe on Slack (is pinned).
