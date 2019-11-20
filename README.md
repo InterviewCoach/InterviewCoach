@@ -28,7 +28,7 @@ The user is then presented with performance feedback through reports and charts 
  
 **Wireframes**
 See complete wireframe through this link.
-![Screenshot](InterviewCoach.pdf)
+![Wireframe](InterviewCoach.pdf)
 
 **Schema Design**
 See complete schema through this link.
