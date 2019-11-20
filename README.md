@@ -9,10 +9,10 @@ The app takes that audio input and analyzes the content, specifically the use of
 The user is then presented with performance feedback through reports and charts based on predetermined metrics.
 
 **Stretch Goals**
-Ability to capture and analyze quality of audio input (speed of speech, volume)
-Ability to capture and analyze visual input (eye contact, smiling)
-Ability to provide feedback on the relevance and quality of the answer
-Store historical data on the user’s performance
+- Ability to capture and analyze quality of audio input (speed of speech, volume)
+- Ability to capture and analyze visual input (eye contact, smiling)
+- Ability to provide feedback on the relevance and quality of the answer
+- Store historical data on the user’s performance
 
 **Tech Stack**
 - React Native
@@ -33,7 +33,7 @@ See complete wireframe on Slack (is pinned).
 See complete schema on Slack (is pinned).
 
 **Technical Challenges**
-Integrating so many outside libraries
-Getting our data visualizations to look nice
-Implementing ai to provide feedback on the content of users answers
+- Integrating so many outside libraries
+- Getting our data visualizations to look nice
+- Implementing ai to provide feedback on the content of users answers
 
