@@ -28,6 +28,7 @@ The user is then presented with performance feedback through reports and charts 
  
 **Wireframes**
 See complete wireframe on Slack (is pinned).
+![Screenshot](InterviewCoach.pdf)
 
 **Schema Design**
 See complete schema on Slack (is pinned).
