@@ -32,7 +32,7 @@ See complete wireframe through this link.
 
 **Schema Design**
 See complete schema through this link.
-![Screenshot](Database Schema.png)
+![Screenshot](DatabaseSchema.png)
 
 **Technical Challenges**
 - Integrating so many outside libraries
