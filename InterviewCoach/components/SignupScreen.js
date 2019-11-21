@@ -9,7 +9,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 // import logo from '../components/logo.png'
-export default class LoginScreen extends React.Component {
+
+export default class SignupScreen extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -17,21 +18,26 @@ export default class LoginScreen extends React.Component {
       password: '',
     };
   }
-  // login(email, password) {
-  //   try {
-  //     if (this.state.password.length < 6) {
-  //       alert("Please enter a password with at least 6 characters")
-  //       return;
-  //     }
-  //     firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-  //       console.log("User....", user)
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  //   alert('Logging in with email: ' + this.state.email);
-  //   this.props.navigation.navigate('Dashboard')
-  // }
+  // createAccount(email, password) {
+  // //   try {
+  // //     if (this.state.password.length < 6) {
+  // //       alert("Please enter a password with at least 6 characters")
+  // //       return;
+  // //     }
+  // //     firebase.auth().createUserWithEmailAndPassword(email, password)
+  // //   } catch (error) {
+  // //     console.error(error)
+  // //   }
+  // //   alert('Created account with First Name: ' + this.state.firstName + ',Last Name: ' + this.state.lastName + ',Email: ' + this.state.email
+  // //   );
+  // //   this.setState({
+  // //     firstName: '',
+  // //     lastName: '',
+  // //     email: '',
+  // //     password: ''
+  // //   });
+  // //   this.props.navigation.navigate('Dashboard')
+  // // }
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -39,7 +45,11 @@ export default class LoginScreen extends React.Component {
           {/* <Image
             style={styles.logo}
             source={logo} /> */}
-          <Text style={styles.title}> INTERVIEW COACH </Text>
+          <Text style={styles.title}>
+            {' '}
+            INTERVIEW COACH: The perfect platform to prep for your next
+            interview{' '}
+          </Text>
           <Text style={styles.subtitle}>
             {' '}
             Let's practice for your next interview. You got this!{' '}
@@ -56,6 +66,7 @@ export default class LoginScreen extends React.Component {
           autoCorrect={false}
           style={styles.input}
           onChangeText={email => this.setState({ email })}
+          ref={input => (this.emailInput = input)}
         />
         <TextInput
           placeholder="Password"
@@ -69,9 +80,9 @@ export default class LoginScreen extends React.Component {
         <TouchableOpacity style={styles.buttonContainer}>
           <Text
             style={styles.buttonText}
-            onPress={() => this.login(this.state.email, this.state.password)}
+            // onPress={() => this.createAccount(this.state.email, this.state.password)}
           >
-            LOG IN
+            CREATE ACCOUNT
           </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>

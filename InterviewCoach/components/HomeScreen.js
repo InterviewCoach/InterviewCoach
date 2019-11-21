@@ -1,43 +1,64 @@
 import * as React from 'react';
-import { StyleSheet, View, Image, Text, Button, TouchableOpacity } from 'react-native';
-import logo from '../components/logo.png'
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
+import logo from '../components/logo.png';
 export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={logo} />
+          <Image style={styles.logo} source={logo} />
           <Text
             onPress={() => this.props.navigation.navigate('About')}
-            style={styles.title}> BOOST: MOBILE APP THAT LIFTS YOU UP </Text>
-          <Text style={styles.subtitle}> Gives your mood a boost and creates a brighter day! </Text>
+            style={styles.title}
+          >
+            {' '}
+            INTERVIEW COACH{' '}
+          </Text>
+          <Text style={styles.subtitle}>
+            {' '}
+            The perfect platform to prep for your next interview{' '}
+          </Text>
         </View>
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}
+          <Text
+            style={styles.buttonText}
             onPress={() => this.props.navigation.navigate('Login')}
-          >LOG IN</Text>
+          >
+            LOG IN
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}
+          <Text
+            style={styles.buttonText}
             onPress={() => this.props.navigation.navigate('Signup')}
-          >SIGN UP</Text>
+          >
+            SIGN UP
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity >
-          <Text style={styles.buttonText}
+        <TouchableOpacity>
+          <Text
+            style={styles.buttonText}
             onPress={() => this.props.navigation.navigate('About')}
-          >LEARN MORE</Text>
+          >
+            LEARN MORE
+          </Text>
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
-    padding: 50
+    backgroundColor: 'grey',
+    padding: 50,
   },
   logoContainer: {
     alignItems: 'center',
@@ -45,8 +66,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   logo: {
-    width: 200,
-    height: 200
+    width: 150,
+    height: 150,
   },
   title: {
     color: 'white',
@@ -55,19 +76,20 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '700',
     textAlign: 'center',
-    opacity: 0.8
+    opacity: 0.8,
   },
   subtitle: {
     color: 'white',
     marginTop: 10,
+    marginBottom: 10,
     width: 200,
     fontSize: 16,
     fontWeight: '500',
     textAlign: 'center',
-    opacity: 0.8
+    opacity: 0.8,
   },
   buttonContainer: {
-    backgroundColor: 'yellow',
+    backgroundColor: 'aqua',
     paddingVertical: 20,
     marginBottom: 15,
   },
