@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 const questions = [
     'Tell me about yourself', 
@@ -23,7 +23,8 @@ class InSession extends React.Component {
         this.renderNewQuestion()
     }
 
-    renderNewQuestion(){
+    //arrow function so that this refers to our class and not the event
+    renderNewQuestion = () => {
         const questionIndex = Math.floor(Math.random()*(questions.length))
         this.setState({
             currentQuestion: questions[questionIndex]
@@ -34,6 +35,7 @@ class InSession extends React.Component {
         return (
             <View style={styles.container}>
                 <Text>{this.state.currentQuestion}</Text>
+                <Button title="Next" onPress={this.renderNewQuestion}></Button>
             </View>
             );
     } 

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 // import StartSession from './components/StartSession'
 // import Splash from './components/Splash';
+import InSession from './components/InSession'
 import Report from './components/Report'
 
 
@@ -11,6 +12,7 @@ export default function App() {
       <Text>TEST Open up App.js to start working on your app!</Text>
       {/* <Splash message='hi I am props on Splash component' />
       <StartSession /> */}
+      <InSession />
     </View>
   );
 }
