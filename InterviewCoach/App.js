@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 // import StartSession from './components/StartSession'
 // import Splash from './components/Splash';
+import Report from './components/Report'
+
 
 export default function App() {
   return (
