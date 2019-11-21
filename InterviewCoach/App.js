@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Splash from './Splash';
+import Splash from './components/Splash';
+import Report from './components/Report'
 
 export default function App() {
   return (
