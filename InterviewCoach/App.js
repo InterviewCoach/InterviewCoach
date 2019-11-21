@@ -6,16 +6,18 @@ import HomeScreen from './components/HomeScreen';
 import LoginScreen from './components/LoginScreen';
 import SignupScreen from './components/SignupScreen';
 import { StyleSheet, Text, View } from 'react-native';
-// import StartSession from './components/StartSession'
+import StartSession from './components/StartSession'
 // import Splash from './components/Splash';
 // import Report from './components/Report'
+import InSession from './components/InSession'
 
 export default class App extends React.Component {
   constructor() {
     super();
   }
   render() {
-    return <AppContainer style={styles.container} />;
+    // return <AppContainer style={styles.container} />;
+    return <InSession />
   }
 }
 const styles = StyleSheet.create({
@@ -29,7 +31,7 @@ const RootStack = createStackNavigator(
     Home: HomeScreen,
     Login: LoginScreen,
     Signup: SignupScreen,
-    StartSession: StartSession
+    // StartSession: StartSession
   },
   {
     initialRouteName: 'Home',
