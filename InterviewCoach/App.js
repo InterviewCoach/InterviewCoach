@@ -1,19 +1,42 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  ActivityIndicator,
+  StatusBar,
+} from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>TEST Open up App.js to start working on your app!</Text>
-    </View>
-  );
+import HomeScreen from './components/HomeScreen';
+import LoginScreen from './components/LoginScreen';
+import SignupScreen from './components/SignupScreen';
+
+export default class App extends React.Component {
+  constructor() {
+    super();
+  }
+  render() {
+    return <AppContainer style={styles.container} />;
+  }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'blue',
   },
 });
+const RootStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Login: LoginScreen,
+    Signup: SignupScreen,
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+const AppContainer = createAppContainer(RootStack);
