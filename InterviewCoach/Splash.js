@@ -1,14 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Splash from './Splash';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
-export default function App() {
+
+const Splash = (props) => {
   return (
     <View style={styles.container}>
-      <Text>TEST Open up App.js to start working on your app!</Text>
+      <ActivityIndicator size="large" color="#00ff00" />
+      <Text>{props.message}</Text>
     </View>
   );
 }
+
+export default Splash;
 
 const styles = StyleSheet.create({
   container: {
@@ -18,3 +21,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
