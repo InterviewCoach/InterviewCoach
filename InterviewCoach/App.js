@@ -1,13 +1,4 @@
 import React from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  ActivityIndicator,
-  StatusBar,
-} from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -15,10 +6,9 @@ import HomeScreen from './components/HomeScreen';
 import LoginScreen from './components/LoginScreen';
 import SignupScreen from './components/SignupScreen';
 import { StyleSheet, Text, View } from 'react-native';
-import StartSession from './components/StartSession'
-import Splash from './components/Splash';
-import Report from './components/Report'
-
+// import StartSession from './components/StartSession'
+// import Splash from './components/Splash';
+// import Report from './components/Report'
 
 export default class App extends React.Component {
   constructor() {
@@ -39,6 +29,7 @@ const RootStack = createStackNavigator(
     Home: HomeScreen,
     Login: LoginScreen,
     Signup: SignupScreen,
+    StartSession: StartSession
   },
   {
     initialRouteName: 'Home',
