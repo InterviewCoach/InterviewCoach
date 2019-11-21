@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Splash from './Splash';
+// import StartSession from './components/StartSession'
+// import Splash from './components/Splash';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Text>TEST Open up App.js to start working on your app!</Text>
+      {/* <Splash message='hi I am props on Splash component' />
+      <StartSession /> */}
     </View>
   );
 }
