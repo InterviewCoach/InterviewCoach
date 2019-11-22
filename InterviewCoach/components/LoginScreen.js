@@ -30,7 +30,7 @@ export default class LoginScreen extends React.Component {
       console.error(error)
     }
     alert('Logging in with email: ' + this.state.email);
-    this.props.navigation.navigate('StartSession')
+    this.props.navigation.navigate('InSession')
   }
   render() {
     return (

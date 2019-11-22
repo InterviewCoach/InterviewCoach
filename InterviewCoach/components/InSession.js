@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 // import * as Permissions  from "expo-permissions";
 // import { Audio } from 'expo-av';
 
@@ -13,12 +13,16 @@ const questions = [
 ]
 
 class InSession extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             questions,
-            currentQuestion: ''
+            currentQuestion: '',
+            message: "Welcome to InterviewCoach. Let's get started!"
         }
+    }
+    static defaultProps = {
+        message: 'I am StartSession Component'
     }
 
     componentDidMount() {
@@ -35,9 +39,26 @@ class InSession extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>{this.state.currentQuestion}</Text>
-                <Button title="Next" onPress={this.renderNewQuestion}></Button>
+            <View
+                style={styles.container}
+            >
+                <View >
+                    <Text>{this.state.message}</Text>
+                    <Text>{this.state.currentQuestion}</Text>
+                </View>
+
+                <View style={styles.buttonContainer}>
+                    <Button
+                        style={styles.buttonContainer}
+                        title="Start Session" onPress={this.renderNewQuestion}></Button>
+                    <Button
+                        style={styles.buttonContainer}
+                        title="Next Question" onPress={this.renderNewQuestion}></Button>
+                    <Button
+                        style={styles.buttonContainer}
+                        title="End Session" onPress={() => this.props.navigation.navigate('Report')}>
+                    </Button>
+                </View>
             </View>
         );
     }
@@ -48,10 +69,25 @@ export default InSession;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        // flexDirection: 'row',
+        backgroundColor: 'grey',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 25,
     },
+    buttonContainer: {
+        backgroundColor: 'aqua',
+        paddingVertical: 20,
+        marginBottom: 20,
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: 'black',
+        fontWeight: '600',
+        fontSize: 16,
+    },
+
+
 });
 
 

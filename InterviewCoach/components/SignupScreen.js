@@ -27,7 +27,7 @@ export default class SignupScreen extends React.Component {
       email: '',
       password: ''
     });
-    this.props.navigation.navigate('StartSession')
+    this.props.navigation.navigate('InSession')
   }
   render() {
     return (

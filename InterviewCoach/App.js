@@ -10,7 +10,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import StartSession from './components/StartSession'
 import InSession from './components/InSession'
 // import Splash from './components/Splash';
-// import Report from './components/Report'
+import Report from './components/Report'
 
 
 export default class App extends React.Component {
@@ -19,7 +19,6 @@ export default class App extends React.Component {
   }
   render() {
     return <AppContainer style={styles.container} />;
-    // return <InSession />
   }
 }
 const styles = StyleSheet.create({
@@ -36,6 +35,7 @@ const RootStack = createStackNavigator(
     AboutHelp: AboutHelpScreen,
     StartSession: StartSession,
     InSession: InSession,
+    Report: Report,
 
   },
   {
