@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-// import logo from '../components/logo.png'
+import logo from '../components/logo.png'
 export default class LoginScreen extends React.Component {
   constructor() {
     super();
@@ -17,32 +17,31 @@ export default class LoginScreen extends React.Component {
       password: '',
     };
   }
-  // login(email, password) {
-  //   try {
-  //     if (this.state.password.length < 6) {
-  //       alert("Please enter a password with at least 6 characters")
-  //       return;
-  //     }
-  //     firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-  //       console.log("User....", user)
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  //   alert('Logging in with email: ' + this.state.email);
-  //   this.props.navigation.navigate('Dashboard')
-  // }
+  login(email, password) {
+    try {
+      if (this.state.password.length < 6) {
+        alert("Please enter a password with at least 6 characters")
+        return;
+      }
+      // firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+      //   console.log("User....", user)
+      // })
+    } catch (error) {
+      console.error(error)
+    }
+    alert('Logging in with email: ' + this.state.email);
+    this.props.navigation.navigate('StartSession')
+  }
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
-          {/* <Image
+          <Image
             style={styles.logo}
-            source={logo} /> */}
+            source={logo} />
           <Text style={styles.title}> INTERVIEW COACH </Text>
           <Text style={styles.subtitle}>
-            {' '}
-            Let's practice for your next interview. You got this!{' '}
+            Let's practice for your next interview. You got this!
           </Text>
           <View style={styles.formContainer} />
         </View>
@@ -90,8 +89,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
   },
   title: {
     color: 'white',

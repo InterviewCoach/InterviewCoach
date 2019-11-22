@@ -15,37 +15,32 @@ export default class HomeScreen extends React.Component {
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text
-            onPress={() => this.props.navigation.navigate('About')}
-            style={styles.title}
-          >
-            {' '}
-            INTERVIEW COACH{' '}
+            onPress={() => this.props.navigation.navigate('AboutHelp')}
+            style={styles.title}>
+            INTERVIEW COACH
           </Text>
           <Text style={styles.subtitle}>
-            {' '}
-            The perfect platform to prep for your next interview{' '}
+            The perfect platform to help you prep for your next interview!
           </Text>
         </View>
         <TouchableOpacity style={styles.buttonContainer}>
           <Text
             style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate('Login')}
-          >
+            onPress={() => this.props.navigation.navigate('Login')}>
             LOG IN
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonContainer}>
           <Text
             style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate('Signup')}
-          >
+            onPress={() => this.props.navigation.navigate('Signup')}>
             SIGN UP
           </Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Text
             style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate('About')}
+            onPress={() => this.props.navigation.navigate('AboutHelp')}
           >
             LEARN MORE
           </Text>
@@ -83,7 +78,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     width: 200,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
     textAlign: 'center',
     opacity: 0.8,
