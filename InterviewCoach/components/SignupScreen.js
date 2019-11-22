@@ -1,14 +1,8 @@
 import React from 'react';
 import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
+  StyleSheet, View, Image, Text, TextInput, TouchableOpacity, KeyboardAvoidingView
 } from 'react-native';
-// import logo from '../components/logo.png'
+import logo from '../components/logo.png'
 
 export default class SignupScreen extends React.Component {
   constructor() {
@@ -18,41 +12,35 @@ export default class SignupScreen extends React.Component {
       password: '',
     };
   }
-  // createAccount(email, password) {
-  // //   try {
-  // //     if (this.state.password.length < 6) {
-  // //       alert("Please enter a password with at least 6 characters")
-  // //       return;
-  // //     }
-  // //     firebase.auth().createUserWithEmailAndPassword(email, password)
-  // //   } catch (error) {
-  // //     console.error(error)
-  // //   }
-  // //   alert('Created account with First Name: ' + this.state.firstName + ',Last Name: ' + this.state.lastName + ',Email: ' + this.state.email
-  // //   );
-  // //   this.setState({
-  // //     firstName: '',
-  // //     lastName: '',
-  // //     email: '',
-  // //     password: ''
-  // //   });
-  // //   this.props.navigation.navigate('Dashboard')
-  // // }
+  createAccount(email, password) {
+    try {
+      if (this.state.password.length < 6) {
+        alert("Please enter a password with at least 6 characters")
+        return;
+      }
+      // firebase.auth().createUserWithEmailAndPassword(email, password)
+    } catch (error) {
+      console.error(error)
+    }
+    alert('Created account with Email: ' + this.state.email);
+    this.setState({
+      email: '',
+      password: ''
+    });
+    this.props.navigation.navigate('InSession')
+  }
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
-          {/* <Image
+          <Image
             style={styles.logo}
-            source={logo} /> */}
+            source={logo} />
           <Text style={styles.title}>
-            {' '}
-            INTERVIEW COACH: The perfect platform to prep for your next
-            interview{' '}
+            INTERVIEW COACH
           </Text>
           <Text style={styles.subtitle}>
-            {' '}
-            Let's practice for your next interview. You got this!{' '}
+            Let's practice for your next interview. You got this!
           </Text>
           <View style={styles.formContainer} />
         </View>
@@ -80,7 +68,7 @@ export default class SignupScreen extends React.Component {
         <TouchableOpacity style={styles.buttonContainer}>
           <Text
             style={styles.buttonText}
-            // onPress={() => this.createAccount(this.state.email, this.state.password)}
+            onPress={() => this.createAccount(this.state.email, this.state.password)}
           >
             CREATE ACCOUNT
           </Text>
@@ -101,8 +89,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
   },
   title: {
     color: 'white',
