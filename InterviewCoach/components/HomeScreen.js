@@ -4,7 +4,6 @@ import {
   View,
   Image,
   Text,
-  Button,
   TouchableOpacity,
 } from 'react-native';
 import logo from '../components/logo.png';
@@ -15,7 +14,7 @@ export default class HomeScreen extends React.Component {
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text
-            onPress={() => this.props.navigation.navigate('AboutHelp')}
+            onPress={() => this.props.navigation.navigate('InSession')}
             style={styles.title}>
             INTERVIEW COACH
           </Text>
