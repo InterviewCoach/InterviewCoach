@@ -3,8 +3,6 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import * as Permissions  from "expo-permissions";
 import { Audio } from 'expo-av';
 
-
-
 const questions = [
     'Tell me about yourself', 
     'What is something interesting about you everyone should know?',
@@ -23,30 +21,13 @@ class InSession extends React.Component {
             currentQuestion: '',
             isRecording: false
         }
-        Voice.onSpeechStart = this.onSpeechStart.bind(this);
-        Voice.onSpeechRecognized = this.onSpeechRecognized.bind(this);
-        Voice.onSpeechResults = this.onSpeechResults.bind(this); 
     }
 
     componentDidMount(){
         //show question
         this.renderNewQuestion()
     }
-    onSpeechStart(e) {
-        this.setState({
-        started: '√',
-        });
-    }
-    onSpeechRecognized(e) {
-        this.setState({
-        recognized: '√',
-        });
-    }
-    onSpeechResults(e) {
-        this.setState({
-            answer: e.value,
-        });
-    }
+    
     startRecording = async () => {
         const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
         if (status !== 'granted') return;
@@ -72,7 +53,6 @@ class InSession extends React.Component {
         //   this.stopRecording();
         }
         this.recording = recording;
-        console.log('state', this.state)
       }
 
     async _startRecognition(e) {
