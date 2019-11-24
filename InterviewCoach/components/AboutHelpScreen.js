@@ -12,11 +12,11 @@ export default class AboutHelpScreen extends React.Component {
             source={logo} />
           <Text style={styles.title}>  INTERVIEW COACH </Text>
           <Text style={styles.subtitle}> The perfect platform to help you prep for your next interview! </Text>
-          <Text style={styles.list}> SESSION </Text>
-          <Text style={styles.list}> New Session: Pressing this button will start a new interview session and audio recording. The interview coach will begin asking you questions. </Text>
+          <Text style={styles.list}> INTERVIEW SESSION </Text>
+          <Text style={styles.list}> Start Session: Pressing this button will start a new interview session and audio recording. The interview coach will begin asking you questions. </Text>
           <Text style={styles.list}> Next Question: Pressing this button will prompt the interview coach to give you a new interview question to answer. </Text>
           <Text style={styles.list}> End Session: Pressing this button will end the interview session and audio recording. Your results will then be analyzed and you will be given your performance results through detailed graphs and charts. </Text>
-          <Text style={styles.list}> REPORT </Text>
+          <Text style={styles.list}> PERFORMANCE RESULTS </Text>
 
         </View>
 
