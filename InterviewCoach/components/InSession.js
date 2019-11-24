@@ -17,6 +17,7 @@ class InSession extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            sessionStarted: false,
             questions,
             currentQuestion: '',
         }
@@ -30,6 +31,7 @@ class InSession extends React.Component {
     startSession = () => {
         const questionIndex = Math.floor(Math.random() * (questions.length))
         this.setState({
+            sessionStarted: true,
             currentQuestion: "Welcome! Let's get started with your interview. " + questions[questionIndex]
         })
     }
@@ -59,16 +61,18 @@ class InSession extends React.Component {
 
                 <View
                 >
-                    <TouchableOpacity
-                        style={styles.buttonContainer}
-                    >
-                        <Text
-                            style={styles.buttonText}
-                            onPress={this.startSession}
+                    {!this.state.sessionStarted ? (
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
                         >
-                            START SESSION
-          </Text>
-                    </TouchableOpacity>
+                            <Text
+                                style={styles.buttonText}
+                                onPress={this.startSession}
+                            >
+                                START SESSION
+</Text>
+                        </TouchableOpacity>
+                    ) : null}
                     <TouchableOpacity
                         style={styles.buttonContainer}
                     >
@@ -86,6 +90,7 @@ class InSession extends React.Component {
                             style={styles.buttonText}
                             onPress={() => {
                                 this.setState({
+                                    sessionStarted: false,
                                     currentQuestion: ''
                                 });
                                 this.props.navigation.navigate('Report')
