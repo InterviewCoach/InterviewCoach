@@ -1,14 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import coach from '../components/coach.png';
 // import * as Permissions  from "expo-permissions";
 // import { Audio } from 'expo-av';
 
 const questions = [
-    'Tell me about yourself',
+    'Tell me about yourself.',
     'What is something interesting about you everyone should know?',
     'How do you work in a team?',
     'If you could be any animal which would you be?',
-    'Tell me about a time you handled a difficult work situation',
+    'Tell me about a time you handled a difficult work situation.',
     'Why should we hire you?'
 ]
 
@@ -18,18 +19,22 @@ class InSession extends React.Component {
         this.state = {
             questions,
             currentQuestion: '',
-            message: "Welcome to InterviewCoach. Let's get started!"
         }
-    }
-    static defaultProps = {
-        message: 'I am StartSession Component'
     }
 
     componentDidMount() {
-        this.renderNewQuestion()
+        // this.renderNewQuestion()
+
     }
 
     //arrow function so that this refers to our class and not the event
+    startSession = () => {
+        const questionIndex = Math.floor(Math.random() * (questions.length))
+        this.setState({
+            currentQuestion: "Welcome! Let's get started with your interview. " + questions[questionIndex]
+        })
+    }
+
     renderNewQuestion = () => {
         const questionIndex = Math.floor(Math.random() * (questions.length))
         this.setState({
@@ -42,22 +47,49 @@ class InSession extends React.Component {
             <View
                 style={styles.container}
             >
+                <Text
+                    style={styles.title}>
+                    INTERVIEW SESSION
+          </Text>
+                <Image
+                    style={styles.image}
+                    source={coach} />
                 <View >
-                    <Text>{this.state.message}</Text>
-                    <Text>{this.state.currentQuestion}</Text>
+                    <Text style={styles.question}>{this.state.currentQuestion}</Text>
                 </View>
 
-                <View style={styles.buttonContainer}>
-                    <Button
+                <View
+                >
+                    <TouchableOpacity
                         style={styles.buttonContainer}
-                        title="Start Session" onPress={this.renderNewQuestion}></Button>
-                    <Button
+                    >
+                        <Text
+                            style={styles.buttonText}
+                            onPress={this.startSession}
+                        >
+                            START SESSION
+          </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
                         style={styles.buttonContainer}
-                        title="Next Question" onPress={this.renderNewQuestion}></Button>
-                    <Button
+                    >
+                        <Text
+                            style={styles.buttonText}
+                            onPress={this.renderNewQuestion}
+                        >
+                            NEXT QUESTION
+          </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
                         style={styles.buttonContainer}
-                        title="End Session" onPress={() => this.props.navigation.navigate('Report')}>
-                    </Button>
+                    >
+                        <Text
+                            style={styles.buttonText}
+                            onPress={() => this.props.navigation.navigate('Report')}
+                        >
+                            END SESSION
+          </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -69,16 +101,40 @@ export default InSession;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // flexDirection: 'row',
         backgroundColor: 'grey',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         padding: 25,
+    },
+    title: {
+        color: 'white',
+        marginTop: 10,
+        marginBottom: 10,
+        width: 250,
+        fontSize: 24,
+        fontWeight: '700',
+        textAlign: 'center',
+        opacity: 0.8,
+    },
+    image: {
+        width: 150,
+        height: 150,
+    },
+    question: {
+        color: 'black',
+        marginTop: 10,
+        marginBottom: 10,
+        width: 300,
+        fontSize: 20,
+        fontWeight: '500',
+        textAlign: 'center',
+        opacity: 0.8,
     },
     buttonContainer: {
         backgroundColor: 'aqua',
         paddingVertical: 20,
-        marginBottom: 20,
+        paddingHorizontal: 20,
+        marginBottom: 15,
     },
     buttonText: {
         textAlign: 'center',
@@ -86,7 +142,6 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 16,
     },
-
 
 });
 
