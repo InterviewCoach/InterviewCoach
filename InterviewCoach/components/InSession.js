@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import coach from '../components/coach.png';
+import * as Speech from 'expo-speech';
 // import * as Permissions  from "expo-permissions";
 // import { Audio } from 'expo-av';
 
@@ -28,7 +29,7 @@ class InSession extends React.Component {
         this.state = {
             sessionStarted: false,
             questions,
-            currentQuestion: '',
+            currentQuestion: ''
         }
     }
 
@@ -37,18 +38,28 @@ class InSession extends React.Component {
     }
 
     //arrow function so that this refers to our class and not the event
-    startSession = () => {
-        this.setState({
+    startSessionSpeak = async () => {
+        await this.setState({
             sessionStarted: true,
             currentQuestion: "Welcome! Let's get started with your interview. Tell me about yourself."
-        })
+        });
+        Speech.speak(this.state.currentQuestion, {
+            language: 'en',
+            pitch: .45,
+            rate: .8
+        });
     }
 
-    nextQuestion = () => {
+    nextQuestionSpeak = async () => {
         const questionIndex = Math.floor(Math.random() * (questions.length))
-        this.setState({
+        await this.setState({
             currentQuestion: questions[questionIndex]
-        })
+        });
+        Speech.speak(this.state.currentQuestion, {
+            language: 'en',
+            pitch: .45,
+            rate: .8
+        });
     }
 
     endSession = () => {
@@ -81,7 +92,7 @@ class InSession extends React.Component {
                             style={styles.buttonContainer}>
                             <Text
                                 style={styles.buttonText}
-                                onPress={this.startSession}
+                                onPress={this.startSessionSpeak}
                             >START SESSION
                         </Text>
                         </TouchableOpacity>
@@ -92,7 +103,7 @@ class InSession extends React.Component {
                             style={styles.buttonContainer}>
                             <Text
                                 style={styles.buttonText}
-                                onPress={this.nextQuestion}
+                                onPress={this.nextQuestionSpeak}
                             >NEXT QUESTION</Text>
                         </TouchableOpacity>
                     ) : null}
