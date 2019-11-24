@@ -24,7 +24,6 @@ class InSession extends React.Component {
 
     componentDidMount() {
         // this.renderNewQuestion()
-
     }
 
     //arrow function so that this refers to our class and not the event
@@ -85,7 +84,13 @@ class InSession extends React.Component {
                     >
                         <Text
                             style={styles.buttonText}
-                            onPress={() => this.props.navigation.navigate('Report')}
+                            onPress={() => {
+                                this.setState({
+                                    currentQuestion: ''
+                                });
+                                this.props.navigation.navigate('Report')
+                            }
+                            }
                         >
                             END SESSION
           </Text>
