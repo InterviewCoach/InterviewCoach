@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import coach from '../components/coach.png';
+import * as Speech from 'expo-speech';
 // import * as Permissions  from "expo-permissions";
 // import { Audio } from 'expo-av';
 
+// Interview
 const questions = [
-    'Tell me about yourself.',
+    'What is something you have accomplished that you are proud of?',
+    'What are the top 3 values that you look for in an organization?',
     'What is something interesting about you everyone should know?',
     'How do you work in a team?',
     'If you could be any animal which would you be?',
@@ -13,13 +16,20 @@ const questions = [
     'Why should we hire you?'
 ]
 
+//Algorithms
+// const questions = [
+//     'Given an an array of numbers, find the length of the longest possible subsequence that is increasing. This subsequence can "jump" over numbers in the array. For example in [3, 10, 4, 5] the longest increasing subsequence (LIS) is [3, 4, 5].',
+//     'Given a target sum and an array of positive integers, return true if any combination of numbers in the array can add to the target. Each number in the array may only be used once. Return false if the numbers cannot be used to add to the target sum.',
+//     'Given two sorted arrays of numbers, return an array containing all values that appear in both arrays. The numbers in the resulting array (the "intersection") may be returned in any order, they need not be sorted. You can assume that each array has only unique values',
+// ]
+
 class InSession extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             sessionStarted: false,
             questions,
-            currentQuestion: '',
+            currentQuestion: ''
         }
     }
 
@@ -28,19 +38,36 @@ class InSession extends React.Component {
     }
 
     //arrow function so that this refers to our class and not the event
-    startSession = () => {
-        const questionIndex = Math.floor(Math.random() * (questions.length))
-        this.setState({
+    startSessionSpeak = async () => {
+        await this.setState({
             sessionStarted: true,
-            currentQuestion: "Welcome! Let's get started with your interview. " + questions[questionIndex]
-        })
+            currentQuestion: "Welcome! Let's get started with your interview. Tell me about yourself."
+        });
+        Speech.speak(this.state.currentQuestion, {
+            language: 'en',
+            pitch: .45,
+            rate: .8
+        });
     }
 
-    renderNewQuestion = () => {
+    nextQuestionSpeak = async () => {
         const questionIndex = Math.floor(Math.random() * (questions.length))
-        this.setState({
+        await this.setState({
             currentQuestion: questions[questionIndex]
-        })
+        });
+        Speech.speak(this.state.currentQuestion, {
+            language: 'en',
+            pitch: .45,
+            rate: .8
+        });
+    }
+
+    endSession = () => {
+        this.setState({
+            sessionStarted: false,
+            currentQuestion: ''
+        });
+        this.props.navigation.navigate('Report')
     }
 
     render() {
@@ -55,51 +82,42 @@ class InSession extends React.Component {
                 <Image
                     style={styles.image}
                     source={coach} />
-                <View >
+                <View>
                     <Text style={styles.question}>{this.state.currentQuestion}</Text>
                 </View>
 
-                <View
-                >
+                <View>
                     {!this.state.sessionStarted ? (
+                        <TouchableOpacity
+                            style={styles.buttonContainer}>
+                            <Text
+                                style={styles.buttonText}
+                                onPress={this.startSessionSpeak}
+                            >START SESSION
+                        </Text>
+                        </TouchableOpacity>
+                    ) : null}
+
+                    {this.state.sessionStarted ? (
+                        <TouchableOpacity
+                            style={styles.buttonContainer}>
+                            <Text
+                                style={styles.buttonText}
+                                onPress={this.nextQuestionSpeak}
+                            >NEXT QUESTION</Text>
+                        </TouchableOpacity>
+                    ) : null}
+
+                    {this.state.sessionStarted ? (
                         <TouchableOpacity
                             style={styles.buttonContainer}
                         >
                             <Text
                                 style={styles.buttonText}
-                                onPress={this.startSession}
-                            >
-                                START SESSION
-</Text>
+                                onPress={this.endSession}
+                            >END SESSION</Text>
                         </TouchableOpacity>
                     ) : null}
-                    <TouchableOpacity
-                        style={styles.buttonContainer}
-                    >
-                        <Text
-                            style={styles.buttonText}
-                            onPress={this.renderNewQuestion}
-                        >
-                            NEXT QUESTION
-          </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.buttonContainer}
-                    >
-                        <Text
-                            style={styles.buttonText}
-                            onPress={() => {
-                                this.setState({
-                                    sessionStarted: false,
-                                    currentQuestion: ''
-                                });
-                                this.props.navigation.navigate('Report')
-                            }
-                            }
-                        >
-                            END SESSION
-          </Text>
-                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -152,7 +170,6 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 16,
     },
-
 });
 
 

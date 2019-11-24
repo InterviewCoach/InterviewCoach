@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'grey',
-    padding: 25,
+    padding: 10,
+    justifyContent: 'center',
   },
   logoContainer: {
     alignItems: 'center',
@@ -89,8 +90,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
   },
   title: {
     color: 'white',
@@ -119,8 +120,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: 'aqua',
-    paddingVertical: 20,
-    marginBottom: 20,
+    paddingVertical: 15,
+    marginBottom: 15,
   },
   buttonText: {
     textAlign: 'center',

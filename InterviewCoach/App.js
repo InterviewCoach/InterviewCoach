@@ -12,7 +12,6 @@ import InSession from './components/InSession'
 // import Splash from './components/Splash';
 import Report from './components/Report'
 
-
 export default class App extends React.Component {
   constructor() {
     super();
