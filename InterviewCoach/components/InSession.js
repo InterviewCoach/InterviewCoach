@@ -1,9 +1,31 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import coach from '../components/coach.png';
+import * as FileSystem from 'expo-file-system';
 import * as Speech from 'expo-speech';
-// import * as Permissions  from "expo-permissions";
-// import { Audio } from 'expo-av';
+import * as Permissions from 'expo-permissions';
+import { Audio } from 'expo-av';
+
+const recordingOptions = {
+    android: {
+        extension: '.m4a',
+        outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
+        audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
+        sampleRate: 44100,
+        numberOfChannels: 2,
+        bitRate: 128000,
+    },
+    ios: {
+        extension: '.wav',
+        audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_HIGH,
+        sampleRate: 44100,
+        numberOfChannels: 1,
+        bitRate: 128000,
+        linearPCMBitDepth: 16,
+        linearPCMIsBigEndian: false,
+        linearPCMIsFloat: false,
+    },
+};
 
 // Interview
 const questions = [
@@ -26,33 +48,43 @@ const questions = [
 class InSession extends React.Component {
     constructor(props) {
         super(props)
+        this.recording = null;
+        this.sound = null;
         this.state = {
             sessionStarted: false,
             questions,
-            currentQuestion: ''
+            currentQuestion: '',
+            isRecording: false,
+            recordingDuration: 0,
         }
-    }
-
-    componentDidMount() {
-        // this.renderNewQuestion()
     }
 
     //arrow function so that this refers to our class and not the event
     startSessionSpeak = async () => {
-        await this.setState({
+        // ask user for permission to record audio
+        const { status } = await Permissions.askAsync(
+            Permissions.AUDIO_RECORDING
+        );
+        if (status !== 'granted') {
+            alert('Hey! This App is designed around your speech please enable audio recording.');
+        }
+
+        this.setState({
             sessionStarted: true,
-            currentQuestion: "Welcome! Let's get started with your interview. Tell me about yourself."
+            currentQuestion: "Welcome! Let's get started with your interview. Tell me about yourself.",
+            audioPermissions: status,
         });
         Speech.speak(this.state.currentQuestion, {
             language: 'en',
             pitch: 1.1,
             rate: .8
         });
+        this._startRecording()
     }
 
     nextQuestionSpeak = async () => {
         const questionIndex = Math.floor(Math.random() * (questions.length))
-        await this.setState({
+        this.setState({
             currentQuestion: questions[questionIndex]
         });
         Speech.speak(this.state.currentQuestion, {
@@ -71,11 +103,78 @@ class InSession extends React.Component {
             pitch: 1.1,
             rate: .8
         });
-        await this.setState({
+
+        this.setState({
             sessionStarted: false,
             currentQuestion: ''
         });
         this.props.navigation.navigate('Report')
+    }
+
+    _startRecording = async () => {
+        await Audio.setAudioModeAsync({
+            allowsRecordingIOS: true,
+            interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+            playsInSilentModeIOS: true,
+            shouldDuckAndroid: true,
+            interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+            playThroughEarpieceAndroid: false,
+            staysActiveInBackground: false,
+        });
+        const recording = new Audio.Recording();
+        // expo audio api method
+        await recording.prepareToRecordAsync(recordingOptions);
+        // callback function for audio recording
+        recording.setOnRecordingStatusUpdate(this._updateRecordingStatus);
+        this.recording = recording;
+        // start the recording
+        // expo audio api method
+        await recording.startAsync();
+    };
+
+    // updates the state with recording meta data
+    // when recording state updates
+    _updateRecordingStatus = status => {
+        this.setState({
+            isRecording: status.isRecording,
+            recordingDuration: status.durationMillis,
+        });
+    };
+
+    _stopRecording = async () => {
+        try {
+            console.log("ending session and unloading the recorded file")
+            // expo audio api method
+            await this.recording.stopAndUnloadAsync();
+        } catch (error) {
+            // Do nothing
+        }
+        // given
+        const info = await FileSystem.getInfoAsync(this.recording.getURI());
+        console.log(`RECORDING FILE INFO: ${JSON.stringify(info)}`);
+        // optional code for testing the recording
+        // remove once confident that recording is record
+        await Audio.setAudioModeAsync({
+            allowsRecordingIOS: false,
+            interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+            playsInSilentModeIOS: true,
+            playsInSilentLockedModeIOS: true,
+            shouldDuckAndroid: true,
+            interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+            playThroughEarpieceAndroid: false,
+            staysActiveInBackground: true,
+        });
+        const { sound } = await this.recording.createNewLoadedSoundAsync(
+            {
+                isLooping: false,
+                isMuted: false,
+                volume: 1.0,
+                rate: 1.0,
+                shouldCorrectPitch: false,
+            },
+        );
+        this.sound = sound;
+        this.sound.playAsync()
     }
 
     render() {
@@ -83,10 +182,9 @@ class InSession extends React.Component {
             <View
                 style={styles.container}
             >
-                <Text
-                    style={styles.title}>
-                    INTERVIEW SESSION
-          </Text>
+            <Text style={styles.title}>
+                INTERVIEW SESSION
+            </Text>
                 <Image
                     style={styles.image}
                     source={coach} />
@@ -95,6 +193,7 @@ class InSession extends React.Component {
                 </View>
 
                 <View>
+                    <Text style={styles.recordingText}>{this.state.isRecording ? `Recording ${this.state.recordingDuration}` : ''}</Text>
                     {!this.state.sessionStarted ? (
                         <TouchableOpacity
                             style={styles.buttonContainer}>
@@ -178,6 +277,12 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 16,
     },
+    recordingText: {
+        textAlign: 'center',
+        color: 'red',
+        fontWeight: '600',
+        fontSize: 12,
+    }
 });
 
 
