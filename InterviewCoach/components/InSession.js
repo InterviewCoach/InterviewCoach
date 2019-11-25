@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import coach from '../components/coach.png';
+import coach from '../components/coach2.png';
 import * as Speech from 'expo-speech';
 // import * as Permissions  from "expo-permissions";
 // import { Audio } from 'expo-av';
@@ -45,7 +45,7 @@ class InSession extends React.Component {
         });
         Speech.speak(this.state.currentQuestion, {
             language: 'en',
-            pitch: .45,
+            pitch: 1.1,
             rate: .8
         });
     }
@@ -57,7 +57,7 @@ class InSession extends React.Component {
         });
         Speech.speak(this.state.currentQuestion, {
             language: 'en',
-            pitch: .45,
+            pitch: 1.1,
             rate: .8
         });
     }
@@ -149,12 +149,12 @@ const styles = StyleSheet.create({
         height: 150,
     },
     question: {
-        color: 'black',
+        color: 'white',
         marginTop: 10,
         marginBottom: 10,
         width: 300,
         fontSize: 20,
-        fontWeight: '500',
+        fontWeight: '700',
         textAlign: 'center',
         opacity: 0.8,
     },
