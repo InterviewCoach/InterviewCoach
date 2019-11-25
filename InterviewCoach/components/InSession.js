@@ -16,7 +16,7 @@ const questions = [
     'Why should we hire you?'
 ]
 
-//Algorithms
+// Algorithms
 // const questions = [
 //     'Given an an array of numbers, find the length of the longest possible subsequence that is increasing. This subsequence can "jump" over numbers in the array. For example in [3, 10, 4, 5] the longest increasing subsequence (LIS) is [3, 4, 5].',
 //     'Given a target sum and an array of positive integers, return true if any combination of numbers in the array can add to the target. Each number in the array may only be used once. Return false if the numbers cannot be used to add to the target sum.',
@@ -45,7 +45,7 @@ class InSession extends React.Component {
         });
         Speech.speak(this.state.currentQuestion, {
             language: 'en',
-            pitch: .45,
+            pitch: 1.1,
             rate: .8
         });
     }
@@ -57,13 +57,21 @@ class InSession extends React.Component {
         });
         Speech.speak(this.state.currentQuestion, {
             language: 'en',
-            pitch: .45,
+            pitch: 1.1,
             rate: .8
         });
     }
 
-    endSession = () => {
-        this.setState({
+    endSessionSpeak = async () => {
+        await this.setState({
+            currentQuestion: 'Thanks for taking the time to interview with me. Here is your feedback.'
+        });
+        Speech.speak(this.state.currentQuestion, {
+            language: 'en',
+            pitch: 1.1,
+            rate: .8
+        });
+        await this.setState({
             sessionStarted: false,
             currentQuestion: ''
         });
@@ -114,7 +122,7 @@ class InSession extends React.Component {
                         >
                             <Text
                                 style={styles.buttonText}
-                                onPress={this.endSession}
+                                onPress={this.endSessionSpeak}
                             >END SESSION</Text>
                         </TouchableOpacity>
                     ) : null}
@@ -149,12 +157,12 @@ const styles = StyleSheet.create({
         height: 150,
     },
     question: {
-        color: 'black',
+        color: 'white',
         marginTop: 10,
         marginBottom: 10,
         width: 300,
         fontSize: 20,
-        fontWeight: '500',
+        fontWeight: '700',
         textAlign: 'center',
         opacity: 0.8,
     },
