@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import coach from '../components/coach2.png';
+import coach from '../components/coach.png';
 import * as Speech from 'expo-speech';
 // import * as Permissions  from "expo-permissions";
 // import { Audio } from 'expo-av';
@@ -62,8 +62,16 @@ class InSession extends React.Component {
         });
     }
 
-    endSession = () => {
-        this.setState({
+    endSessionSpeak = async () => {
+        await this.setState({
+            currentQuestion: 'Thanks for taking the time to interview with me. Here is your feedback.'
+        });
+        Speech.speak(this.state.currentQuestion, {
+            language: 'en',
+            pitch: 1.1,
+            rate: .8
+        });
+        await this.setState({
             sessionStarted: false,
             currentQuestion: ''
         });
@@ -114,7 +122,7 @@ class InSession extends React.Component {
                         >
                             <Text
                                 style={styles.buttonText}
-                                onPress={this.endSession}
+                                onPress={this.endSessionSpeak}
                             >END SESSION</Text>
                         </TouchableOpacity>
                     ) : null}
