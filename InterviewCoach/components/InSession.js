@@ -137,7 +137,7 @@ class InSession extends React.Component {
     _stopRecording = async () => {
         try {
             // does it ever hit this line????
-            console.log(">>>>>>>>>ending session and unloading the recorded file")
+            console.log("-----> ending session and unloading the recorded file")
             // expo audio api method
             await this.recording.stopAndUnloadAsync();
         } catch (error) {
