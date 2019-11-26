@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import coach from '../components/coach.png';
-import * as FileSystem from 'expo-file-system';
 import * as Speech from 'expo-speech';
 import * as Permissions from 'expo-permissions';
+// try commenting out 2 below:
 import { Audio } from 'expo-av';
+import * as FileSystem from 'expo-file-system';
 
+// recording-related
 const recordingOptions = {
     android: {
         extension: '.m4a',
@@ -38,48 +40,41 @@ const questions = [
     'Why should we hire you?'
 ]
 
-//Algorithms
-// const questions = [
-//     'Given an an array of numbers, find the length of the longest possible subsequence that is increasing. This subsequence can "jump" over numbers in the array. For example in [3, 10, 4, 5] the longest increasing subsequence (LIS) is [3, 4, 5].',
-//     'Given a target sum and an array of positive integers, return true if any combination of numbers in the array can add to the target. Each number in the array may only be used once. Return false if the numbers cannot be used to add to the target sum.',
-//     'Given two sorted arrays of numbers, return an array containing all values that appear in both arrays. The numbers in the resulting array (the "intersection") may be returned in any order, they need not be sorted. You can assume that each array has only unique values',
-// ]
-
 class InSession extends React.Component {
     constructor(props) {
         super(props)
-        this.recording = null;
-        this.sound = null;
+        this.recording = null; // recording-related
+        this.sound = null;  // recording-related
         this.state = {
             sessionStarted: false,
             questions,
             currentQuestion: '',
-            isRecording: false,
-            recordingDuration: 0,
+            isRecording: false,  // recording-related
+            recordingDuration: 0,  // recording-related
         }
     }
 
-    //arrow function so that this refers to our class and not the event
+    // arrow function so that this refers to our class and not the event
     startSessionSpeak = async () => {
         // ask user for permission to record audio
         const { status } = await Permissions.askAsync(
             Permissions.AUDIO_RECORDING
-        );
+        );  // recording-related
         if (status !== 'granted') {
-            alert('Hey! This App is designed around your speech please enable audio recording.');
+            alert('Hey! This App is designed around your speech please enable audio recording.');  // recording-related
         }
 
         this.setState({
             sessionStarted: true,
             currentQuestion: "Welcome! Let's get started with your interview. Tell me about yourself.",
-            audioPermissions: status,
+            audioPermissions: status, // recording-related
         });
         Speech.speak(this.state.currentQuestion, {
             language: 'en',
-            pitch: .45,
+            pitch: 1.1,
             rate: .8
         });
-        this._startRecording()
+        this._startRecording() // recording-related
     }
 
     nextQuestionSpeak = async () => {
@@ -87,25 +82,28 @@ class InSession extends React.Component {
         this.setState({
             currentQuestion: questions[questionIndex]
         });
-        Speech.speak(this.state.currentQuestion, {
+        // recording-related: replaced 'this.state.currentQuestion' with 'questions[questionIndex]':
+        Speech.speak(questions[questionIndex], {
             language: 'en',
-            pitch: .45,
+            pitch: 1.1,
             rate: .8
         });
     }
 
     // end session button click action
-    endSession = async () => {
-        await this._stopRecording()
-        this.recording = null;
-        this.audio = null;
+    // changed from endSession to endSessionSpeak per master
+    endSessionSpeak = async () => {
+        await this._stopRecording() // recording-related
+        this.recording = null; // recording-related
+        this.audio = null; // recording-related
         this.setState({
             sessionStarted: false,
-            currentQuestion: ''
+            currentQuestion: 'Thanks for taking the time to interview with me. Here is your feedback.'
         });
         this.props.navigation.navigate('Report')
     }
 
+    // recording-related
     _startRecording = async () => {
         await Audio.setAudioModeAsync({
             allowsRecordingIOS: true,
@@ -138,7 +136,8 @@ class InSession extends React.Component {
 
     _stopRecording = async () => {
         try {
-            console.log("ending session and unloading the recorded file")
+            // does it ever hit this line????
+            console.log(">>>>>>>>>ending session and unloading the recorded file")
             // expo audio api method
             await this.recording.stopAndUnloadAsync();
         } catch (error) {
@@ -146,7 +145,7 @@ class InSession extends React.Component {
         }
         // given
         const info = await FileSystem.getInfoAsync(this.recording.getURI());
-        console.log(`RECORDING FILE INFO: ${JSON.stringify(info)}`);
+        console.log(`-----> RECORDING FILE INFO: ${JSON.stringify(info)}`);
         // optional code for testing the recording
         // remove once confident that recording is record
         await Audio.setAudioModeAsync({
@@ -216,7 +215,7 @@ class InSession extends React.Component {
                         >
                             <Text
                                 style={styles.buttonText}
-                                onPress={this.endSession}
+                                onPress={this.endSessionSpeak}
                             >END SESSION</Text>
                         </TouchableOpacity>
                     ) : null}
@@ -272,6 +271,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 16,
     },
+    // recording related
     recordingText: {
         textAlign: 'center',
         color: 'red',
@@ -279,91 +279,3 @@ const styles = StyleSheet.create({
         fontSize: 12,
     }
 });
-
-
-
-// class InSession extends React.Component {
-//     constructor(){
-//         super()
-//         this.state = {
-//             questions,
-//             currentQuestion: '',
-//             isRecording: false
-//         }
-//     }
-
-//     componentDidMount(){
-//         //show question
-//         this.renderNewQuestion()
-//     }
-
-//     startRecording = async () => {
-//         const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
-//         if (status !== 'granted') return;
-
-//         this.setState({ isRecording: true });
-//         // some of these are not applicable, but are required
-//         await Audio.setAudioModeAsync({
-//           allowsRecordingIOS: true,
-//           interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-//           playsInSilentModeIOS: true,
-//           shouldDuckAndroid: true,
-//           interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-//           playThroughEarpieceAndroid: true,
-//           staysActiveInBackground: false
-//         });
-
-//         const recording = new Audio.Recording();
-//         try {
-//           await recording.prepareToRecordAsync(recordingOptions);
-//           await recording.startAsync();
-//         } catch (error) {
-//           console.log(error);
-//         //   this.stopRecording();
-//         }
-//         this.recording = recording;
-//       }
-
-//     async _startRecognition(e) {
-//         this.setState({
-//           recognized: '',
-//           started: '',
-//           results: [],
-//         });
-//         try {
-//           await Voice.start('en-US');
-//         } catch (e) {
-//           console.error(e);
-//         }
-//       }
-
-//     //arrow function so that this refers to our class and not the event
-//     renderNewQuestion = () => {
-//         const questionIndex = Math.floor(Math.random()*(questions.length))
-//         this.setState({
-//             currentQuestion: questions[questionIndex]
-//         })
-//     }
-
-//     render(){
-//         return (
-//             <View style={styles.container}>
-//                 <Text>{this.state.currentQuestion}</Text>
-//                 <Button title="Next" onPress={this.renderNewQuestion}></Button>
-//                 <Button title="Record" onPress={this.startRecording}></Button>
-//                 <Text>{this.state.results}</Text>
-//             </View>
-//             );
-//     }
-// }
-
-// export default InSession;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
