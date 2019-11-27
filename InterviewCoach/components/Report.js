@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     chartContainer: {
+
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
