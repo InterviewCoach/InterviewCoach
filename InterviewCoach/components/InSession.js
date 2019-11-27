@@ -6,17 +6,6 @@ import * as Speech from 'expo-speech';
 // import * as Permissions  from "expo-permissions";
 // import { Audio } from 'expo-av';
 
-// Interview
-// const questions = [
-//     'What is something you have accomplished that you are proud of?',
-//     'What are the top 3 values that you look for in an organization?',
-//     'What is something interesting about you everyone should know?',
-//     'How do you work in a team?',
-//     'If you could be any animal which would you be?',
-//     'Tell me about a time you handled a difficult work situation.',
-//     'Why should we hire you?'
-// ]
-
 // Algorithms
 // const questions = [
 //     'Given an an array of numbers, find the length of the longest possible subsequence that is increasing. This subsequence can "jump" over numbers in the array. For example in [3, 10, 4, 5] the longest increasing subsequence (LIS) is [3, 4, 5].',
@@ -35,7 +24,6 @@ class InSession extends React.Component {
     }
 
     componentDidMount() {
-        // this.renderNewQuestion()
         this.loadQuestions();
     }
 
