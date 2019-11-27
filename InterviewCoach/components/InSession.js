@@ -42,18 +42,17 @@ class InSession extends React.Component {
     loadQuestions = async () => {
         try {
             const { data } = await axios.get('https://interview-coach-server.herokuapp.com/api/questions')
-            console.log('questions', data)
+            // console.log('questions', data)
             const dataQuestions = data.map((question) => {
                 return question.content
             })
-            console.log('data Questions', dataQuestions)
+            // console.log('data Questions', dataQuestions)
             this.setState({ questions: dataQuestions });
 
         } catch (error) {
             console.error(error)
         }
     }
-
 
     //arrow function so that this refers to our class and not the event
     startSessionSpeak = async () => {

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import axios from 'axios';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {
     VictoryBar,
@@ -17,20 +18,49 @@ class Report extends React.Component {
     constructor() {
         super();
         this.state = {
-            fillers: {
-                uhm: 5,
-                like: 3,
-            },
-            smiles: 2,
+            questionCount: 0,
+            likeWordCount: 0,
+            uhmWordCount: 0,
+            ahWordCount: 0,
+            totalWordCount: 0,
         };
     }
+
+    async componentDidMount() {
+        await this.loadSessionData();
+    }
+
+    loadSessionData = async () => {
+        try {
+            const { data } = await axios.get('https://interview-coach-server.herokuapp.com/api/sessions/1')
+            console.log('sessions', data)
+            const dataSessionQuestionCount = data[0].questionCount
+            const dataSessionLikeWordCount = data[0].likeWordCount
+            const dataSessionUhmWordCount = data[0].uhmWordCount
+            const dataSessionAhWordCount = data[0].ahWordCount
+            const dataSessionTotalWordCount = data[0].totalWordCount
+            // console.log('dataSessionQuestionCount', dataSessionQuestionCount)
+            this.setState({
+                questionCount: dataSessionQuestionCount,
+                likeWordCount: dataSessionLikeWordCount,
+                uhmWordCount: dataSessionUhmWordCount,
+                ahWordCount: dataSessionAhWordCount,
+                totalWordCount: dataSessionTotalWordCount,
+            });
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}> PERFORMANCE RESULTS </Text>
-                <Text style={styles.data}>numbers of uhms: {this.state.fillers.uhm}</Text>
-                <Text style={styles.data}>numbers of likes: {this.state.fillers.like}</Text>
-                <Text style={styles.data}>numbers of smiles: {this.state.smiles}</Text>
+                <Text style={styles.data}>numbers of uhms: {this.state.uhmWordCount}</Text>
+                <Text style={styles.data}>numbers of likes: {this.state.likeWordCount}</Text>
+                <Text style={styles.data}>numbers of ahs: {this.state.ahWordCount}</Text>
                 <View style={styles.chartContainer}>
                     {/* <VictoryChart width={350} theme={VictoryTheme.material}>
             <VictoryBar data={data} x="uhm" y="like" />
@@ -39,7 +69,7 @@ class Report extends React.Component {
                         data={[
                             { x: 'uhm', y: 35 },
                             { x: 'like', y: 45 },
-                            { x: 'smiles', y: 20 },
+                            { x: 'ahs', y: 20 },
                         ]}
                         colorScale={['gold', '#B0E0E6', '#20B2AA']}
                     />
@@ -110,43 +140,3 @@ const styles = StyleSheet.create({
     },
 
 });
-
-
-// import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// class Report extends React.Component {
-//     constructor(){
-//         super()
-//         this.state = {
-//             fillers: {
-//                 uhm: 0,
-//                 like: 0,
-//             },
-//             smiles: 0
-//         }
-//     }
-
-//     render(){
-//         return (
-//             <View style={styles.container}>
-//                 <Text>numbers of uhms: {this.state.fillers.uhm}</Text>
-//                 <Text>numbers of likes: {this.state.fillers.like}</Text>
-//                 <Text>numbers of smiles: {this.state.smiles}</Text>
-//             </View>
-//             );
-//     }
-// }
-
-// export default Report;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
-
