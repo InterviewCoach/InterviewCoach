@@ -1,20 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import coach from '../components/coach.png';
 import * as Speech from 'expo-speech';
 // import * as Permissions  from "expo-permissions";
 // import { Audio } from 'expo-av';
-
-// Interview
-const questions = [
-    'What is something you have accomplished that you are proud of?',
-    'What are the top 3 values that you look for in an organization?',
-    'What is something interesting about you everyone should know?',
-    'How do you work in a team?',
-    'If you could be any animal which would you be?',
-    'Tell me about a time you handled a difficult work situation.',
-    'Why should we hire you?'
-]
 
 // Algorithms
 // const questions = [
@@ -28,13 +18,28 @@ class InSession extends React.Component {
         super(props)
         this.state = {
             sessionStarted: false,
-            questions,
+            questions: [],
             currentQuestion: ''
         }
     }
 
     componentDidMount() {
-        // this.renderNewQuestion()
+        this.loadQuestions();
+    }
+
+    loadQuestions = async () => {
+        try {
+            const { data } = await axios.get('https://interview-coach-server.herokuapp.com/api/questions')
+            // console.log('questions', data)
+            const dataQuestions = data.map((question) => {
+                return question.content
+            })
+            // console.log('data Questions', dataQuestions)
+            this.setState({ questions: dataQuestions });
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     //arrow function so that this refers to our class and not the event
@@ -51,9 +56,9 @@ class InSession extends React.Component {
     }
 
     nextQuestionSpeak = async () => {
-        const questionIndex = Math.floor(Math.random() * (questions.length))
+        const questionIndex = Math.floor(Math.random() * (this.state.questions.length))
         await this.setState({
-            currentQuestion: questions[questionIndex]
+            currentQuestion: this.state.questions[questionIndex]
         });
         Speech.speak(this.state.currentQuestion, {
             language: 'en',

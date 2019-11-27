@@ -7,7 +7,6 @@ import LoginScreen from './components/LoginScreen';
 import SignupScreen from './components/SignupScreen';
 import AboutHelpScreen from './components/AboutHelpScreen';
 import { StyleSheet, Text, View } from 'react-native';
-import StartSession from './components/StartSession'
 import InSession from './components/InSession'
 // import Splash from './components/Splash';
 import Report from './components/Report'
@@ -32,7 +31,6 @@ const RootStack = createStackNavigator(
     Login: LoginScreen,
     Signup: SignupScreen,
     AboutHelp: AboutHelpScreen,
-    StartSession: StartSession,
     InSession: InSession,
     Report: Report,
 
