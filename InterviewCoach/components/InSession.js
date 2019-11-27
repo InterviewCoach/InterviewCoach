@@ -180,16 +180,6 @@ class InSession extends React.Component {
           } catch(error) {
             console.log('There was an error', error);
           }
-        // Creates a client
-        // const client = new speech.SpeechClient();
-
-        // The name of the audio file to transcribe
-        // const fileName = './resources/audio.raw';
-
-        // // Reads a local audio file and converts it to base64
-        // const file = fs.readFileSync(fileName);
-        // const audioBytes = file.toString('base64');
-
     }
 
     render() {
