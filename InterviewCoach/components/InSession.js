@@ -2,9 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import coach from '../components/coach.png';
 import * as FileSystem from 'expo-file-system';
-import * as Speech from 'expo-speech';
 import * as Permissions from 'expo-permissions';
+// import * as Speech from '@google-cloud/speech'
+// const speech = require('@google-cloud/speech');
 import { Audio } from 'expo-av';
+// import axios from 'axios';
+import transcribe from '../transcribe'
+import * as IntentLauncher from 'expo-intent-launcher';
 
 const recordingOptions = {
     android: {
@@ -38,13 +42,6 @@ const questions = [
     'Why should we hire you?'
 ]
 
-// Algorithms
-// const questions = [
-//     'Given an an array of numbers, find the length of the longest possible subsequence that is increasing. This subsequence can "jump" over numbers in the array. For example in [3, 10, 4, 5] the longest increasing subsequence (LIS) is [3, 4, 5].',
-//     'Given a target sum and an array of positive integers, return true if any combination of numbers in the array can add to the target. Each number in the array may only be used once. Return false if the numbers cannot be used to add to the target sum.',
-//     'Given two sorted arrays of numbers, return an array containing all values that appear in both arrays. The numbers in the resulting array (the "intersection") may be returned in any order, they need not be sorted. You can assume that each array has only unique values',
-// ]
-
 class InSession extends React.Component {
     constructor(props) {
         super(props)
@@ -56,6 +53,7 @@ class InSession extends React.Component {
             currentQuestion: '',
             isRecording: false,
             recordingDuration: 0,
+            transcript: null
         }
     }
 
@@ -74,11 +72,7 @@ class InSession extends React.Component {
             currentQuestion: "Welcome! Let's get started with your interview. Tell me about yourself.",
             audioPermissions: status,
         });
-        Speech.speak(this.state.currentQuestion, {
-            language: 'en',
-            pitch: 1.1,
-            rate: .8
-        });
+
         this._startRecording()
     }
 
@@ -87,28 +81,20 @@ class InSession extends React.Component {
         this.setState({
             currentQuestion: questions[questionIndex]
         });
-        Speech.speak(this.state.currentQuestion, {
-            language: 'en',
-            pitch: 1.1,
-            rate: .8
-        });
     }
 
     endSessionSpeak = async () => {
-        await this.setState({
+        this.setState({
             currentQuestion: 'Thanks for taking the time to interview with me. Here is your feedback.'
-        });
-        Speech.speak(this.state.currentQuestion, {
-            language: 'en',
-            pitch: 1.1,
-            rate: .8
         });
 
         this.setState({
             sessionStarted: false,
             currentQuestion: ''
         });
-        this.props.navigation.navigate('Report')
+
+        this._stopRecording()
+        // this.props.navigation.navigate('Report')
     }
 
     _startRecording = async () => {
@@ -122,13 +108,13 @@ class InSession extends React.Component {
             staysActiveInBackground: false,
         });
         const recording = new Audio.Recording();
-        // expo audio api method
         await recording.prepareToRecordAsync(recordingOptions);
+        
         // callback function for audio recording
         recording.setOnRecordingStatusUpdate(this._updateRecordingStatus);
         this.recording = recording;
+
         // start the recording
-        // expo audio api method
         await recording.startAsync();
     };
 
@@ -144,37 +130,66 @@ class InSession extends React.Component {
     _stopRecording = async () => {
         try {
             console.log("ending session and unloading the recorded file")
-            // expo audio api method
             await this.recording.stopAndUnloadAsync();
-        } catch (error) {
-            // Do nothing
-        }
-        // given
-        const info = await FileSystem.getInfoAsync(this.recording.getURI());
-        console.log(`RECORDING FILE INFO: ${JSON.stringify(info)}`);
-        // optional code for testing the recording
-        // remove once confident that recording is record
-        await Audio.setAudioModeAsync({
-            allowsRecordingIOS: false,
-            interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-            playsInSilentModeIOS: true,
-            playsInSilentLockedModeIOS: true,
-            shouldDuckAndroid: true,
-            interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-            playThroughEarpieceAndroid: false,
-            staysActiveInBackground: true,
-        });
-        const { sound } = await this.recording.createNewLoadedSoundAsync(
-            {
-                isLooping: false,
-                isMuted: false,
-                volume: 1.0,
-                rate: 1.0,
-                shouldCorrectPitch: false,
-            },
-        );
-        this.sound = sound;
-        this.sound.playAsync()
+            const info = await FileSystem.getInfoAsync(this.recording.getURI());
+            const uri = await FileSystem.getContentUriAsync(info.uri)
+            console.log('uri', uri)
+            //play back recording
+            IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
+                  data: uri.uri,
+                  flags: 1, 
+            });
+        } catch (error) {}
+        this.getTranscription()
+    }
+
+    getTranscription = async () => {
+
+        try {
+            const info = await FileSystem.getInfoAsync(this.recording.getURI());
+            // console.log(`FILE INFO: ${JSON.stringify(info)}`);
+            const uri = info.uri;
+            const formData = new FormData();
+            formData.append('file', {
+              uri,
+              type: 'audio/x-wav',
+              name: 'speech2text'
+            });
+
+            // *****
+            // here is where we need to encrypt the file to a string with base64
+            // the current encryption is wrong - it doesn't work
+            // docs: https://docs.expo.io/versions/v35.0.0/sdk/filesystem/
+            // *****
+            const string = await FileSystem.readAsStringAsync(uri1, FileSystem.EncodingType.Base64)
+    
+            //the headers and json.stringify seem mandatory. 
+            // I am not sure what they do but when I take it out I get a network error 
+            const response = await fetch('http://192.168.1.178:8080/api/speech2', {
+              method: 'post',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                string
+              })
+            });
+            
+            console.log('response', response.data)
+          } catch(error) {
+            console.log('There was an error', error);
+          }
+        // Creates a client
+        // const client = new speech.SpeechClient();
+
+        // The name of the audio file to transcribe
+        // const fileName = './resources/audio.raw';
+
+        // // Reads a local audio file and converts it to base64
+        // const file = fs.readFileSync(fileName);
+        // const audioBytes = file.toString('base64');
+
     }
 
     render() {
