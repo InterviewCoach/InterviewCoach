@@ -161,7 +161,7 @@ class InSession extends React.Component {
             // the current encryption is wrong - it doesn't work
             // docs: https://docs.expo.io/versions/v35.0.0/sdk/filesystem/
             // *****
-            const string = await FileSystem.readAsStringAsync(uri1, FileSystem.EncodingType.Base64)
+            const string = await FileSystem.readAsStringAsync(uri, FileSystem.EncodingType.Base64)
     
             //the headers and json.stringify seem mandatory. 
             // I am not sure what they do but when I take it out I get a network error 
