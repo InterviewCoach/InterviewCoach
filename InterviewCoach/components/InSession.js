@@ -61,7 +61,8 @@ class InSession extends React.Component {
             Permissions.AUDIO_RECORDING
         );  // recording-related
         if (status !== 'granted') {
-            alert('Hey! This App is designed around your speech please enable audio recording.');  // recording-related
+            alert('Hey! This App is designed around your speech please enable audio recording.');
+            // recording-related
         }
 
         this.setState({
