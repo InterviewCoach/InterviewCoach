@@ -135,10 +135,10 @@ class InSession extends React.Component {
             const uri = await FileSystem.getContentUriAsync(info.uri)
             console.log('uri', uri)
             //play back recording
-            IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
-                  data: uri.uri,
-                  flags: 1, 
-            });
+            // IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
+            //       data: uri.uri,
+            //       flags: 1, 
+            // });
         } catch (error) {}
         this.getTranscription()
     }
@@ -156,13 +156,9 @@ class InSession extends React.Component {
               name: 'speech2text'
             });
 
-            // *****
-            // here is where we need to encrypt the file to a string with base64
-            // the current encryption is wrong - it doesn't work
-            // docs: https://docs.expo.io/versions/v35.0.0/sdk/filesystem/
-            // *****
-            const string = await FileSystem.readAsStringAsync(uri, FileSystem.EncodingType.Base64)
-    
+            // currenty is seems like it is being encryptd correctly!!
+            const string = await FileSystem.readAsStringAsync(uri, {encoding: FileSystem.EncodingType.Base64})
+      
             //the headers and json.stringify seem mandatory. 
             // I am not sure what they do but when I take it out I get a network error 
             const response = await fetch('http://192.168.1.178:8080/api/speech2', {
@@ -175,8 +171,20 @@ class InSession extends React.Component {
                 string
               })
             });
+
+            // ****
+            // our data is not returning the transcription
+            // it's returning an object with an error 'ehostdown'
+            // I think this is happening because we have not provided google credentials
+            // docs: https://cloud.google.com/speech-to-text/docs/reference/libraries
+            // according to these docs, it seem slike we need ot provide credentials
+            // but I am unclear as to exactly where it is supposed to go
+            // ***
+
+            const data = await response.json()
+            console.log('data', data)
             
-            console.log('response', response.data)
+            // console.log('response', await response.json())
           } catch(error) {
             console.log('There was an error', error);
           }
