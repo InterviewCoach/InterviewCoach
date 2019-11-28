@@ -161,7 +161,7 @@ class InSession extends React.Component {
       
             //the headers and json.stringify seem mandatory. 
             // I am not sure what they do but when I take it out I get a network error 
-            const response = await fetch('http://192.168.1.178:8080/api/speech2', {
+            const response = await fetch('https://interview-coach-server.herokuapp.com/api/speech2', {
               method: 'post',
               headers: {
                 Accept: 'application/json',
