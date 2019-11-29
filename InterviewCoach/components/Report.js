@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {
@@ -7,15 +6,15 @@ import {
     VictoryTheme,
     VictoryPie,
 } from 'victory-native';
-// const data = [{ uhm: 5, like: 7 }]; // data to use it with victoryChart
 const data = [
     { x: 'uhm', y: 35 },
     { x: 'like', y: 40 },
     { x: 'smiles', y: 55 },
 ]; // data to use it with victoryPie
+
 class Report extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             fillers: {
                 uhm: 5,
@@ -24,17 +23,19 @@ class Report extends React.Component {
             smiles: 2,
         };
     }
+
     render() {
+        const { params } = this.props.navigation.state;
+        const transcription = params.transcription ? params.transcription.join(' ') : null;
+
         return (
             <View style={styles.container}>
                 <Text style={styles.title}> PERFORMANCE RESULTS </Text>
+                <Text style={styles.transcriptionText}>{transcription}</Text>
                 <Text style={styles.data}>numbers of uhms: {this.state.fillers.uhm}</Text>
                 <Text style={styles.data}>numbers of likes: {this.state.fillers.like}</Text>
                 <Text style={styles.data}>numbers of smiles: {this.state.smiles}</Text>
                 <View style={styles.chartContainer}>
-                    {/* <VictoryChart width={350} theme={VictoryTheme.material}>
-            <VictoryBar data={data} x="uhm" y="like" />
-          </VictoryChart> */}
                     <VictoryPie
                         data={[
                             { x: 'uhm', y: 35 },
@@ -52,7 +53,7 @@ class Report extends React.Component {
                             onPress={() => this.props.navigation.navigate('InSession')}
                         >
                             NEW SESSION
-          </Text>
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -107,45 +108,11 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 16,
     },
-
+    transcriptionText: {
+        textAlign: 'center',
+        color: 'black',
+        fontWeight: '600',
+        fontSize: 18,
+    },
 });
-
-
-// import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// class Report extends React.Component {
-//     constructor(){
-//         super()
-//         this.state = {
-//             fillers: {
-//                 uhm: 0,
-//                 like: 0,
-//             },
-//             smiles: 0
-//         }
-//     }
-
-//     render(){
-//         return (
-//             <View style={styles.container}>
-//                 <Text>numbers of uhms: {this.state.fillers.uhm}</Text>
-//                 <Text>numbers of likes: {this.state.fillers.like}</Text>
-//                 <Text>numbers of smiles: {this.state.smiles}</Text>
-//             </View>
-//             );
-//     }
-// }
-
-// export default Report;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
 
