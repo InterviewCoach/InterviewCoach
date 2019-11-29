@@ -12,11 +12,11 @@ import * as IntentLauncher from 'expo-intent-launcher';
 
 const recordingOptions = {
     android: {
-        extension: '.m4a',
-        outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
-        audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
-        sampleRate: 44100,
-        numberOfChannels: 2,
+        extension: '.amr',
+        outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_NB,
+        audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_NB,
+        sampleRate: 8000,
+        numberOfChannels: 1,
         bitRate: 128000,
     },
     ios: {
@@ -109,7 +109,7 @@ class InSession extends React.Component {
         });
         const recording = new Audio.Recording();
         await recording.prepareToRecordAsync(recordingOptions);
-        
+
         // callback function for audio recording
         recording.setOnRecordingStatusUpdate(this._updateRecordingStatus);
         this.recording = recording;
@@ -134,42 +134,37 @@ class InSession extends React.Component {
             const info = await FileSystem.getInfoAsync(this.recording.getURI());
             const uri = await FileSystem.getContentUriAsync(info.uri)
             console.log('uri', uri)
-            //play back recording
-            // IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
-            //       data: uri.uri,
-            //       flags: 1, 
+            // play back recording
+            // await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
+            //     data: uri.uri,
+            //     flags: 1,
             // });
-        } catch (error) {}
+        } catch (error) {
+            console.error('error!!', error);
+        }
         this.getTranscription()
     }
 
     getTranscription = async () => {
-
         try {
             const info = await FileSystem.getInfoAsync(this.recording.getURI());
             // console.log(`FILE INFO: ${JSON.stringify(info)}`);
             const uri = info.uri;
-            const formData = new FormData();
-            formData.append('file', {
-              uri,
-              type: 'audio/x-wav',
-              name: 'speech2text'
-            });
 
             // currenty is seems like it is being encryptd correctly!!
             const string = await FileSystem.readAsStringAsync(uri, {encoding: FileSystem.EncodingType.Base64})
-      
-            //the headers and json.stringify seem mandatory. 
-            // I am not sure what they do but when I take it out I get a network error 
-            const response = await fetch('https://interview-coach-server.herokuapp.com/api/speech2', {
-              method: 'post',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                string
-              })
+
+            //the headers and json.stringify seem mandatory.
+            // I am not sure what they do but when I take it out I get a network error
+            const response = await fetch('http://interview-coach-server.herokuapp.com/api/speech2', {
+                method: 'post',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    string
+                })
             });
 
             // ****
@@ -182,12 +177,10 @@ class InSession extends React.Component {
             // ***
 
             const data = await response.json()
-            console.log('data', data)
-            
-            // console.log('response', await response.json())
-          } catch(error) {
+            console.log('data: ', JSON.stringify(data));
+        } catch(error) {
             console.log('There was an error', error);
-          }
+        }
     }
 
     render() {
