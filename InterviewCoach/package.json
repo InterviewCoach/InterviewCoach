@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@google-cloud/speech": "^3.4.0",
+    "axios": "^0.18.0",
     "expo": "^35.0.0",
     "expo-av": "~7.0.1",
     "expo-intent-launcher": "~7.0.0",

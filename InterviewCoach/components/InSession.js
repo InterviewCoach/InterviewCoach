@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import coach from '../components/coach.png';
 import * as FileSystem from 'expo-file-system';
@@ -42,6 +43,12 @@ const questions = [
     'Tell me about a time you handled a difficult work situation.',
     'Why should we hire you?'
 ]
+// Algorithms
+// const questions = [
+//     'Given an an array of numbers, find the length of the longest possible subsequence that is increasing. This subsequence can "jump" over numbers in the array. For example in [3, 10, 4, 5] the longest increasing subsequence (LIS) is [3, 4, 5].',
+//     'Given a target sum and an array of positive integers, return true if any combination of numbers in the array can add to the target. Each number in the array may only be used once. Return false if the numbers cannot be used to add to the target sum.',
+//     'Given two sorted arrays of numbers, return an array containing all values that appear in both arrays. The numbers in the resulting array (the "intersection") may be returned in any order, they need not be sorted. You can assume that each array has only unique values',
+// ]
 
 class InSession extends React.Component {
     constructor(props) {
@@ -55,6 +62,25 @@ class InSession extends React.Component {
             isRecording: false,
             recordingDuration: 0,
             transcript: null
+        }
+    }
+
+    componentDidMount() {
+        this.loadQuestions();
+    }
+
+    loadQuestions = async () => {
+        try {
+            const { data } = await axios.get('https://interview-coach-server.herokuapp.com/api/questions')
+            // console.log('questions', data)
+            const dataQuestions = data.map((question) => {
+                return question.content
+            })
+            // console.log('data Questions', dataQuestions)
+            this.setState({ questions: dataQuestions });
+
+        } catch (error) {
+            console.error(error)
         }
     }
 
