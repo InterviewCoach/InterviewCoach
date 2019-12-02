@@ -10,8 +10,8 @@ import {
 } from 'victory-native';
 
 class Report extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       questionCount: 0,
       likeWordCount: 0,
@@ -50,18 +50,23 @@ class Report extends React.Component {
   };
 
   render() {
+    const { params } = this.props.navigation.state;
+    const transcription = params.transcription
+      ? params.transcription.join(' ')
+      : null;
     return (
       <View style={styles.container}>
         <Text style={styles.title}> PERFORMANCE RESULTS </Text>
+        <Text style={styles.transcriptionText}>{transcription}</Text>
         <Text style={styles.data}>
-          # of actually: {this.state.actuallyWordCount}
+          actually #: {this.state.actuallyWordCount}
         </Text>
-        <Text style={styles.data}># of likes: {this.state.likeWordCount}</Text>
+        <Text style={styles.data}>like #: {this.state.likeWordCount}</Text>
         <Text style={styles.data}>
-          # of basically: {this.state.basicallyWordCount}
+          basically #: {this.state.basicallyWordCount}
         </Text>
         <Text style={styles.data}>
-          # of other words:{' '}
+          other words #:{' '}
           {this.state.totalWordCount -
             (this.state.actuallyWordCount +
               this.state.likeWordCount +
@@ -81,7 +86,7 @@ class Report extends React.Component {
                 ),
               },
               {
-                x: 'likes',
+                x: 'like',
                 y: Math.round(
                   (this.state.likeWordCount / this.state.totalWordCount) * 100
                 ),
@@ -118,6 +123,14 @@ class Report extends React.Component {
             onPress={() => this.props.navigation.navigate('InSession')}
           >
             <Text style={styles.buttonText}>NEW SESSION</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => this.props.navigation.navigate('History')}
+          >
+            <Text style={styles.buttonText}>HISTORY SESSION</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -171,5 +184,11 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 16,
+  },
+  transcriptionText: {
+    textAlign: 'center',
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 18,
   },
 });

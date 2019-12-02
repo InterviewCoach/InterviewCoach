@@ -7,9 +7,10 @@ import LoginScreen from './components/LoginScreen';
 import SignupScreen from './components/SignupScreen';
 import AboutHelpScreen from './components/AboutHelpScreen';
 import { StyleSheet, Text, View } from 'react-native';
-import InSession from './components/InSession'
+import InSession from './components/InSession';
 // import Splash from './components/Splash';
-import Report from './components/Report'
+import Report from './components/Report';
+// import HistorySessionScreen from './components/HistorySessionScreen';
 
 export default class App extends React.Component {
   constructor() {
@@ -33,11 +34,10 @@ const RootStack = createStackNavigator(
     AboutHelp: AboutHelpScreen,
     InSession: InSession,
     Report: Report,
-
+    // History: HistorySessionScreen,
   },
   {
     initialRouteName: 'Home',
   }
 );
 const AppContainer = createAppContainer(RootStack);
-
