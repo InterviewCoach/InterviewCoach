@@ -54,7 +54,7 @@ class InSession extends React.Component {
             currentQuestion: '',
             isRecording: false,
             recordingDuration: 0,
-            transcript: null
+            transcription: null
         }
     }
 
@@ -105,9 +105,12 @@ class InSession extends React.Component {
             pitch: 1.1,
             rate: 1.0
         });
-        const transcription = await this._stopRecording()
+        await this._stopRecording()
+        const transcription = this.state.transcription
+        const toxicity = this.state.toxicity
         this.props.navigation.navigate('Report', {
-            transcription: transcription
+            transcription,
+            toxicity
         });
     }
 
@@ -157,21 +160,21 @@ class InSession extends React.Component {
         } catch (error) {
             console.error('error!!', error);
         }
-        const transcription = await this.getTranscription()
-        return transcription;
+        await this.getTranscription()
+        await this.getToxicity()
+        console.log('state', this.state)
     }
 
     getTranscription = async () => {
         try {
+            //get uri to file
             const info = await FileSystem.getInfoAsync(this.recording.getURI());
-            // console.log(`FILE INFO: ${JSON.stringify(info)}`);
             const uri = info.uri;
 
-            // currenty is seems like it is being encryptd correctly!!
+            //convert to string
             const string = await FileSystem.readAsStringAsync(uri, {encoding: FileSystem.EncodingType.Base64})
 
-            // the headers and json.stringify seem mandatory.
-            // I am not sure what they do but when I take it out I get a network error
+            //get transcription
             const response = await fetch('http://interview-coach-server.herokuapp.com/api/speech2', {
                 method: 'post',
                 headers: {
@@ -182,16 +185,34 @@ class InSession extends React.Component {
                     string
                 })
             });
-
+            //turn data int json and set state with transcript
             const data = await response.json()
             console.log('data: ', JSON.stringify(data));
             this.setState({
                 transcription: data
             });
-            return data;
         } catch(error) {
             console.log('There was an error getting transcription', error);
         }
+    }
+
+    getToxicity = async () => {
+        const transcript = this.state.transcript
+        const response = await fetch('http://10.1.85.94:8080/api/speech2/toxicity', {
+                method: 'post',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    transcript
+                })  
+            });
+        const data = await response.json()
+        console.log('toxicity', JSON.stringify(data))
+        this.setState({
+            toxicity: data
+        });
     }
 
     render() {
