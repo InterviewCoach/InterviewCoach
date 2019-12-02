@@ -181,6 +181,10 @@ class InSession extends React.Component {
                 body: JSON.stringify({
                     string
                 })
+                // on the server side in the request body need to make sure we access
+                // const audio = {
+                //     content: req.body.string
+                //   }
             });
 
             const data = await response.json()
