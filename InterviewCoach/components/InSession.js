@@ -198,7 +198,7 @@ class InSession extends React.Component {
 
     getToxicity = async () => {
         const transcript = this.state.transcript
-        const response = await fetch('http://10.1.85.94:8080/api/speech2/toxicity', {
+        const response = await fetch('http://interview-coach-server.herokuapp.com/api/speech2/toxicity', {
                 method: 'post',
                 headers: {
                     Accept: 'application/json',
