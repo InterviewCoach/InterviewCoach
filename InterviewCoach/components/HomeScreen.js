@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import logo from '../components/logo.png';
 export default class HomeScreen extends React.Component {
   render() {
@@ -15,34 +9,30 @@ export default class HomeScreen extends React.Component {
           <Image style={styles.logo} source={logo} />
           <Text
             onPress={() => this.props.navigation.navigate('InSession')}
-            style={styles.title}>
+            style={styles.title}
+          >
             INTERVIEW COACH
           </Text>
           <Text style={styles.subtitle}>
             The perfect platform to help you prep for your next interview!
           </Text>
         </View>
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate('Login')}>
-            LOG IN
-          </Text>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => this.props.navigation.navigate('Login')}
+        >
+          <Text style={styles.buttonText}>LOG IN</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate('Signup')}>
-            SIGN UP
-          </Text>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => this.props.navigation.navigate('Signup')}
+        >
+          <Text style={styles.buttonText}>SIGN UP</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate('AboutHelp')}
-          >
-            LEARN MORE
-          </Text>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('AboutHelp')}
+        >
+          <Text style={styles.buttonText}>LEARN MORE</Text>
         </TouchableOpacity>
       </View>
     );

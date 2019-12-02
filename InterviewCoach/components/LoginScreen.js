@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import logo from '../components/logo.png'
+import logo from '../components/logo.png';
 export default class LoginScreen extends React.Component {
   constructor() {
     super();
@@ -20,25 +20,23 @@ export default class LoginScreen extends React.Component {
   login(email, password) {
     try {
       if (this.state.password.length < 6) {
-        alert("Please enter a password with at least 6 characters")
+        alert('Please enter a password with at least 6 characters');
         return;
       }
       // firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
       //   console.log("User....", user)
       // })
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
     alert('Logging in with email: ' + this.state.email);
-    this.props.navigation.navigate('InSession')
+    this.props.navigation.navigate('InSession');
   }
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={logo} />
+          <Image style={styles.logo} source={logo} />
           <Text style={styles.title}> INTERVIEW COACH </Text>
           <Text style={styles.subtitle}>
             Let's practice for your next interview. You got this!
@@ -65,13 +63,11 @@ export default class LoginScreen extends React.Component {
           onChangeText={password => this.setState({ password })}
           ref={input => (this.passwordInput = input)}
         />
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.login(this.state.email, this.state.password)}
-          >
-            LOG IN
-          </Text>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => this.login(this.state.email, this.state.password)}
+        >
+          <Text style={styles.buttonText}>LOG IN</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );

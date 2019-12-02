@@ -1,8 +1,14 @@
 import React from 'react';
 import {
-  StyleSheet, View, Image, Text, TextInput, TouchableOpacity, KeyboardAvoidingView
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
-import logo from '../components/logo.png'
+import logo from '../components/logo.png';
 
 export default class SignupScreen extends React.Component {
   constructor() {
@@ -15,30 +21,26 @@ export default class SignupScreen extends React.Component {
   createAccount(email, password) {
     try {
       if (this.state.password.length < 6) {
-        alert("Please enter a password with at least 6 characters")
+        alert('Please enter a password with at least 6 characters');
         return;
       }
       // firebase.auth().createUserWithEmailAndPassword(email, password)
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
     alert('Created account with Email: ' + this.state.email);
     this.setState({
       email: '',
-      password: ''
+      password: '',
     });
-    this.props.navigation.navigate('InSession')
+    this.props.navigation.navigate('InSession');
   }
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={logo} />
-          <Text style={styles.title}>
-            INTERVIEW COACH
-          </Text>
+          <Image style={styles.logo} source={logo} />
+          <Text style={styles.title}>INTERVIEW COACH</Text>
           <Text style={styles.subtitle}>
             Let's practice for your next interview. You got this!
           </Text>
@@ -65,13 +67,13 @@ export default class SignupScreen extends React.Component {
           onChangeText={password => this.setState({ password })}
           ref={input => (this.passwordInput = input)}
         />
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.createAccount(this.state.email, this.state.password)}
-          >
-            CREATE ACCOUNT
-          </Text>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() =>
+            this.createAccount(this.state.email, this.state.password)
+          }
+        >
+          <Text style={styles.buttonText}>CREATE ACCOUNT</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );

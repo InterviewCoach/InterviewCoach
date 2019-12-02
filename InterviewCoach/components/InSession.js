@@ -14,178 +14,169 @@ import * as Speech from 'expo-speech';
 // ]
 
 class InSession extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            sessionStarted: false,
-            questions: [],
-            currentQuestion: ''
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      sessionStarted: false,
+      questions: [],
+      currentQuestion: '',
+    };
+  }
+
+  componentDidMount() {
+    this.loadQuestions();
+  }
+
+  loadQuestions = async () => {
+    try {
+      const { data } = await axios.get(
+        'https://interview-coach-server.herokuapp.com/api/questions'
+      );
+      // console.log('questions', data)
+      const dataQuestions = data.map(question => {
+        return question.content;
+      });
+      // console.log('data Questions', dataQuestions)
+      this.setState({ questions: dataQuestions });
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    componentDidMount() {
-        this.loadQuestions();
-    }
+  //arrow function so that this refers to our class and not the event
+  startSessionSpeak = async () => {
+    await this.setState({
+      sessionStarted: true,
+      currentQuestion:
+        "Welcome! Let's get started with your interview. Tell me about yourself.",
+    });
+    Speech.speak(this.state.currentQuestion, {
+      language: 'en',
+      pitch: 1.1,
+      rate: 0.8,
+    });
+  };
 
-    loadQuestions = async () => {
-        try {
-            const { data } = await axios.get('https://interview-coach-server.herokuapp.com/api/questions')
-            // console.log('questions', data)
-            const dataQuestions = data.map((question) => {
-                return question.content
-            })
-            // console.log('data Questions', dataQuestions)
-            this.setState({ questions: dataQuestions });
+  nextQuestionSpeak = async () => {
+    const questionIndex = Math.floor(
+      Math.random() * this.state.questions.length
+    );
+    await this.setState({
+      currentQuestion: this.state.questions[questionIndex],
+    });
+    Speech.speak(this.state.currentQuestion, {
+      language: 'en',
+      pitch: 1.1,
+      rate: 0.8,
+    });
+  };
 
-        } catch (error) {
-            console.error(error)
-        }
-    }
+  endSessionSpeak = async () => {
+    await this.setState({
+      currentQuestion:
+        'Thanks for taking the time to interview with me. Here is your feedback.',
+    });
+    Speech.speak(this.state.currentQuestion, {
+      language: 'en',
+      pitch: 1.1,
+      rate: 0.8,
+    });
+    await this.setState({
+      sessionStarted: false,
+      currentQuestion: '',
+    });
+    this.props.navigation.navigate('Report');
+  };
 
-    //arrow function so that this refers to our class and not the event
-    startSessionSpeak = async () => {
-        await this.setState({
-            sessionStarted: true,
-            currentQuestion: "Welcome! Let's get started with your interview. Tell me about yourself."
-        });
-        Speech.speak(this.state.currentQuestion, {
-            language: 'en',
-            pitch: 1.1,
-            rate: .8
-        });
-    }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>INTERVIEW SESSION</Text>
+        <Image style={styles.image} source={coach} />
+        <View>
+          <Text style={styles.question}>{this.state.currentQuestion}</Text>
+        </View>
 
-    nextQuestionSpeak = async () => {
-        const questionIndex = Math.floor(Math.random() * (this.state.questions.length))
-        await this.setState({
-            currentQuestion: this.state.questions[questionIndex]
-        });
-        Speech.speak(this.state.currentQuestion, {
-            language: 'en',
-            pitch: 1.1,
-            rate: .8
-        });
-    }
-
-    endSessionSpeak = async () => {
-        await this.setState({
-            currentQuestion: 'Thanks for taking the time to interview with me. Here is your feedback.'
-        });
-        Speech.speak(this.state.currentQuestion, {
-            language: 'en',
-            pitch: 1.1,
-            rate: .8
-        });
-        await this.setState({
-            sessionStarted: false,
-            currentQuestion: ''
-        });
-        this.props.navigation.navigate('Report')
-    }
-
-    render() {
-        return (
-            <View
-                style={styles.container}
+        <View>
+          {!this.state.sessionStarted ? (
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={this.startSessionSpeak}
             >
-                <Text
-                    style={styles.title}>
-                    INTERVIEW SESSION
-          </Text>
-                <Image
-                    style={styles.image}
-                    source={coach} />
-                <View>
-                    <Text style={styles.question}>{this.state.currentQuestion}</Text>
-                </View>
+              <Text style={styles.buttonText}>START SESSION</Text>
+            </TouchableOpacity>
+          ) : null}
 
-                <View>
-                    {!this.state.sessionStarted ? (
-                        <TouchableOpacity
-                            style={styles.buttonContainer}>
-                            <Text
-                                style={styles.buttonText}
-                                onPress={this.startSessionSpeak}
-                            >START SESSION
-                        </Text>
-                        </TouchableOpacity>
-                    ) : null}
+          {this.state.sessionStarted ? (
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={this.nextQuestionSpeak}
+            >
+              <Text style={styles.buttonText}>NEXT QUESTION</Text>
+            </TouchableOpacity>
+          ) : null}
 
-                    {this.state.sessionStarted ? (
-                        <TouchableOpacity
-                            style={styles.buttonContainer}>
-                            <Text
-                                style={styles.buttonText}
-                                onPress={this.nextQuestionSpeak}
-                            >NEXT QUESTION</Text>
-                        </TouchableOpacity>
-                    ) : null}
-
-                    {this.state.sessionStarted ? (
-                        <TouchableOpacity
-                            style={styles.buttonContainer}
-                        >
-                            <Text
-                                style={styles.buttonText}
-                                onPress={this.endSessionSpeak}
-                            >END SESSION</Text>
-                        </TouchableOpacity>
-                    ) : null}
-                </View>
-            </View>
-        );
-    }
+          {this.state.sessionStarted ? (
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={this.endSessionSpeak}
+            >
+              <Text style={styles.buttonText}>END SESSION</Text>
+            </TouchableOpacity>
+          ) : null}
+        </View>
+      </View>
+    );
+  }
 }
 
 export default InSession;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'grey',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 25,
-    },
-    title: {
-        color: 'white',
-        marginTop: 10,
-        marginBottom: 10,
-        width: 250,
-        fontSize: 24,
-        fontWeight: '700',
-        textAlign: 'center',
-        opacity: 0.8,
-    },
-    image: {
-        width: 150,
-        height: 150,
-    },
-    question: {
-        color: 'white',
-        marginTop: 10,
-        marginBottom: 10,
-        width: 300,
-        fontSize: 20,
-        fontWeight: '700',
-        textAlign: 'center',
-        opacity: 0.8,
-    },
-    buttonContainer: {
-        backgroundColor: 'aqua',
-        paddingVertical: 20,
-        paddingHorizontal: 20,
-        marginBottom: 15,
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: 'black',
-        fontWeight: '600',
-        fontSize: 16,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: 'grey',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 25,
+  },
+  title: {
+    color: 'white',
+    marginTop: 10,
+    marginBottom: 10,
+    width: 250,
+    fontSize: 24,
+    fontWeight: '700',
+    textAlign: 'center',
+    opacity: 0.8,
+  },
+  image: {
+    width: 150,
+    height: 150,
+  },
+  question: {
+    color: 'white',
+    marginTop: 10,
+    marginBottom: 10,
+    width: 300,
+    fontSize: 20,
+    fontWeight: '700',
+    textAlign: 'center',
+    opacity: 0.8,
+  },
+  buttonContainer: {
+    backgroundColor: 'aqua',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    marginBottom: 15,
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 16,
+  },
 });
-
-
 
 // class InSession extends React.Component {
 //     constructor(){
