@@ -1,32 +1,47 @@
 import * as React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-import logo from '../components/logo.png'
+import logo from '../components/logo.png';
 
 export default class AboutHelpScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={logo} />
-          <Text style={styles.title}>  INTERVIEW COACH </Text>
-          <Text style={styles.subtitle}> The perfect platform to help you prep for your next interview! </Text>
+          <Image style={styles.logo} source={logo} />
+          <Text style={styles.title}> INTERVIEW COACH </Text>
+          <Text style={styles.subtitle}>
+            {' '}
+            The perfect platform to help you prep for your next interview!{' '}
+          </Text>
           <Text style={styles.list}> INTERVIEW SESSION </Text>
-          <Text style={styles.list}> Start Session: Pressing this button will start a new interview session and audio recording. The interview coach will begin asking you questions. </Text>
-          <Text style={styles.list}> Next Question: Pressing this button will prompt the interview coach to give you a new interview question to answer. </Text>
-          <Text style={styles.list}> End Session: Pressing this button will end the interview session and audio recording. Your results will then be analyzed and you will be given your performance results through detailed graphs and charts. </Text>
+          <Text style={styles.list}>
+            {' '}
+            Start Session: Pressing this button will start a new interview
+            session and audio recording. The interview coach will begin asking
+            you questions.{' '}
+          </Text>
+          <Text style={styles.list}>
+            {' '}
+            Next Question: Pressing this button will prompt the interview coach
+            to give you a new interview question to answer.{' '}
+          </Text>
+          <Text style={styles.list}>
+            {' '}
+            End Session: Pressing this button will end the interview session and
+            audio recording. Your results will then be analyzed and you will be
+            given your performance results through detailed graphs and charts.{' '}
+          </Text>
           <Text style={styles.list}> PERFORMANCE RESULTS </Text>
-
         </View>
 
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate('Home')}
-          >HOME</Text>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => this.props.navigation.navigate('Home')}
+        >
+          <Text style={styles.buttonText}>HOME</Text>
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 }
 
@@ -44,7 +59,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 100,
-    height: 100
+    height: 100,
   },
   title: {
     color: 'white',
@@ -62,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     textAlign: 'center',
-    opacity: 0.8
+    opacity: 0.8,
   },
   list: {
     color: 'white',
@@ -71,13 +86,13 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
     fontWeight: '500',
     textAlign: 'left',
-    opacity: 0.8
+    opacity: 0.8,
   },
   buttonContainer: {
     backgroundColor: 'aqua',
     paddingVertical: 10,
     marginBottom: 15,
-    padding: 10
+    padding: 10,
   },
   buttonText: {
     textAlign: 'center',
@@ -85,11 +100,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 16,
   },
-
 });
-
-
-
-
-
-

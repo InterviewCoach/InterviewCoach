@@ -113,13 +113,11 @@ class Report extends React.Component {
           />
         </View>
         <View>
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text
-              style={styles.buttonText}
-              onPress={() => this.props.navigation.navigate('InSession')}
-            >
-              NEW SESSION
-            </Text>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => this.props.navigation.navigate('InSession')}
+          >
+            <Text style={styles.buttonText}>NEW SESSION</Text>
           </TouchableOpacity>
         </View>
       </View>
