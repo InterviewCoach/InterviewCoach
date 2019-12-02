@@ -121,13 +121,13 @@ class InSession extends React.Component {
       pitch: 1.1,
       rate: 0.9,
     });
-    await this.setState({
-      sessionStarted: false,
-      currentQuestion: '',
-    });
     const transcription = await this._stopRecording();
     this.props.navigation.navigate('Report', {
       transcription: transcription,
+    });
+    this.setState({
+      sessionStarted: false,
+      currentQuestion: '',
     });
   };
 
