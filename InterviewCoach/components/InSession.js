@@ -42,6 +42,7 @@ const recordingOptions = {
 class InSession extends React.Component {
   constructor(props) {
     super(props);
+
     this.recording = null;
     this.sound = null;
     this.state = {
