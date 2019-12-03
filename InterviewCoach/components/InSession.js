@@ -5,10 +5,8 @@ import coach from '../components/coach.png';
 import * as Speech from 'expo-speech';
 import * as FileSystem from 'expo-file-system';
 import * as Permissions from 'expo-permissions';
-// import * as Speech from '@google-cloud/speech'
-// const speech = require('@google-cloud/speech');
 import { Audio } from 'expo-av';
-// import transcribe from '../transcribe';
+import { Button } from 'react-native';
 // import * as IntentLauncher from 'expo-intent-launcher';
 
 const recordingOptions = {
@@ -42,15 +40,15 @@ const recordingOptions = {
 class InSession extends React.Component {
   constructor(props) {
     super(props);
-    this.recording = null;
-    this.sound = null;
     this.state = {
+      sound: null,
+      recording: null,
       sessionStarted: false,
       questions: [],
       currentQuestion: '',
       isRecording: false,
       recordingDuration: 0,
-      transcript: null,
+      transcription: null,
     };
   }
 
@@ -63,18 +61,15 @@ class InSession extends React.Component {
       const { data } = await axios.get(
         'https://interview-coach-server.herokuapp.com/api/questions'
       );
-      // console.log('questions', data)
       const dataQuestions = data.map(question => {
         return question.content;
       });
-      // console.log('data Questions', dataQuestions)
       this.setState({ questions: dataQuestions });
     } catch (error) {
       console.error(error);
     }
   };
 
-  //arrow function so that this refers to our class and not the event
   startSessionSpeak = async () => {
     // ask user for permission to record audio
     const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
@@ -101,7 +96,7 @@ class InSession extends React.Component {
     const questionIndex = Math.floor(
       Math.random() * this.state.questions.length
     );
-    await this.setState({
+    this.setState({
       currentQuestion: this.state.questions[questionIndex],
     });
     Speech.speak(this.state.currentQuestion, {
@@ -109,10 +104,15 @@ class InSession extends React.Component {
       pitch: 1.1,
       rate: 0.9,
     });
+
+    //remove question from array
+    this.setState({
+        questions: this.state.questions.splice(questionIndex, 1)
+    })
   };
 
   endSessionSpeak = async () => {
-    await this.setState({
+    this.setState({
       currentQuestion:
         'Thanks for taking the time to interview with me. Here is your feedback.',
     });
@@ -121,13 +121,14 @@ class InSession extends React.Component {
       pitch: 1.1,
       rate: 0.9,
     });
-    const transcription = await this._stopRecording();
-    this.props.navigation.navigate('Report', {
-      transcription: transcription,
-    });
     this.setState({
       sessionStarted: false,
       currentQuestion: '',
+    });
+    await this._stopRecording();
+    const transcription = this.state.transcription
+    this.props.navigation.navigate('Report', {
+      transcription
     });
   };
 
@@ -161,20 +162,11 @@ class InSession extends React.Component {
     try {
       console.log('ending session and unloading the recorded file');
       await this.recording.stopAndUnloadAsync();
-      const info = await FileSystem.getInfoAsync(this.recording.getURI());
-      const uri = await FileSystem.getContentUriAsync(info.uri);
-      console.log('uri', uri);
-      // uncomment if you want to debug to see if your phone/emulator is recording
-      // play back recording
-      // await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
-      //     data: uri.uri,
-      //     flags: 1,
-      // });
+      await this.getTranscription();
+
     } catch (error) {
       console.error('error!!', error);
     }
-    const transcription = await this.getTranscription();
-    return transcription;
   };
 
   getTranscription = async () => {
@@ -189,7 +181,7 @@ class InSession extends React.Component {
       // the headers and json.stringify seem mandatory.
       // I am not sure what they do but when I take it out I get a network error
       const response = await fetch(
-        'http://interview-coach-server.herokuapp.com/api/speech2',
+        'http://10.1.85.94:8080/api/speech2',
         {
           method: 'post',
           headers: {
@@ -199,10 +191,6 @@ class InSession extends React.Component {
           body: JSON.stringify({
             string,
           }),
-          // on the server side in the request body need to make sure we access
-          // const audio = {
-          //     content: req.body.string
-          //   }
         }
       );
       const data = await response.json();
