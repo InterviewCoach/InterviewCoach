@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {
   StyleSheet,
   View,
@@ -9,7 +10,6 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import logo from '../components/logo.png';
-
 export default class SignupScreen extends React.Component {
   constructor() {
     super();
@@ -18,13 +18,16 @@ export default class SignupScreen extends React.Component {
       password: '',
     };
   }
-  createAccount(email, password) {
+  async createAccount(email, password) {
     try {
       if (this.state.password.length < 6) {
         alert('Please enter a password with at least 6 characters');
         return;
       }
-      // firebase.auth().createUserWithEmailAndPassword(email, password)
+      await axios.post(
+        'https://interview-coach-server.herokuapp.com/api/users',
+        { email, password }
+      );
     } catch (error) {
       console.error(error);
     }
