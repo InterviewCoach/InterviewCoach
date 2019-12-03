@@ -10,7 +10,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import InSession from './components/InSession';
 // import Splash from './components/Splash';
 import Report from './components/Report';
-// import HistorySessionScreen from './components/HistorySessionScreen';
+import HistorySessionScreen from './components/HistorySessionScreen';
 
 export default class App extends React.Component {
   constructor() {
@@ -34,7 +34,7 @@ const RootStack = createStackNavigator(
     AboutHelp: AboutHelpScreen,
     InSession: InSession,
     Report: Report,
-    // History: HistorySessionScreen,
+    History: HistorySessionScreen,
   },
   {
     initialRouteName: 'Home',
