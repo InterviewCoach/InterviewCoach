@@ -10,7 +10,6 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import logo from '../components/logo.png';
-
 export default class SignupScreen extends React.Component {
   constructor() {
     super();
@@ -25,7 +24,10 @@ export default class SignupScreen extends React.Component {
         alert('Please enter a password with at least 6 characters');
         return;
       }
-      await axios.post('https://interview-coach-server.herokuapp.com/api/users', { email, password })
+      await axios.post(
+        'https://interview-coach-server.herokuapp.com/api/users',
+        { email, password }
+      );
     } catch (error) {
       console.error(error);
     }
