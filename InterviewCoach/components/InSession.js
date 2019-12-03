@@ -6,6 +6,7 @@ import * as Speech from 'expo-speech';
 import * as FileSystem from 'expo-file-system';
 import * as Permissions from 'expo-permissions';
 import { Audio } from 'expo-av';
+import { Button } from 'react-native';
 // import * as IntentLauncher from 'expo-intent-launcher';
 
 const recordingOptions = {
@@ -180,7 +181,7 @@ class InSession extends React.Component {
       // the headers and json.stringify seem mandatory.
       // I am not sure what they do but when I take it out I get a network error
       const response = await fetch(
-        'http://interview-coach-server.herokuapp.com/api/speech2',
+        'http://10.1.85.94:8080/api/speech2',
         {
           method: 'post',
           headers: {

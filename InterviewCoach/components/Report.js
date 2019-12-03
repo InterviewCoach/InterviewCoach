@@ -82,7 +82,7 @@ class Report extends React.Component {
                 x: 'actually',
                 y: Math.round(
                   (this.state.actuallyWordCount / this.state.totalWordCount) *
-                    100
+                  100
                 ),
               },
               {
@@ -95,7 +95,7 @@ class Report extends React.Component {
                 x: 'basically',
                 y: Math.round(
                   (this.state.basicallyWordCount / this.state.totalWordCount) *
-                    100
+                  100
                 ),
               },
               {
@@ -106,12 +106,12 @@ class Report extends React.Component {
                       this.state.likeWordCount +
                       this.state.basicallyWordCount)) /
                     this.state.totalWordCount) *
-                    100
+                  100
                 ),
               },
             ]}
             labels={({ datum }) => `${datum.x}: ${datum.y}%`}
-            colorScale={['gold', '#B0E0E6', '#20B2AA', 'grey']}
+            colorScale={['gold', '#B0E0E6', '#20B2AA', '#DDA0DD']}
             padding={{ left: 100, right: 100 }}
             style={{ labels: { fontSize: 10, fill: 'black' } }}
             labelComponent={<VictoryLabel angle={325} />}
