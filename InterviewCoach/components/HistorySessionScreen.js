@@ -20,74 +20,23 @@ class HistorySessionScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      sessions: [{
-        id: 1,
-        date: '2019-11-14 13:01:28.22-05',
-        questionCount: 10,
-        likeWordCount: 10,
-        actuallyWordCount: 5,
-        basicallyWordCount: 10,
-        totalWordCount: 100,
-      }, {
-        id: 11,
-        date: '2019-11-14 13:01:28.22-05',
-        questionCount: 10,
-        likeWordCount: 5,
-        actuallyWordCount: 2,
-        basicallyWordCount: 5,
-        totalWordCount: 100,
-      }, {
-        id: 12,
-        date: '2019-11-14 13:01:28.22-05',
-        questionCount: 5,
-        likeWordCount: 5,
-        actuallyWordCount: 5,
-        basicallyWordCount: 5,
-        totalWordCount: 100,
-      }],
-    }
+      sessions: [],
+      // colors: ['gold', '#B0E0E6', '#20B2AA', '#DDA0DD'],
+    };
   }
   async componentDidMount() {
     await this.loadSessionData();
   }
 
-
-
-
   loadSessionData = async () => {
     try {
-      // const { data } = await axios.get(
-      //   'https://interview-coach-server.herokuapp.com/api/sessions'
-      // );
+      const { data } = await axios.get(
+        'https://interview-coach-server.herokuapp.com/api/sessions/user/1'
+      );
+      console.log('sessions data->', data);
 
       this.setState({
-
-        sessions: [{
-          id: 1,
-          date: '2019-11-14 13:01:28.22-05',
-          questionCount: 10,
-          likeWordCount: 10,
-          actuallyWordCount: 5,
-          basicallyWordCount: 10,
-          totalWordCount: 100,
-        }, {
-          id: 11,
-          date: '2019-11-24 13:01:28.22-05',
-          questionCount: 10,
-          likeWordCount: 5,
-          actuallyWordCount: 2,
-          basicallyWordCount: 5,
-          totalWordCount: 100,
-        }, {
-          id: 12,
-          date: '2019-11-26 13:01:28.22-05',
-          questionCount: 5,
-          likeWordCount: 5,
-          actuallyWordCount: 5,
-          basicallyWordCount: 5,
-          totalWordCount: 100,
-        }],
-
+        sessions: data,
       });
     } catch (error) {
       console.error(error);
@@ -101,50 +50,64 @@ class HistorySessionScreen extends React.Component {
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
             <View style={styles.chartContainer}>
+              {this.state.sessions.map(session => {
+                return (
+                  <VictoryChart
+                    key={session.id}
+                    width={350}
+                    theme={VictoryTheme.material}
+                    domainPadding={15}
+                  >
+                    <VictoryAxis
+                      label={`Session: ${session.date.slice(0, 10)}`}
+                      style={{ axisLabel: { padding: 35 } }}
+                    />
+                    <VictoryAxis
+                      dependentAxis
+                      label="Word Count"
+                      style={{ axisLabel: { padding: 35 } }}
+                    />
 
-
-              {this.state.sessions.map((session) => {
-                return <VictoryChart key={session.id}
-                  width={350}
-                  theme={VictoryTheme.material}
-                  domainPadding={15}
-                >
-                  <VictoryAxis
-
-                    label={`Session: ${session.date.slice(0, 10)}`}
-                    style={{ axisLabel: { padding: 35 } }}
-                  />
-                  <VictoryAxis
-                    dependentAxis
-                    label="Word Count"
-                    style={{ axisLabel: { padding: 35 } }}
-                  />
-
-                  <VictoryBar
-
-                    data={[
-                      { word: 1, totalWordCount: session.likeWordCount },
-                      { word: 2, totalWordCount: session.actuallyWordCount },
-                      { word: 3, totalWordCount: session.basicallyWordCount },
-                      {
-                        word: 4, totalWordCount: session.totalWordCount -
-                          (session.actuallyWordCount +
-                            session.likeWordCount +
-                            session.basicallyWordCount)
-                      },
-                    ]}
-                    x="word"
-                    y="totalWordCount"
-                    style={{ data: { fill: '#9932CC' } }}
-                    categories={{
-                      x: [`like`, `actually`, `basically`, `other`],
-                      y: [`10`, `20`, `30`, `40`, `50`, '60', '70', '80', '90', '100',],
-                    }}
-                  />
-                </VictoryChart>
-
+                    <VictoryBar
+                      data={[
+                        { word: 1, totalWordCount: session.likeWordCount },
+                        { word: 2, totalWordCount: session.actuallyWordCount },
+                        { word: 3, totalWordCount: session.basicallyWordCount },
+                        {
+                          word: 4,
+                          totalWordCount:
+                            session.totalWordCount -
+                            (session.actuallyWordCount +
+                              session.likeWordCount +
+                              session.basicallyWordCount),
+                        },
+                      ]}
+                      x="word"
+                      y="totalWordCount"
+                      style={{
+                        data: {
+                          fill: data => (data.word > 1 ? 'gold' : 'purple'),
+                        },
+                      }}
+                      categories={{
+                        x: [`like`, `actually`, `basically`, `other`],
+                        y: [
+                          `10`,
+                          `20`,
+                          `30`,
+                          `40`,
+                          `50`,
+                          '60',
+                          '70',
+                          '80',
+                          '90',
+                          '100',
+                        ],
+                      }}
+                    />
+                  </VictoryChart>
+                );
               })}
-
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -219,4 +182,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginHorizontal: 5,
   },
-})
+});
