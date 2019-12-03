@@ -28,8 +28,9 @@ class Report extends React.Component {
   loadSessionData = async () => {
     try {
       const { data } = await axios.get(
-        'https://interview-coach-server.herokuapp.com/api/sessions/1'
+        'https://interview-coach-server.herokuapp.com/api/sessions/latest/1'
       );
+      console.log('latest', data)
       // console.log('sessions', data)
       const dataSessionQuestionCount = data[0].questionCount;
       const dataSessionLikeWordCount = data[0].likeWordCount;
