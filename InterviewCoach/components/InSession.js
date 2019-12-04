@@ -189,7 +189,7 @@ class InSession extends React.Component {
       // the headers and json.stringify seem mandatory.
       // I am not sure what they do but when I take it out I get a network error
       const response = await fetch(
-        'http://interview-coach-server.herokuapp.com/api/speech2',
+        'https://interview-coach-server.herokuapp.com/api/sessions',
         {
           method: 'post',
           headers: {
@@ -198,6 +198,7 @@ class InSession extends React.Component {
           },
           body: JSON.stringify({
             string,
+            audioFileURI: uri,
           }),
           // on the server side in the request body need to make sure we access
           // const audio = {

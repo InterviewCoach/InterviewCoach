@@ -31,7 +31,7 @@ class HistorySessionScreen extends React.Component {
   loadSessionData = async () => {
     try {
       const { data } = await axios.get(
-        'https://interview-coach-server.herokuapp.com/api/sessions/user/1'
+        'https://interview-coach-server.herokuapp.com/api/sessions/latest/10'
       );
       console.log('sessions data->', data);
 
@@ -59,13 +59,13 @@ class HistorySessionScreen extends React.Component {
                     domainPadding={15}
                   >
                     <VictoryAxis
-                      label={`Session: ${session.date.slice(0, 10)}`}
+                      label={`Session: ${session.createdAt.slice(0, 10)}`}
                       style={{ axisLabel: { padding: 35 } }}
                     />
                     <VictoryAxis
                       dependentAxis
                       label="Word Count"
-                      style={{ axisLabel: { padding: 35 } }}
+                      style={{ axisLabel: { padding: 100 } }}
                     />
 
                     <VictoryBar
