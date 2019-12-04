@@ -5,6 +5,7 @@ import {
   VictoryBar,
   VictoryChart,
   VictoryTheme,
+  VictoryAxis,
   VictoryPie,
   VictoryLabel,
 } from 'victory-native';
@@ -60,64 +61,133 @@ class Report extends React.Component {
         <Text style={styles.title}> PERFORMANCE RESULTS </Text>
         <Text style={styles.transcriptionText}>{transcription}</Text>
         <Text style={styles.data}>
-          actually #: {this.state.actuallyWordCount}
-        </Text>
-        <Text style={styles.data}>like #: {this.state.likeWordCount}</Text>
-        <Text style={styles.data}>
-          basically #: {this.state.basicallyWordCount}
+          # questions answered:{' '}
+          {this.state.questionCount}
         </Text>
         <Text style={styles.data}>
-          other words #:{' '}
+          # 'actually': {this.state.actuallyWordCount}
+        </Text>
+        <Text style={styles.data}># 'like': {this.state.likeWordCount}</Text>
+        <Text style={styles.data}>
+          # 'basically': {this.state.basicallyWordCount}
+        </Text>
+        <Text style={styles.data}>
+          # other words:{' '}
           {this.state.totalWordCount -
             (this.state.actuallyWordCount +
               this.state.likeWordCount +
               this.state.basicallyWordCount)}
         </Text>
-        <View style={styles.chartContainer}>
-          {/* <VictoryChart width={350} theme={VictoryTheme.material}>
-            <VictoryBar data={data} x="uhm" y="like" />
-          </VictoryChart> */}
-          <VictoryPie
-            data={[
-              {
-                x: 'actually',
-                y: Math.round(
-                  (this.state.actuallyWordCount / this.state.totalWordCount) *
-                  100
-                ),
-              },
-              {
-                x: 'like',
-                y: Math.round(
-                  (this.state.likeWordCount / this.state.totalWordCount) * 100
-                ),
-              },
-              {
-                x: 'basically',
-                y: Math.round(
-                  (this.state.basicallyWordCount / this.state.totalWordCount) *
-                  100
-                ),
-              },
-              {
-                x: 'other',
-                y: Math.round(
-                  ((this.state.totalWordCount -
-                    (this.state.actuallyWordCount +
-                      this.state.likeWordCount +
-                      this.state.basicallyWordCount)) /
-                    this.state.totalWordCount) *
-                  100
-                ),
-              },
-            ]}
-            labels={({ datum }) => `${datum.x}: ${datum.y}%`}
-            colorScale={['gold', '#B0E0E6', '#20B2AA', '#DDA0DD']}
-            padding={{ left: 100, right: 100 }}
-            style={{ labels: { fontSize: 10, fill: 'black' } }}
-            labelComponent={<VictoryLabel angle={325} />}
-          />
-        </View>
+
+        {((this.state.actuallyWordCount +
+          this.state.likeWordCount +
+          this.state.basicallyWordCount) / this.state.totalWordCount) * 100
+          <= 2 ?
+          <Text style={styles.title}> Congratuations, you did not use a lot of the most popular filler words in your interview responses! Great job!!! </Text>
+          :
+          <View style={styles.chartContainer}>
+            <VictoryChart
+              width={350}
+              theme={VictoryTheme.material}
+              domainPadding={15}
+            >
+              <VictoryAxis
+                label={`Session Performance`}
+                style={{ axisLabel: { padding: 100 } }}
+              />
+              <VictoryAxis
+                dependentAxis
+                label="Word Count"
+                angle={325}
+                style={{
+                  axisLabel: { padding: 10 }
+                }}
+              />
+
+              <VictoryBar
+                data={[
+                  { word: 1, totalWordCount: this.state.likeWordCount },
+                  { word: 2, totalWordCount: this.state.actuallyWordCount },
+                  { word: 3, totalWordCount: this.state.basicallyWordCount },
+                  {
+                    word: 4,
+                    totalWordCount:
+                      this.state.totalWordCount -
+                      (this.state.actuallyWordCount +
+                        this.state.likeWordCount +
+                        this.state.basicallyWordCount),
+                  },
+                ]}
+                x="word"
+                y="totalWordCount"
+                style={{
+                  data: {
+                    fill: data => ('purple'),
+                  },
+                }}
+                categories={{
+                  x: [`like`, `actually`, `basically`, `other`],
+                  y: [
+                    `10`,
+                    `20`,
+                    `30`,
+                    `40`,
+                    `50`,
+                    '60',
+                    '70',
+                    '80',
+                    '90',
+                    '100',
+                  ],
+                }}
+              />
+            </VictoryChart>
+
+            {/* <VictoryPie
+              data={[
+                {
+                  x: 'actually',
+                  y: Math.round(
+                    (this.state.actuallyWordCount / this.state.totalWordCount) *
+                    100
+                  ),
+                },
+                {
+                  x: 'like',
+                  y: Math.round(
+                    (this.state.likeWordCount / this.state.totalWordCount) * 100
+                  ),
+                },
+                {
+                  x: 'basically',
+                  y: Math.round(
+                    (this.state.basicallyWordCount / this.state.totalWordCount) *
+                    100
+                  ),
+                },
+                {
+                  x: 'other',
+                  y: Math.round(
+                    ((this.state.totalWordCount -
+                      (this.state.actuallyWordCount +
+                        this.state.likeWordCount +
+                        this.state.basicallyWordCount)) /
+                      this.state.totalWordCount) *
+                    100
+                  ),
+                },
+              ]}
+              labels={({ datum }) => {
+                `${datum.x}: ${datum.y}%`
+              }}
+              colorScale={['gold', '#B0E0E6', '#20B2AA', '#DDA0DD']}
+              padding={{ left: 100, right: 100 }}
+              style={{ labels: { fontSize: 10, fill: 'black' } }}
+              labelComponent={<VictoryLabel angle={325} />}
+            /> */}
+          </View>}
+
+
         <View>
           <TouchableOpacity
             style={styles.buttonContainer}
@@ -131,7 +201,7 @@ class Report extends React.Component {
             style={styles.buttonContainer}
             onPress={() => this.props.navigation.navigate('History')}
           >
-            <Text style={styles.buttonText}>HISTORY SESSION</Text>
+            <Text style={styles.buttonText}>SESSION HISTORY</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -147,6 +217,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // chartContainer: {
+  //   flex: 1,
+  //   fontSize: 10,
+  //   backgroundColor: '#fff',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   marginTop: 10,
+  //   marginBottom: 10,
+  // },
   chartContainer: {
     flex: 1,
     fontSize: 10,
@@ -155,6 +234,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
     marginBottom: 10,
+    marginLeft: 10
   },
   title: {
     color: 'black',
