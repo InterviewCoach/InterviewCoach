@@ -9,6 +9,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import logo from '../components/logo.png';
+
+
 export default class LoginScreen extends React.Component {
   constructor() {
     super();
@@ -17,21 +19,26 @@ export default class LoginScreen extends React.Component {
       password: '',
     };
   }
-  login(email, password) {
+  async login(email, password) {
     try {
       if (this.state.password.length < 6) {
         alert('Please enter a password with at least 6 characters');
         return;
       }
-      // firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-      //   console.log("User....", user)
-      // })
+      else {
+        await axios.post(
+          'https://interview-coach-server.herokuapp.com/auth/login',
+          { email, password }
+        )
+      }
     } catch (error) {
-      console.error(error);
+      alert('Incorrect email or password');
+      // console.error(error);
     }
     alert('Logging in with email: ' + this.state.email);
     this.props.navigation.navigate('InSession');
   }
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
