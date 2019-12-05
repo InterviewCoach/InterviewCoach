@@ -19,7 +19,7 @@ export default class LoginScreen extends React.Component {
       password: '',
     };
   }
-  
+
   static navigationOptions = {
     drawerLockMode: 'locked-closed',
   }
@@ -46,7 +46,7 @@ export default class LoginScreen extends React.Component {
       email: '',
       password: ''
     })
-  
+
     this.props.navigation.navigate('New Session');
   }
 
@@ -94,7 +94,7 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
+    backgroundColor: '#f8f8f8',
     padding: 10,
     justifyContent: 'center',
   },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     height: 120,
   },
   title: {
-    color: 'white',
+    color: 'black',
     marginTop: 10,
     width: 250,
     fontSize: 24,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   subtitle: {
-    color: 'white',
+    color: 'black',
     marginTop: 10,
     width: 200,
     fontSize: 16,
@@ -131,11 +131,22 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     marginBottom: 15,
     paddingHorizontal: 10,
+    borderStyle: 'solid',
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderRadius: 12
   },
+  // buttonContainer: {
+  //   backgroundColor: 'aqua',
+  //   paddingVertical: 15,
+  //   marginBottom: 15,
+  // },
   buttonContainer: {
-    backgroundColor: 'aqua',
-    paddingVertical: 15,
+    backgroundColor: '#bdecb6',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
     marginBottom: 15,
+    borderRadius: 12
   },
   buttonText: {
     textAlign: 'center',

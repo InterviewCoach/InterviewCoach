@@ -2,8 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import Splash from './Splash'
 import {
-  StyleSheet, Text, View, TouchableOpacity, ScrollView,
-  SafeAreaView, Button
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+  Button,
+  Image
 } from 'react-native';
 import {
   VictoryBar,
@@ -14,6 +20,8 @@ import {
   VictoryLabel,
 } from 'victory-native';
 import Constants from 'expo-constants';
+import hamburger from './hamburgerBlack.png';
+
 const data = [
   {
     x: 'actually',
@@ -83,9 +91,14 @@ class Report extends React.Component {
       : null;
     if (!this.state.gotData)
       return <Splash message={'loading your report'} />
+
     return (
       <View style={styles.container}>
-        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
+
+        <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
+          <Image source={hamburger} />
+        </TouchableOpacity>
+
         <Text style={styles.title}> PERFORMANCE RESULTS </Text>
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
@@ -258,7 +271,7 @@ export default Report;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 25,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
@@ -301,10 +314,11 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   buttonContainer: {
-    marginTop: 10,
-    backgroundColor: 'aqua',
+    backgroundColor: '#bdecb6',
     paddingVertical: 20,
     paddingHorizontal: 20,
+    marginBottom: 15,
+    borderRadius: 12
   },
   buttonText: {
     textAlign: 'center',

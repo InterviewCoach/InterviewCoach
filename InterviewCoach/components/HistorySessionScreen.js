@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  Button
+  Button,
+  Image
 } from 'react-native';
 import {
   VictoryBar,
@@ -19,6 +20,7 @@ import {
   VictoryLabel,
 } from 'victory-native';
 import Constants from 'expo-constants';
+import hamburger from './hamburgerBlack.png';
 
 class HistorySessionScreen extends React.Component {
   constructor() {
@@ -52,7 +54,11 @@ class HistorySessionScreen extends React.Component {
       return <Splash message={'loading your history...'}/>
     return (
       <View style={styles.container}>
-        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
+
+        <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
+          <Image source={hamburger} />
+        </TouchableOpacity>
+
         <Text style={styles.title}>SESSION HISTORY</Text>
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
@@ -181,7 +187,7 @@ export default HistorySessionScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
+    padding: 25,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
@@ -221,11 +227,18 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     opacity: 0.8,
   },
+  // buttonContainer: {
+  //   marginTop: 10,
+  //   backgroundColor: 'aqua',
+  //   paddingVertical: 20,
+  //   paddingHorizontal: 20,
+  // },
   buttonContainer: {
-    marginTop: 10,
-    backgroundColor: 'aqua',
+    backgroundColor: '#bdecb6',
     paddingVertical: 20,
     paddingHorizontal: 20,
+    marginBottom: 15,
+    borderRadius: 12
   },
   buttonText: {
     textAlign: 'center',
