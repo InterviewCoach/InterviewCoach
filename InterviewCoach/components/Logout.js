@@ -4,9 +4,11 @@ import {Text } from 'react-native';
 
 
 export default class Logout extends React.Component {
-    render() {
+    async componentDidMount() {
         await Axios.post('https://interview-coach-server.herokuapp.com/auth/logout')
         this.props.navigation.navigate('Home')
+    }
+    render() {
         return <Text>Logging Out</Text>
     }
 }
