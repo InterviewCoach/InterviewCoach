@@ -64,7 +64,10 @@ const RootStack = createDrawerNavigator(
   },
   {
     initialRouteName: 'Home',
+    drawerWidth: 200,
+    icon: './components/icon.png'
   }
 );
+
 
 const AppContainer = createAppContainer(RootStack);

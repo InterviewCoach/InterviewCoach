@@ -10,6 +10,7 @@ import * as Permissions from 'expo-permissions';
 import { Audio } from 'expo-av';
 // import transcribe from '../transcribe';
 // import * as IntentLauncher from 'expo-intent-launcher';
+import hamburger from '../components/hamburgerBlack.png';
 
 const recordingOptions = {
   android: {
@@ -204,7 +205,11 @@ class InSession extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
+
+        <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
+          <Image source={hamburger} />
+        </TouchableOpacity>
+
         <Text style={styles.title}>INTERVIEW SESSION</Text>
         <Image style={styles.image} source={coach} />
         <View>
@@ -254,13 +259,13 @@ export default InSession;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 25,
   },
   title: {
-    color: 'white',
+    color: 'black',
     marginTop: 10,
     marginBottom: 10,
     width: 250,
@@ -272,9 +277,10 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
+    borderRadius: 15
   },
   question: {
-    color: 'white',
+    color: 'black',
     marginTop: 10,
     marginBottom: 10,
     width: 300,
@@ -284,10 +290,11 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   buttonContainer: {
-    backgroundColor: 'aqua',
+    backgroundColor: '#bdecb6',
     paddingVertical: 20,
     paddingHorizontal: 20,
     marginBottom: 15,
+    borderRadius: 12
   },
   buttonText: {
     textAlign: 'center',
@@ -297,7 +304,7 @@ const styles = StyleSheet.create({
   },
   recordingText: {
     textAlign: 'center',
-    color: 'red',
+    color: '#77dd77',
     fontWeight: '600',
     fontSize: 12,
   },

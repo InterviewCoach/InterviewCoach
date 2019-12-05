@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 const Splash = (props) => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color="#00ff00" />
+      <ActivityIndicator size="large" color="#bdecb6" />
       <Text>{props.message}</Text>
     </View>
   );
