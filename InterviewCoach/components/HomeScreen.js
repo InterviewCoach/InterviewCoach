@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import logo from '../components/logo.png';
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    drawerLockMode: 'locked-closer',
+    drawerLockMode: 'locked-closed',
   }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text
-            onPress={() => this.props.navigation.navigate('InSession')}
+            onPress={() => this.props.navigation.navigate('New Session')}
             style={styles.title}
           >
             INTERVIEW COACH
@@ -32,11 +34,11 @@ export default class HomeScreen extends React.Component {
         >
           <Text style={styles.buttonText}>SIGN UP</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('AboutHelp')}
+        {/* <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('About')}
         >
           <Text style={styles.buttonText}>LEARN MORE</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }

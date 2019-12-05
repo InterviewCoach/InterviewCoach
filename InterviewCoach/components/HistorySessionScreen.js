@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Splash from './Splash'
 import {
   StyleSheet,
   Text,
@@ -7,12 +8,15 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  Button
 } from 'react-native';
 import {
   VictoryBar,
   VictoryChart,
   VictoryTheme,
   VictoryAxis,
+  VictoryPie,
+  VictoryLabel,
 } from 'victory-native';
 import Constants from 'expo-constants';
 
@@ -44,14 +48,59 @@ class HistorySessionScreen extends React.Component {
   };
 
   render() {
+    if (!this.state.sessions.length)
+      return <Splash message={'loading your history...'}/>
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> SESSION HISTORY</Text>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
+        <Text style={styles.title}>SESSION HISTORY</Text>
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
             <View style={styles.chartContainer}>
               {this.state.sessions.map((session, idx) => {
                 return (
+                  // <VictoryPie
+                  //   key={session.id}
+                  //   data={[
+                  //     {
+                  //       x: 'actually',
+                  //       y: Math.round(
+                  //         (session.actuallyWordCount / session.totalWordCount) *
+                  //         100
+                  //       ),
+                  //     },
+                  //     {
+                  //       x: 'like',
+                  //       y: Math.round(
+                  //         (session.likeWordCount / session.totalWordCount) * 100
+                  //       ),
+                  //     },
+                  //     {
+                  //       x: 'basically',
+                  //       y: Math.round(
+                  //         (session.basicallyWordCount / session.totalWordCount) *
+                  //         100
+                  //       ),
+                  //     },
+                  //     {
+                  //       x: 'other',
+                  //       y: Math.round(
+                  //         ((session.totalWordCount -
+                  //           (session.actuallyWordCount +
+                  //             session.likeWordCount +
+                  //             session.basicallyWordCount)) /
+                  //           session.totalWordCount) *
+                  //         100
+                  //       ),
+                  //     },
+                  //   ]}
+                  //   labels={({ datum }) => `${datum.x}: ${datum.y}%`}
+                  //   colorScale={['gold', '#B0E0E6', '#20B2AA', '#DDA0DD']}
+                  //   padding={{ left: 100, right: 100 }}
+                  //   style={{ labels: { fontSize: 10, fill: 'black' } }}
+                  //   labelComponent={<VictoryLabel angle={325} />}
+                  // />
+
                   <VictoryChart
                     key={session.id}
                     width={350}
@@ -106,12 +155,13 @@ class HistorySessionScreen extends React.Component {
                       }}
                     />
                   </VictoryChart>
+
                 );
               })}
             </View>
           </ScrollView>
         </SafeAreaView>
-        <View>
+        {/* <View>
           <TouchableOpacity style={styles.buttonContainer}>
             <Text
               style={styles.buttonText}
@@ -120,7 +170,7 @@ class HistorySessionScreen extends React.Component {
               NEW SESSION
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     );
   }
@@ -144,6 +194,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
+  // chartContainer: {
+  //   flex: 1,
+  //   fontSize: 10,
+  //   backgroundColor: '#fff',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   marginTop: 10,
+  //   marginBottom: 10,
+  // },
   title: {
     color: 'black',
     marginBottom: 10,

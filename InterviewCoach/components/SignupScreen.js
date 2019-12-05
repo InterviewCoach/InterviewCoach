@@ -19,27 +19,42 @@ export default class SignupScreen extends React.Component {
     };
   }
   static navigationOptions = {
-    drawerLockMode: 'locked-closer',
+    drawerLockMode: 'locked-closed',
   }
+
   async createAccount(email, password) {
     try {
       if (this.state.password.length < 6) {
         alert('Please enter a password with at least 6 characters');
         return;
       }
-      await axios.post(
-        'https://interview-coach-server.herokuapp.com/auth/signup',
-        { email, password }
-      );
+      validate = async (email) => {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (reg.test(email) === false) {
+          console.log("Email is Not Correct");
+          alert('Please enter a valid email');
+          return;
+        }
+        else {
+          this.setState({ email: email })
+          console.log("Email is Correct");
+          await axios.post(
+            'https://interview-coach-server.herokuapp.com/auth/signup',
+            { email, password }
+          );
+          alert('Created account with Email: ' + this.state.email);
+          this.setState({
+            email: '',
+            password: '',
+          });
+          this.props.navigation.navigate('New Session');
+        }
+      }
+      validate(email);
     } catch (error) {
-      console.error(error);   
+      alert('Incorrect email or password');
+      //   console.error(error);
     }
-    alert('Created account with Email: ' + this.state.email);
-    this.setState({
-      email: '',
-      password: '',
-    });
-    this.props.navigation.navigate('InSession');
   }
   render() {
     return (
@@ -53,6 +68,7 @@ export default class SignupScreen extends React.Component {
           <View style={styles.formContainer} />
         </View>
         <TextInput
+          type="email"
           placeholder="Email"
           placeholderTextColor="black"
           returnKeyType="next"

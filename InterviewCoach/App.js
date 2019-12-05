@@ -1,6 +1,6 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack'
+// import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import HomeScreen from './components/HomeScreen';
@@ -9,6 +9,7 @@ import SignupScreen from './components/SignupScreen';
 import AboutHelpScreen from './components/AboutHelpScreen';
 import { StyleSheet, Text, View, DrawerLayoutAndroid, ToolbarAndroid } from 'react-native';
 import InSession from './components/InSession';
+import Logout from './components/Logout'
 // import Splash from './components/Splash';
 import Report from './components/Report';
 import HistorySessionScreen from './components/HistorySessionScreen';
@@ -28,13 +29,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
   }
 });
-const RootStack = create(
+const RootStack = createDrawerNavigator(
   {
     Home: HomeScreen,
-    Login: LoginScreen,
-    SignupScreen: SignupScreen,
     Report: Report,
-    InSession: InSession,
     Home: {
       screen: HomeScreen,
       navigationOptions: {
@@ -53,7 +51,6 @@ const RootStack = create(
         drawerLabel: ()=>null
       }
     },
-    'About': AboutHelpScreen,
     'New Session': InSession,
     Report: {
       screen: Report,
@@ -62,30 +59,12 @@ const RootStack = create(
       }
     },
     History: HistorySessionScreen,
+    'About': AboutHelpScreen,
+    'Logout': Logout
   },
   {
     initialRouteName: 'Home',
   }
 );
-
-
-
-// const drawer = createDrawerNavigator(
-//   {
-//     AboutHelp: AboutHelpScreen,
-//     StartSession: InSession,
-//     History: HistorySessionScreen
-//   },
-//   {
-//     initialRouteName: 'AboutHelp',
-//   }
-// );
-
-// const MainStack = createSwitchNavigator(
-//   {
-//     Home: RootStack,
-//     InSession: drawer
-//   }
-// )
 
 const AppContainer = createAppContainer(RootStack);

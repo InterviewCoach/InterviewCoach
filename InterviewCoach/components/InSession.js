@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native';
 import coach from '../components/coach.png';
 import * as Speech from 'expo-speech';
 import * as FileSystem from 'expo-file-system';
@@ -42,6 +42,7 @@ const recordingOptions = {
 class InSession extends React.Component {
   constructor(props) {
     super(props);
+
     this.recording = null;
     this.sound = null;
     this.state = {
@@ -51,6 +52,7 @@ class InSession extends React.Component {
       isRecording: false,
       recordingDuration: 0,
       transcript: null,
+      questionCount: 1
     };
   }
 
@@ -103,6 +105,7 @@ class InSession extends React.Component {
     );
     await this.setState({
       currentQuestion: this.state.questions[questionIndex],
+      questionCount: this.state.questionCount ++
     });
     Speech.speak(this.state.currentQuestion, {
       language: 'en',
@@ -128,6 +131,7 @@ class InSession extends React.Component {
     this.setState({
       sessionStarted: false,
       currentQuestion: '',
+      questionCount: 1
     });
   };
 
@@ -186,30 +190,10 @@ class InSession extends React.Component {
       const string = await FileSystem.readAsStringAsync(uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
-      // the headers and json.stringify seem mandatory.
-      // I am not sure what they do but when I take it out I get a network error
-      const response = await fetch(
-        'https://interview-coach-server.herokuapp.com/api/sessions',
-        {
-          method: 'post',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            string,
-            audioFileURI: uri,
-          }),
-          // on the server side in the request body need to make sure we access
-          // const audio = {
-          //     content: req.body.string
-          //   }
-        }
-      );
-      const data = await response.json();
-      console.log('data: ', JSON.stringify(data));
+      const { data } = await axios.post('https://interview-coach-server.herokuapp.com/api/sessions', { string, audioFileURI: uri })
       this.setState({
         transcription: data,
+        questionCount: this.state.questionCount
       });
       return data;
     } catch (error) {
@@ -220,17 +204,18 @@ class InSession extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
         <Text style={styles.title}>INTERVIEW SESSION</Text>
         <Image style={styles.image} source={coach} />
         <View>
           <Text style={styles.question}>{this.state.currentQuestion}</Text>
         </View>
         <View>
-          <Text style={styles.transcriptionText}>
+          {/* <Text style={styles.transcriptionText}>
             {this.state.transcription
               ? `${this.state.transcription.join(' ')}`
               : ''}
-          </Text>
+          </Text> */}
           <Text style={styles.recordingText}>
             {this.state.isRecording
               ? `Recording ${this.state.recordingDuration}`
@@ -321,5 +306,6 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 18,
-  },
+  }
 });
+
