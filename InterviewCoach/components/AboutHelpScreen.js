@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity, Button } from 'react-native';
 import logo from '../components/logo.png';
 
 export default class AboutHelpScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text style={styles.title}> INTERVIEW COACH </Text>
@@ -34,12 +35,12 @@ export default class AboutHelpScreen extends React.Component {
           <Text style={styles.list}> PERFORMANCE RESULTS </Text>
         </View>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.buttonContainer}
           onPress={() => this.props.navigation.navigate('Home')}
         >
           <Text style={styles.buttonText}>HOME</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }
