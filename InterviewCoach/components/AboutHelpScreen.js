@@ -6,7 +6,7 @@ export default class AboutHelpScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer} />
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text style={styles.title}> INTERVIEW COACH </Text>
@@ -17,22 +17,33 @@ export default class AboutHelpScreen extends React.Component {
           <Text style={styles.list}> INTERVIEW SESSION </Text>
           <Text style={styles.list}>
             {' '}
-            Start Session: Pressing this button will start a new interview
-            session and audio recording. The interview coach will begin asking
+            Start Session Button: Pressing this will start a new interview and audio recording. The coach will begin asking
             you questions.{' '}
           </Text>
           <Text style={styles.list}>
             {' '}
-            Next Question: Pressing this button will prompt the interview coach
+            Next Question Button: Pressing this will prompt the coach
             to give you a new interview question to answer.{' '}
           </Text>
           <Text style={styles.list}>
             {' '}
-            End Session: Pressing this button will end the interview session and
-            audio recording. Your results will then be analyzed and you will be
-            given your performance results through detailed graphs and charts.{' '}
+            End Session Button: Pressing this will end the interview and
+            audio recording. Your results will then be analyzed and you will be shown your performance results.{' '}
           </Text>
           <Text style={styles.list}> PERFORMANCE RESULTS </Text>
+          <Text style={styles.list}>
+            {' '}
+            Data and charts will be provided to show your usage of common filler words in your interview responses.{' '}
+          </Text>
+          <Text style={styles.list}>
+            {' '}
+            New Session Button: Pressing this will return you to the Interview Session screen where you can start a new interview.{' '}
+          </Text>
+          <Text style={styles.list}> HISTORY </Text>
+          <Text style={styles.list}>
+            {' '}
+            Charts will be provided to show your usage of common filler words in your interview responses across all of the sessions you have recorded.{' '}
+          </Text>
         </View>
 
         {/* <TouchableOpacity
@@ -84,7 +95,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: 10,
     width: 350,
-    fontSize: 12.5,
+    fontSize: 12,
     fontWeight: '500',
     textAlign: 'left',
     opacity: 0.8,

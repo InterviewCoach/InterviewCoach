@@ -85,7 +85,7 @@ class Report extends React.Component {
       return <Splash message={'loading your report'} />
     return (
       <View style={styles.container}>
-        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer} />
         <Text style={styles.title}> PERFORMANCE RESULTS </Text>
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
@@ -97,10 +97,10 @@ class Report extends React.Component {
               <= 2 ?
               <View style={styles.chartContainer}>
                 <Text style={styles.title}>Congratulations, you did not use a lot of the most popular filler words in your interview responses! Great job!!! </Text>
-                <Text style={styles.data}>
+                {/* <Text style={styles.data}>
                   # questions answered:{' '}
                   {this.state.questionCount}
-                </Text>
+                </Text> */}
                 <Text style={styles.data}>
                   # 'actually': {this.state.actuallyWordCount}
                 </Text>
@@ -130,10 +130,10 @@ class Report extends React.Component {
               :
 
               <View style={styles.chartContainer}>
-                <Text style={styles.data}>
+                {/* <Text style={styles.data}>
                   # questions answered:{' '}
                   {this.state.questionCount}
-                </Text>
+                </Text> */}
                 <Text style={styles.data}>
                   # 'actually': {this.state.actuallyWordCount}
                 </Text>
