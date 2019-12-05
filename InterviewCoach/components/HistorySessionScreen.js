@@ -33,6 +33,7 @@ class HistorySessionScreen extends React.Component {
   loadSessionData = async () => {
     try {
       const { data } = await axios.get(
+        // `https://interview-coach-server.herokuapp.com/api/sessions/latest/user/:${req.user.id}`
         'https://interview-coach-server.herokuapp.com/api/sessions/latest/10'
       );
       console.log('sessions data->', data);
@@ -136,16 +137,16 @@ class HistorySessionScreen extends React.Component {
                       categories={{
                         x: [`like`, `actually`, `basically`, `other`],
                         y: [
-                          `10`,
-                          `20`,
-                          `30`,
-                          `40`,
-                          `50`,
-                          '60',
-                          '70',
-                          '80',
-                          '90',
-                          '100',
+                          `1`,
+                          `2`,
+                          `3`,
+                          `4`,
+                          `5`,
+                          '6',
+                          '7',
+                          '8',
+                          '9',
+                          '10',
                         ],
                       }}
                     />
@@ -188,6 +189,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
     marginBottom: 10,
+    marginLeft: 10
   },
   // chartContainer: {
   //   flex: 1,

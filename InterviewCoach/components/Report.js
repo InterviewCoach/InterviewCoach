@@ -122,7 +122,26 @@ class Report extends React.Component {
                 />
               </View>
               :
+
               <View style={styles.chartContainer}>
+                <Text style={styles.data}>
+                  # questions answered:{' '}
+                  {this.state.questionCount}
+                </Text>
+                <Text style={styles.data}>
+                  # 'actually': {this.state.actuallyWordCount}
+                </Text>
+                <Text style={styles.data}># 'like': {this.state.likeWordCount}</Text>
+                <Text style={styles.data}>
+                  # 'basically': {this.state.basicallyWordCount}
+                </Text>
+                <Text style={styles.data}>
+                  # other words:{' '}
+                  {this.state.totalWordCount -
+                    (this.state.actuallyWordCount +
+                      this.state.likeWordCount +
+                      this.state.basicallyWordCount)}
+                </Text>
                 <VictoryChart
                   width={350}
                   theme={VictoryTheme.material}
