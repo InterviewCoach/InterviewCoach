@@ -50,10 +50,10 @@ class HistorySessionScreen extends React.Component {
 
   render() {
     if (!this.state.sessions.length)
-      return <Splash message={'loading your history...'}/>
+      return <Splash message={'loading your history...'} />
     return (
       <View style={styles.container}>
-        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer} />
         <Text style={styles.title}>SESSION HISTORY</Text>
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
@@ -123,14 +123,7 @@ class HistorySessionScreen extends React.Component {
                         { word: 1, totalWordCount: session.likeWordCount },
                         { word: 2, totalWordCount: session.actuallyWordCount },
                         { word: 3, totalWordCount: session.basicallyWordCount },
-                        {
-                          word: 4,
-                          totalWordCount:
-                            session.totalWordCount -
-                            (session.actuallyWordCount +
-                              session.likeWordCount +
-                              session.basicallyWordCount),
-                        },
+                        ,
                       ]}
                       x="word"
                       y="totalWordCount"
@@ -140,7 +133,7 @@ class HistorySessionScreen extends React.Component {
                         },
                       }}
                       categories={{
-                        x: [`like`, `actually`, `basically`, `other`],
+                        x: [`like`, `actually`, `basically`],
                         y: [
                           `1`,
                           `2`,

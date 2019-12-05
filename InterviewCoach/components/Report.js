@@ -96,7 +96,7 @@ class Report extends React.Component {
               this.state.basicallyWordCount) / this.state.totalWordCount) * 100
               <= 2 ?
               <View style={styles.chartContainer}>
-                <Text style={styles.title}>Congratulations, you did not use a lot of the most popular filler words in your interview responses! Great job!!! </Text>
+                <Text style={styles.data}>Congratulations, you did not use a lot of the most popular filler words in your interview responses!</Text>
                 {/* <Text style={styles.data}>
                   # questions answered:{' '}
                   {this.state.questionCount}
@@ -171,14 +171,6 @@ class Report extends React.Component {
                       { word: 1, totalWordCount: this.state.likeWordCount },
                       { word: 2, totalWordCount: this.state.actuallyWordCount },
                       { word: 3, totalWordCount: this.state.basicallyWordCount },
-                      {
-                        word: 4,
-                        totalWordCount:
-                          this.state.totalWordCount -
-                          (this.state.actuallyWordCount +
-                            this.state.likeWordCount +
-                            this.state.basicallyWordCount),
-                      },
                     ]}
                     x="word"
                     y="totalWordCount"
@@ -188,8 +180,7 @@ class Report extends React.Component {
                       },
                     }}
                     categories={{
-                      x: [`like`, `actually`, `basically`,
-                        `other`
+                      x: [`like`, `actually`, `basically`
                       ],
                       y: [
                         `1`,
@@ -297,8 +288,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 5,
     marginLeft: 10
   },
   title: {
@@ -314,7 +305,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 5,
     width: 300,
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: '500',
     textAlign: 'left',
     opacity: 0.8,

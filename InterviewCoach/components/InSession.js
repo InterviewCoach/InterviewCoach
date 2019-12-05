@@ -48,7 +48,7 @@ class InSession extends React.Component {
     this.state = {
       sessionStarted: false,
       questions: [],
-      currentQuestion: '',
+      currentQuestion: 'Welcome, I am Jolie, your interview coach! Press the START SESSION button to start a new interview and audio recording. I will then begin asking you questions.',
       isRecording: false,
       recordingDuration: 0,
       transcript: null,
@@ -88,7 +88,7 @@ class InSession extends React.Component {
     this.setState({
       sessionStarted: true,
       currentQuestion:
-        "Welcome! Let's get started with your interview. Tell me about yourself.",
+        "Let's get started with your interview. Tell me about yourself.",
       audioPermissions: status,
     });
     Speech.speak(this.state.currentQuestion, {
@@ -105,7 +105,7 @@ class InSession extends React.Component {
     );
     await this.setState({
       currentQuestion: this.state.questions[questionIndex],
-      questionCount: this.state.questionCount ++
+      questionCount: this.state.questionCount++
     });
     Speech.speak(this.state.currentQuestion, {
       language: 'en',
@@ -204,7 +204,7 @@ class InSession extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer} />
         <Text style={styles.title}>INTERVIEW SESSION</Text>
         <Image style={styles.image} source={coach} />
         <View>
