@@ -18,6 +18,9 @@ export default class SignupScreen extends React.Component {
       password: '',
     };
   }
+  static navigationOptions = {
+    drawerLockMode: 'locked-closer',
+  }
   async createAccount(email, password) {
     try {
       if (this.state.password.length < 6) {
@@ -25,11 +28,11 @@ export default class SignupScreen extends React.Component {
         return;
       }
       await axios.post(
-        'https://interview-coach-server.herokuapp.com/api/users',
+        'https://interview-coach-server.herokuapp.com/auth/signup',
         { email, password }
       );
     } catch (error) {
-      console.error(error);
+      console.error(error);   
     }
     alert('Created account with Email: ' + this.state.email);
     this.setState({

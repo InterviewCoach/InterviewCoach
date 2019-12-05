@@ -32,14 +32,14 @@ class Report extends React.Component {
       );
       console.log('latest', data)
       // console.log('sessions', data)
-      const dataSessionQuestionCount = data[0].questionCount;
+      // const dataSessionQuestionCount = data[0].questionCount;
       const dataSessionLikeWordCount = data[0].likeWordCount;
       const dataSessionActuallyWordCount = data[0].actuallyWordCount;
       const dataSessionBasicallyWordCount = data[0].basicallyWordCount;
       const dataSessionTotalWordCount = data[0].totalWordCount;
       // console.log('dataSessionQuestionCount', dataSessionQuestionCount)
       this.setState({
-        questionCount: dataSessionQuestionCount,
+        // questionCount: dataSessionQuestionCount,
         likeWordCount: dataSessionLikeWordCount,
         actuallyWordCount: dataSessionActuallyWordCount,
         basicallyWordCount: dataSessionBasicallyWordCount,

@@ -17,6 +17,12 @@ export default class LoginScreen extends React.Component {
       password: '',
     };
   }
+  static navigationOptions = {
+    drawerLockMode: 'locked-closer',
+  }
+  componentDidMount(){
+    this.props.navigation.closeDrawer()
+  }
   login(email, password) {
     try {
       if (this.state.password.length < 6) {

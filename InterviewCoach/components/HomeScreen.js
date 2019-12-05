@@ -2,6 +2,9 @@ import * as React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import logo from '../components/logo.png';
 export default class HomeScreen extends React.Component {
+  static navigationOptions = {
+    drawerLockMode: 'locked-closer',
+  }
   render() {
     return (
       <View style={styles.container}>
