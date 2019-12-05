@@ -19,6 +19,11 @@ export default class LoginScreen extends React.Component {
       password: '',
     };
   }
+  
+  static navigationOptions = {
+    drawerLockMode: 'locked-closed',
+  }
+
   async login(email, password) {
     try {
       if (this.state.password.length < 6) {
@@ -26,7 +31,7 @@ export default class LoginScreen extends React.Component {
         return;
       }
       else {
-        await axios.post(
+        const { data } = await axios.post(
           'https://interview-coach-server.herokuapp.com/auth/login',
           { email, password }
         )
@@ -36,7 +41,13 @@ export default class LoginScreen extends React.Component {
       // console.error(error);
     }
     alert('Logging in with email: ' + this.state.email);
-    this.props.navigation.navigate('InSession');
+
+    this.setState({
+      email: '',
+      password: ''
+    })
+  
+    this.props.navigation.navigate('New Session');
   }
 
   render() {

@@ -18,6 +18,9 @@ export default class SignupScreen extends React.Component {
       password: '',
     };
   }
+  static navigationOptions = {
+    drawerLockMode: 'locked-closed',
+  }
 
   async createAccount(email, password) {
     try {
@@ -44,7 +47,7 @@ export default class SignupScreen extends React.Component {
             email: '',
             password: '',
           });
-          this.props.navigation.navigate('InSession');
+          this.props.navigation.navigate('New Session');
         }
       }
       validate(email);

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native';
 import coach from '../components/coach.png';
 import * as Speech from 'expo-speech';
 import * as FileSystem from 'expo-file-system';
@@ -52,6 +52,7 @@ class InSession extends React.Component {
       isRecording: false,
       recordingDuration: 0,
       transcript: null,
+      questionCount: 1
     };
   }
 
@@ -104,6 +105,7 @@ class InSession extends React.Component {
     );
     await this.setState({
       currentQuestion: this.state.questions[questionIndex],
+      questionCount: this.state.questionCount ++
     });
     Speech.speak(this.state.currentQuestion, {
       language: 'en',
@@ -129,6 +131,7 @@ class InSession extends React.Component {
     this.setState({
       sessionStarted: false,
       currentQuestion: '',
+      questionCount: 1
     });
   };
 
@@ -190,6 +193,7 @@ class InSession extends React.Component {
       const { data } = await axios.post('https://interview-coach-server.herokuapp.com/api/sessions', { string, audioFileURI: uri })
       this.setState({
         transcription: data,
+        questionCount: this.state.questionCount
       });
       return data;
     } catch (error) {
@@ -200,6 +204,7 @@ class InSession extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
         <Text style={styles.title}>INTERVIEW SESSION</Text>
         <Image style={styles.image} source={coach} />
         <View>
@@ -301,5 +306,6 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 18,
-  },
+  }
 });
+

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Splash from './Splash'
 import {
   StyleSheet,
   Text,
@@ -7,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  Button
 } from 'react-native';
 import {
   VictoryBar,
@@ -47,8 +49,11 @@ class HistorySessionScreen extends React.Component {
   };
 
   render() {
+    if (!this.state.sessions.length)
+      return <Splash message={'loading your history...'}/>
     return (
       <View style={styles.container}>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
         <Text style={styles.title}>SESSION HISTORY</Text>
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
@@ -157,7 +162,7 @@ class HistorySessionScreen extends React.Component {
             </View>
           </ScrollView>
         </SafeAreaView>
-        <View>
+        {/* <View>
           <TouchableOpacity style={styles.buttonContainer}>
             <Text
               style={styles.buttonText}
@@ -166,7 +171,7 @@ class HistorySessionScreen extends React.Component {
               NEW SESSION
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     );
   }

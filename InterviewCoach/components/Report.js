@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import Splash from './Splash'
 import {
   StyleSheet, Text, View, TouchableOpacity, ScrollView,
-  SafeAreaView,
+  SafeAreaView, Button
 } from 'react-native';
 import {
   VictoryBar,
@@ -36,6 +37,7 @@ class Report extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      gotData: false,
       questionCount: 0,
       likeWordCount: 0,
       actuallyWordCount: 0,
@@ -55,14 +57,15 @@ class Report extends React.Component {
       );
       console.log('latest', data)
       // console.log('sessions', data)
-      const dataSessionQuestionCount = data[0].questionCount;
+      // const dataSessionQuestionCount = data[0].questionCount;
       const dataSessionLikeWordCount = data[0].likeWordCount;
       const dataSessionActuallyWordCount = data[0].actuallyWordCount;
       const dataSessionBasicallyWordCount = data[0].basicallyWordCount;
       const dataSessionTotalWordCount = data[0].totalWordCount;
       // console.log('dataSessionQuestionCount', dataSessionQuestionCount)
       this.setState({
-        questionCount: dataSessionQuestionCount,
+        gotData: true,
+        // questionCount: dataSessionQuestionCount,
         likeWordCount: dataSessionLikeWordCount,
         actuallyWordCount: dataSessionActuallyWordCount,
         basicallyWordCount: dataSessionBasicallyWordCount,
@@ -78,8 +81,11 @@ class Report extends React.Component {
     const transcription = params.transcription
       ? params.transcription.join(' ')
       : null;
+    if (!this.state.gotData)
+      return <Splash message={'loading your report'} />
     return (
       <View style={styles.container}>
+        <Button style={styles.menu} title='menu' onPress={this.props.navigation.toggleDrawer}/>
         <Text style={styles.title}> PERFORMANCE RESULTS </Text>
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
@@ -250,19 +256,19 @@ class Report extends React.Component {
         <View>
           <TouchableOpacity
             style={styles.buttonContainer}
-            onPress={() => this.props.navigation.navigate('InSession')}
+            onPress={() => this.props.navigation.navigate('New Session')}
           >
             <Text style={styles.buttonText}>NEW SESSION</Text>
           </TouchableOpacity>
         </View>
-        <View>
+        {/* <View>
           <TouchableOpacity
             style={styles.buttonContainer}
             onPress={() => this.props.navigation.navigate('History')}
           >
             <Text style={styles.buttonText}>SESSION HISTORY</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     );
   }
