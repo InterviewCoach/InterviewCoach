@@ -205,8 +205,8 @@ class InSession extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
-        <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
+ 
+        <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer}>
           <Image source={hamburger} />
         </TouchableOpacity>
 
@@ -313,6 +313,10 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 18,
+  },
+  burger: {
+    marginTop: 10,
+    alignSelf: 'flex-start'
   }
 });
 

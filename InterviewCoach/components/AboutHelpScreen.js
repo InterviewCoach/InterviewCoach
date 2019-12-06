@@ -8,7 +8,7 @@ export default class AboutHelpScreen extends React.Component {
     return (
       <View style={styles.container}>
 
-        <TouchableOpacity onPress={this.props.navigation.toggleDrawer} >
+        <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer} >
           <Image source={hamburger} />
         </TouchableOpacity>
 
@@ -118,4 +118,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 16,
   },
+  burger: {
+    marginTop: 10,
+    alignSelf: 'flex-start'
+  }
 });
