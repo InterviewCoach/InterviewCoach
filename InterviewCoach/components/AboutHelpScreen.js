@@ -59,7 +59,7 @@ export default class AboutHelpScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: 'white',
     padding: 25,
     justifyContent: 'flex-start',
   },
