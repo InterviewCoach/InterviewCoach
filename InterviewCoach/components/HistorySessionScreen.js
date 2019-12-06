@@ -135,7 +135,7 @@ class HistorySessionScreen extends React.Component {
                       y="totalWordCount"
                       style={{
                         data: {
-                          fill: data => (idx % 2 ? 'gold' : 'purple'),
+                          fill: data => (idx % 2 ? 'gold' : '#B0E0E6'),
                         },
                       }}
                       categories={{

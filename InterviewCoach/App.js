@@ -61,7 +61,7 @@ const RootStack = createDrawerNavigator(
       }
     },
     History: HistorySessionScreen,
-    'About': AboutHelpScreen,
+    'How To Use': AboutHelpScreen,
     'Logout': HomeScreen
   },
   {

@@ -49,7 +49,7 @@ class InSession extends React.Component {
     this.state = {
       sessionStarted: false,
       questions: [],
-      currentQuestion: 'Welcome, I am Jolie, your interview coach! Press START SESSION to start a new interview and audio recording. I will then begin asking you questions.',
+      currentQuestion: 'Hi, I am Jolie, your interview coach! Press START SESSION to start a new interview and audio recording. I will then begin asking you questions.',
       isRecording: false,
       recordingDuration: 0,
       transcript: null,
