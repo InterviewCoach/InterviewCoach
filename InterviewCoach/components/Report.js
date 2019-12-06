@@ -93,13 +93,11 @@ class Report extends React.Component {
       return <Splash message={'loading your report'} />
 
     return (
-
       <View style={styles.container}>
-        <View style={styles.hamburgerContainer}>
-          <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
-            <Image source={hamburger} />
-          </TouchableOpacity>
-        </View>
+
+        <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer}>
+          <Image source={hamburger} />
+        </TouchableOpacity>
 
         <Text style={styles.title}> PERFORMANCE RESULTS </Text>
         <SafeAreaView style={styles.scrollContainer}>
@@ -112,6 +110,7 @@ class Report extends React.Component {
               <= 2 ?
               <View style={styles.chartContainer}>
                 <Text style={styles.data}>Congratulations, you did not use a lot of the most popular filler words in your interview responses!</Text>
+
                 {/* <Text style={styles.data}>
                   # questions answered:{' '}
                   {this.state.questionCount}
@@ -130,9 +129,8 @@ class Report extends React.Component {
                       this.state.likeWordCount +
                       this.state.basicallyWordCount)}
                 </Text>
-                <Text style={styles.data}></Text>
                 <Text style={styles.data}>
-                  Average filler word useage %s for interviewees:
+                  Average filler word useage for interviewees:
         </Text>
                 <VictoryPie
                   data={data}
@@ -144,26 +142,7 @@ class Report extends React.Component {
                 />
               </View>
               :
-
               <View style={styles.chartContainer}>
-                {/* <Text style={styles.data}>
-                  # questions answered:{' '}
-                  {this.state.questionCount}
-                </Text> */}
-                <Text style={styles.data}>
-                  # 'actually': {this.state.actuallyWordCount}
-                </Text>
-                <Text style={styles.data}># 'like': {this.state.likeWordCount}</Text>
-                <Text style={styles.data}>
-                  # 'basically': {this.state.basicallyWordCount}
-                </Text>
-                <Text style={styles.data}>
-                  # other words:{' '}
-                  {this.state.totalWordCount -
-                    (this.state.actuallyWordCount +
-                      this.state.likeWordCount +
-                      this.state.basicallyWordCount)}
-                </Text>
                 <VictoryChart
                   width={350}
                   theme={VictoryTheme.material}
@@ -188,6 +167,7 @@ class Report extends React.Component {
                       { word: 2, totalWordCount: this.state.actuallyWordCount },
                       { word: 3, totalWordCount: this.state.basicallyWordCount },
                     ]}
+
                     x="word"
                     y="totalWordCount"
                     style={{
@@ -198,6 +178,7 @@ class Report extends React.Component {
                     categories={{
                       x: [`like`, `actually`, `basically`
                       ],
+
                       y: [
                         `1`,
                         `2`,
@@ -260,14 +241,14 @@ class Report extends React.Component {
 
           </ScrollView>
         </SafeAreaView>
-
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => this.props.navigation.navigate('New Session')}
-        >
-          <Text style={styles.buttonText}>NEW SESSION</Text>
-        </TouchableOpacity>
-
+        <View>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => this.props.navigation.navigate('New Session')}
+          >
+            <Text style={styles.buttonText}>NEW SESSION</Text>
+          </TouchableOpacity>
+        </View>
         {/* <View>
           <TouchableOpacity
             style={styles.buttonContainer}
@@ -284,16 +265,10 @@ export default Report;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 50,
+    padding: 25,
     backgroundColor: 'white',
-    // alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  hamburgerContainer: {
-    backgroundColor: 'white',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   // chartContainer: {
   //   flex: 1,
@@ -310,8 +285,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 10,
+    marginBottom: 10,
     marginLeft: 10
   },
   title: {
@@ -327,7 +302,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 5,
     width: 300,
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: '500',
     textAlign: 'left',
     opacity: 0.8,
@@ -359,4 +334,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginHorizontal: 5,
   },
+  burger: {
+    marginTop: 10,
+    alignSelf: 'flex-start'
+  }
 })

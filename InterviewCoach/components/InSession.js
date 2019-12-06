@@ -49,7 +49,7 @@ class InSession extends React.Component {
     this.state = {
       sessionStarted: false,
       questions: [],
-      currentQuestion: 'Welcome, I am Jolie, your interview coach! Press the START SESSION button to start a new interview and audio recording. I will then begin asking you questions.',
+      currentQuestion: 'Welcome, I am Jolie, your interview coach! Press START SESSION to start a new interview and audio recording. I will then begin asking you questions.',
       isRecording: false,
       recordingDuration: 0,
       transcript: null,
@@ -212,53 +212,51 @@ class InSession extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.hamburgerContainer}>
-          <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
-            <Image source={hamburger} />
-          </TouchableOpacity>
-          <View style={styles.container}>
-            <Text style={styles.title}>INTERVIEW SESSION</Text>
-            <Image style={styles.image} source={coach} />
 
-            <Text style={styles.question}>{this.state.currentQuestion}</Text>
+        <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer}>
+          <Image source={hamburger} />
+        </TouchableOpacity>
 
-            <View>
-              {/* <Text style={styles.transcriptionText}>
+        <Text style={styles.title}>INTERVIEW SESSION</Text>
+        <Image style={styles.image} source={coach} />
+        <View>
+          <Text style={styles.question}>{this.state.currentQuestion}</Text>
+        </View>
+        <View>
+          {/* <Text style={styles.transcriptionText}>
             {this.state.transcription
               ? `${this.state.transcription.join(' ')}`
               : ''}
           </Text> */}
-              <Text style={styles.recordingText}>
-                {this.state.isRecording
-                  ? `Recording ${this.state.recordingDuration}`
-                  : ''}
-              </Text>
-              {!this.state.sessionStarted ? (
-                <TouchableOpacity
-                  style={styles.buttonContainer}
-                  onPress={this.startSessionSpeak}
-                >
-                  <Text style={styles.buttonText}>START SESSION</Text>
-                </TouchableOpacity>
-              ) : null}
-              {this.state.sessionStarted ? (
-                <TouchableOpacity
-                  style={styles.buttonContainer}
-                  onPress={this.nextQuestionSpeak}
-                >
-                  <Text style={styles.buttonText}>NEXT QUESTION</Text>
-                </TouchableOpacity>
-              ) : null}
-              {this.state.sessionStarted ? (
-                <TouchableOpacity
-                  style={styles.buttonContainer}
-                  onPress={this.endSessionSpeak}
-                >
-                  <Text style={styles.buttonText}>END SESSION</Text>
-                </TouchableOpacity>
-              ) : null}
-            </View>
-          </View>
+          <Text style={styles.recordingText}>
+            {this.state.isRecording
+              ? `Recording ${this.state.recordingDuration}`
+              : ''}
+          </Text>
+          {!this.state.sessionStarted ? (
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={this.startSessionSpeak}
+            >
+              <Text style={styles.buttonText}>START SESSION</Text>
+            </TouchableOpacity>
+          ) : null}
+          {this.state.sessionStarted ? (
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={this.nextQuestionSpeak}
+            >
+              <Text style={styles.buttonText}>NEXT QUESTION</Text>
+            </TouchableOpacity>
+          ) : null}
+          {this.state.sessionStarted ? (
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={this.endSessionSpeak}
+            >
+              <Text style={styles.buttonText}>END SESSION</Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
       </View>
     );
@@ -270,12 +268,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 25,
-  },
-  hamburgerContainer: {
-    backgroundColor: 'white',
-    alignItems: 'flex-start',
     justifyContent: 'space-between',
     padding: 25,
   },
@@ -328,5 +320,9 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 18,
+  },
+  burger: {
+    marginTop: 10,
+    alignSelf: 'flex-start'
   }
 });

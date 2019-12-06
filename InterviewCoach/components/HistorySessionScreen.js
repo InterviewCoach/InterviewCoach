@@ -37,7 +37,6 @@ class HistorySessionScreen extends React.Component {
   loadSessionData = async () => {
     try {
       const { data } = await axios.get(
-        // `https://interview-coach-server.herokuapp.com/api/sessions/latest/user/:${req.user.id}`
         'https://interview-coach-server.herokuapp.com/api/sessions/latest/10'
       );
       console.log('sessions data->', data);
@@ -55,11 +54,11 @@ class HistorySessionScreen extends React.Component {
       return <Splash message={'loading your history...'} />
     return (
       <View style={styles.container}>
-        <View style={styles.hamburgerContainer}>
-          <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
-            <Image source={hamburger} />
-          </TouchableOpacity>
-        </View>
+
+        <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer}>
+          <Image source={hamburger} />
+        </TouchableOpacity>
+
         <Text style={styles.title}>SESSION HISTORY</Text>
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
@@ -131,6 +130,7 @@ class HistorySessionScreen extends React.Component {
                         { word: 3, totalWordCount: session.basicallyWordCount },
                         ,
                       ]}
+
                       x="word"
                       y="totalWordCount"
                       style={{
@@ -152,6 +152,7 @@ class HistorySessionScreen extends React.Component {
                           '9',
                           '10',
                         ],
+
                       }}
                     />
                   </VictoryChart>
@@ -183,14 +184,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 25,
     backgroundColor: 'white',
-    // alignItems: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
-  },
-  hamburgerContainer: {
-    backgroundColor: 'white',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    padding: 25,
   },
   chartContainer: {
     flex: 1,
@@ -199,7 +194,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
     marginBottom: 10,
-    marginLeft: 10
   },
   // chartContainer: {
   //   flex: 1,
@@ -255,4 +249,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginHorizontal: 5,
   },
+  burger: {
+    marginTop: 10,
+    alignSelf: 'flex-start'
+  }
 });
