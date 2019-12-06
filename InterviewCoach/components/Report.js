@@ -95,7 +95,7 @@ class Report extends React.Component {
     return (
       <View style={styles.container}>
 
-        <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
+        <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer}>
           <Image source={hamburger} />
         </TouchableOpacity>
 
@@ -340,4 +340,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginHorizontal: 5,
   },
+  burger: {
+    marginTop: 10,
+    alignSelf: 'flex-start'
+  }
 })
