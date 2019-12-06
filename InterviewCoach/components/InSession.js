@@ -49,7 +49,7 @@ class InSession extends React.Component {
     this.state = {
       sessionStarted: false,
       questions: [],
-      currentQuestion: '',
+      currentQuestion: 'Hi, I am Jolie, your interview coach! Press START SESSION to start a new interview and audio recording. I will then begin asking you questions.',
       isRecording: false,
       recordingDuration: 0,
       transcript: null,
@@ -59,7 +59,14 @@ class InSession extends React.Component {
 
   componentDidMount() {
     this.loadQuestions();
+    Speech.speak(this.state.currentQuestion, {
+      language: 'en',
+      pitch: 1.1,
+      rate: 0.9,
+    });
   }
+
+
 
   loadQuestions = async () => {
     try {
@@ -89,7 +96,7 @@ class InSession extends React.Component {
     this.setState({
       sessionStarted: true,
       currentQuestion:
-        "Welcome! Let's get started with your interview. Tell me about yourself.",
+        "Let's get started with your interview. Tell me about yourself.",
       audioPermissions: status,
     });
     Speech.speak(this.state.currentQuestion, {
@@ -106,7 +113,7 @@ class InSession extends React.Component {
     );
     await this.setState({
       currentQuestion: this.state.questions[questionIndex],
-      questionCount: this.state.questionCount ++
+      questionCount: this.state.questionCount++
     });
     Speech.speak(this.state.currentQuestion, {
       language: 'en',
@@ -205,7 +212,7 @@ class InSession extends React.Component {
   render() {
     return (
       <View style={styles.container}>
- 
+
         <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer}>
           <Image source={hamburger} />
         </TouchableOpacity>
@@ -319,4 +326,3 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start'
   }
 });
-

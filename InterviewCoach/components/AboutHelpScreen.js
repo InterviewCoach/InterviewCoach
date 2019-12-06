@@ -11,7 +11,7 @@ export default class AboutHelpScreen extends React.Component {
         <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer} >
           <Image source={hamburger} />
         </TouchableOpacity>
-
+        {/* </View> */}
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text style={styles.title}> INTERVIEW COACH </Text>
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 100,
+    borderRadius: 30
   },
   title: {
     color: 'black',
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 10,
     width: 350,
-    fontSize: 12.5,
+    fontSize: 12,
     fontWeight: '500',
     textAlign: 'left',
     opacity: 0.8,

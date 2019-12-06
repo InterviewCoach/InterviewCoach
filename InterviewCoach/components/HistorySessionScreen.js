@@ -51,7 +51,7 @@ class HistorySessionScreen extends React.Component {
 
   render() {
     if (!this.state.sessions.length)
-      return <Splash message={'loading your history...'}/>
+      return <Splash message={'loading your history...'} />
     return (
       <View style={styles.container}>
 
@@ -128,36 +128,31 @@ class HistorySessionScreen extends React.Component {
                         { word: 1, totalWordCount: session.likeWordCount },
                         { word: 2, totalWordCount: session.actuallyWordCount },
                         { word: 3, totalWordCount: session.basicallyWordCount },
-                        {
-                          word: 4,
-                          totalWordCount:
-                            session.totalWordCount -
-                            (session.actuallyWordCount +
-                              session.likeWordCount +
-                              session.basicallyWordCount),
-                        },
+                        ,
                       ]}
+
                       x="word"
                       y="totalWordCount"
                       style={{
                         data: {
-                          fill: data => (idx % 2 ? 'gold' : 'purple'),
+                          fill: data => (idx % 2 ? 'gold' : '#B0E0E6'),
                         },
                       }}
                       categories={{
-                        x: [`like`, `actually`, `basically`, `other`],
+                        x: [`like`, `actually`, `basically`],
                         y: [
-                          `10`,
-                          `20`,
-                          `30`,
-                          `40`,
-                          `50`,
-                          '60',
-                          '70',
-                          '80',
-                          '90',
-                          '100',
+                          `1`,
+                          `2`,
+                          `3`,
+                          `4`,
+                          `5`,
+                          '6',
+                          '7',
+                          '8',
+                          '9',
+                          '10',
                         ],
+
                       }}
                     />
                   </VictoryChart>

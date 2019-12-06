@@ -14,13 +14,14 @@ import Logout from './components/Logout'
 import Report from './components/Report';
 import HistorySessionScreen from './components/HistorySessionScreen';
 
+
 export default class App extends React.Component {
   constructor() {
     super();
   }
 
   render() {
-    return <AppContainer style={styles.container}/>;
+    return <AppContainer style={styles.container} />;
   }
 }
 const styles = StyleSheet.create({
@@ -33,34 +34,35 @@ const RootStack = createDrawerNavigator(
   {
     Home: HomeScreen,
     Report: Report,
+
     Home: {
       screen: HomeScreen,
       navigationOptions: {
-        drawerLabel: ()=>null
+        drawerLabel: () => null
       }
     },
     Login: {
       screen: LoginScreen,
       navigationOptions: {
-        drawerLabel: ()=>null
+        drawerLabel: () => null
       }
     },
     Signup: {
       screen: SignupScreen,
       navigationOptions: {
-        drawerLabel: ()=>null
+        drawerLabel: () => null
       }
     },
     'New Session': InSession,
     Report: {
       screen: Report,
       navigationOptions: {
-        drawerLabel: ()=>null
+        drawerLabel: () => null
       }
     },
     History: HistorySessionScreen,
-    'About': AboutHelpScreen,
-    'Logout': Logout
+    'How To Use': AboutHelpScreen,
+    'Logout': HomeScreen
   },
   {
     initialRouteName: 'Home',
