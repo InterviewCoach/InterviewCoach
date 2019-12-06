@@ -46,7 +46,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
+    backgroundColor: '#f8f8f8',
     padding: 50,
   },
   logoContainer: {
@@ -57,9 +57,10 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
+    borderRadius: 30
   },
   title: {
-    color: 'white',
+    color: 'black',
     marginTop: 10,
     width: 250,
     fontSize: 24,
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   subtitle: {
-    color: 'white',
+    color: 'black',
     marginTop: 10,
     marginBottom: 10,
     width: 200,
@@ -77,10 +78,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     opacity: 0.8,
   },
+  // buttonContainer: {
+  //   backgroundColor: 'aqua',
+  //   paddingVertical: 20,
+  //   marginBottom: 15,
+  // },
   buttonContainer: {
-    backgroundColor: 'aqua',
+    backgroundColor: '#bdecb6',
     paddingVertical: 20,
+    paddingHorizontal: 20,
     marginBottom: 15,
+    borderRadius: 12
   },
   buttonText: {
     textAlign: 'center',

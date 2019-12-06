@@ -62,11 +62,14 @@ const RootStack = createDrawerNavigator(
     },
     History: HistorySessionScreen,
     'About': AboutHelpScreen,
-    'Logout': Logout
+    'Logout': HomeScreen
   },
   {
     initialRouteName: 'Home',
+    drawerWidth: 200,
+    icon: './components/icon.png'
   }
 );
+
 
 const AppContainer = createAppContainer(RootStack);
