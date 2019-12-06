@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 120,
     height: 120,
+    borderRadius: 30
   },
   title: {
     color: 'black',

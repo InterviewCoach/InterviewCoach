@@ -55,11 +55,11 @@ class HistorySessionScreen extends React.Component {
       return <Splash message={'loading your history...'} />
     return (
       <View style={styles.container}>
-
-        <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
-          <Image source={hamburger} />
-        </TouchableOpacity>
-
+        <View style={styles.hamburgerContainer}>
+          <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
+            <Image source={hamburger} />
+          </TouchableOpacity>
+        </View>
         <Text style={styles.title}>SESSION HISTORY</Text>
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView style={styles.scrollView}>
@@ -183,8 +183,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 25,
     backgroundColor: 'white',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
+  },
+  hamburgerContainer: {
+    backgroundColor: 'white',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    padding: 25,
   },
   chartContainer: {
     flex: 1,

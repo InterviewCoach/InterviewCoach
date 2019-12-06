@@ -93,11 +93,13 @@ class Report extends React.Component {
       return <Splash message={'loading your report'} />
 
     return (
-      <View style={styles.container}>
 
-        <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
-          <Image source={hamburger} />
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <View style={styles.hamburgerContainer}>
+          <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
+            <Image source={hamburger} />
+          </TouchableOpacity>
+        </View>
 
         <Text style={styles.title}> PERFORMANCE RESULTS </Text>
         <SafeAreaView style={styles.scrollContainer}>
@@ -128,8 +130,9 @@ class Report extends React.Component {
                       this.state.likeWordCount +
                       this.state.basicallyWordCount)}
                 </Text>
+                <Text style={styles.data}></Text>
                 <Text style={styles.data}>
-                  Average filler word useage for interviewees:
+                  Average filler word useage %s for interviewees:
         </Text>
                 <VictoryPie
                   data={data}
@@ -257,14 +260,14 @@ class Report extends React.Component {
 
           </ScrollView>
         </SafeAreaView>
-        <View>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={() => this.props.navigation.navigate('New Session')}
-          >
-            <Text style={styles.buttonText}>NEW SESSION</Text>
-          </TouchableOpacity>
-        </View>
+
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => this.props.navigation.navigate('New Session')}
+        >
+          <Text style={styles.buttonText}>NEW SESSION</Text>
+        </TouchableOpacity>
+
         {/* <View>
           <TouchableOpacity
             style={styles.buttonContainer}
@@ -281,10 +284,16 @@ export default Report;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 25,
+    padding: 50,
     backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  hamburgerContainer: {
+    backgroundColor: 'white',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    marginBottom: 10,
   },
   // chartContainer: {
   //   flex: 1,

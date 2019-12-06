@@ -66,6 +66,8 @@ class InSession extends React.Component {
     });
   }
 
+
+
   loadQuestions = async () => {
     try {
       const { data } = await axios.get(
@@ -275,7 +277,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    padding: 35,
+    padding: 25,
   },
   title: {
     color: 'black',
