@@ -1,4 +1,4 @@
-Welcome to **Interview Coach**: A mobile app that redefines interview prep by simulating mock interview sessions, recording and analyzing a users response, and providing personalized feedback through data visualization.
+Welcome to **Interview Coach**: A mobile app that redefines interview prep by simulating mock interview sessions, recording and analyzing a user's response, and providing personalized feedback through data visualization.
 
 ## Getting Started
 
@@ -12,6 +12,9 @@ Beta Release 0.0.1
 Download the Expo Client app from the app store: https://apps.apple.com/us/app/expo-client/id982107779.
 Upon opening the app, click on the tab 'Scan QR Code'. 
 Visit https://expo.io/@malkam/InterviewCoach and scan the QR code seen on the right side of the screen. 
+
+## Features
+
 
 ## Tech Stack
 
