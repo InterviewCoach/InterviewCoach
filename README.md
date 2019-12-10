@@ -42,7 +42,7 @@ Click on the menu button on the top left corner of the app to open the app's nav
 
 Selecting 'New Session' takes you back to the Interview Session screen to start a new session. 
 
-**History Session**
+**History**
 
 Selecting 'History' provides data visualization of all your previous sessions. Scroll through to see your improvements over time. 
 
