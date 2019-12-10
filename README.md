@@ -35,18 +35,23 @@ Clicking the 'End Session' button will complete your session. You will then be t
 
 **Navigating The App**
 
-Click on the menu button on the top left corner of the app to open the app's navigation. In here, you will see ...
+Click on the menu button on the top left corner of the app to open the app's navigation. In here, you can navigate to our New Session, History, or About page. Or, you can simply log out. 
 
 **New Session**
 
+Our New Session page takes you back into the beginning of a session. 
+
 **History Session**
+
+Our History provides data visualization of all your prvious sessions. Scroll through to see your improvements over time. 
 
 **About Page**
 
+Our About page gives a user more information about the functionality of our app. 
+
 **Log Out**
 
-
-
+Clicking on this option simply logs the user out and takes them back to the sign up / log in page. 
 
 
 ## Tech Stack
