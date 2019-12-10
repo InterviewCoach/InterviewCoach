@@ -1,3 +1,5 @@
+
+
 **Interview Coach**
 
 **Overview**
@@ -39,3 +41,8 @@ See complete schema through this link.
 - Getting our data visualizations to look nice
 - Implementing ai to provide feedback on the content of users answers
 
+## Resources
+
+Built on React Native, Expo, and PostgreSQL. 
+
+**Creators:** [Svetlana Shammasova](https://github.com/GNz11), [Malka Moskowicz](https://github.com/malkamoskowicz), [Chia-Li-Chen](https://github.com/Chia-Li-Chen), [Carina Lopez](https://github.com/CarinaLR)
