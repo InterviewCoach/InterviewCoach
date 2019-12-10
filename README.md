@@ -4,7 +4,7 @@ Welcome to **Interview Coach**: A mobile app that redefines interview prep by si
 
 #### Requirements
 
-Android is fully supported. At this time, our app can not be used with IOS. 
+Android devices are fully supported. At this time, our app is not supported on IOS. 
 
 #### How to Install
 
@@ -15,15 +15,16 @@ Visit https://expo.io/@malkam/InterviewCoach and scan the QR code seen on the ri
 
 ## Features
 
-**Logging In / Signing Up**
+**Getting Started**
 
-Upon opening the app, you will be brought to our sign up and log in page. If you are new user, choose the sign up option. If you are a returning user, please choose the login option. 
+If this is your first time using the app, you will be asked to give the app permission to use your microphone. 
 
-If this your first time using the app, you wil prompted to accept permissions for the app to use your microphone. 
+Upon opening the app, you will be brought to our sign up and log in page. If you are a new user, choose the sign up option. If you are a returning user, please choose the login option. 
+
 
 **Starting a Session**
 
-Click the 'Start Session' to start your interview session. Upon clicking the button, the interviewer will introduce herself and ask you about yourself. The app will start recording the session. 
+Upon signing up or logging in, you will be taken to our Interview Session screen. Click the 'Start Session' button to start your interview session. Upon clicking the button, the interviewer will start the interview and ask you about yourself. The app will start recording the session. 
 
 **Next Question**
 
@@ -31,23 +32,23 @@ After answering a question, you can choose to receieve another question. Keep cl
 
 **End Session**
 
-Clicking the 'End Session' button will complete your session. You will then be taken to your report, where you will see a clear data visualization of your results. For our, our app focuses on giving you feedback on commonly used filler words. Here, you can conveniently click 'New Session' to continue practicing. 
+Clicking the 'End Session' button will complete your session. You will then be taken to your report, where you will see a clear data visualization of your results. For now, our app focuses on giving you feedback on your usage of common filler words during the interview session. Here, you can conveniently click 'New Session' to continue practicing. 
 
 **Navigating The App**
 
-Click on the menu button on the top left corner of the app to open the app's navigation. In here, you can navigate to our New Session, History, or About page. Or, you can simply log out. 
+Click on the menu button on the top left corner of the app to open the app's navigation menu. In here, you can navigate to start a 'New Session', see your 'History', or learn more about 'How To Use' the app. Or, you can simply log out. 
 
 **New Session**
 
-Our New Session page takes you back into the beginning of a session. 
+Selecting 'New Session' takes you back to the Interview Session screen to start a new session. 
 
 **History Session**
 
-Our History provides data visualization of all your prvious sessions. Scroll through to see your improvements over time. 
+Selecting 'History' provides data visualization of all your previous sessions. Scroll through to see your improvements over time. 
 
-**About Page**
+**How To Use**
 
-Our About page gives a user more information about the functionality of our app. 
+Selecting 'How To Use' gives a user more information about the functionality of our app. 
 
 **Log Out**
 
