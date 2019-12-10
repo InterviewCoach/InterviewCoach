@@ -1,48 +1,21 @@
+Welcome to **Interview Coach**: A mobile app that redfines interview prep by stimulating mock interview sessions, recording and analyzing a users response, and providing personalized feedback through data visualization.
 
+## Getting Started
 
-**Interview Coach**
+#### Requirements
 
-**Overview**
-A mobile app with a virtual interview coach that uses AI and Machine Learning to process spoken and visual inputs to provide feedback on interview performance through data visualization & personal recommendations.
+Android is fully supported. At this time, our app can not be used with IOS. 
 
-**MVP**
-A user is presented an interview question and is able to record his/ her answer.
-The app takes that audio input and analyzes the content, specifically the use of fillers (‘likes’, ‘ums’, ‘ahs).
-The user is then presented with performance feedback through reports and charts based on predetermined metrics.
+#### How to Install
 
-**Stretch Goals**
-- Ability to capture and analyze quality of audio input (speed of speech, volume)
-- Ability to capture and analyze visual input (eye contact, smiling)
-- Ability to provide feedback on the relevance and quality of the answer
-- Store historical data on the user’s performance
+Beta Release 0.0.1
+Download the Expo Client app from the app store: https://apps.apple.com/us/app/expo-client/id982107779.
+Upon opening the app, click on the tab 'Scan QR Code'. 
+Visit https://expo.io/@malkam/InterviewCoach and scan the QR code seen on the right side of the screen. 
 
-**Tech Stack**
-- React Native
-- Firebase
-- Tensor Flow
-- Cube.js
+## Tech Stack
 
-**Libraries:**
-- React Native Charts (or Victory, Chart.js)
-- React-native-voice
-- React-native-camera
-- Chatbot library
- 
-**Wireframes**
-See complete wireframe through this link.
-![Wireframe](InterviewCoach.pdf)
+Front-end: React Native, Expo, Victory Charts
+Back-end: PostgreSQL, Sequelize, Google Cloud, Express, Node, Heroku
 
-**Schema Design**
-See complete schema through this link.
-![Screenshot](DatabaseSchema.png)
-
-**Technical Challenges**
-- Integrating so many outside libraries
-- Getting our data visualizations to look nice
-- Implementing ai to provide feedback on the content of users answers
-
-## Resources
-
-Built on React Native, Expo, and PostgreSQL. 
-
-**Creators:** [Svetlana Shammasova](https://github.com/GNz11), [Malka Moskowicz](https://github.com/malkamoskowicz), [Chia-Li-Chen](https://github.com/Chia-Li-Chen), [Carina Lopez](https://github.com/CarinaLR)
+## Creators [Svetlana Shammasova](https://github.com/GNz11), [Malka Moskowicz](https://github.com/malkamoskowicz), [Chia-Li-Chen](https://github.com/Chia-Li-Chen), [Carina Lopez](https://github.com/CarinaLR)
