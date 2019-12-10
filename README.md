@@ -1,4 +1,4 @@
-Welcome to **Interview Coach**: A mobile app that redfines interview prep by stimulating mock interview sessions, recording and analyzing a users response, and providing personalized feedback through data visualization.
+Welcome to **Interview Coach**: A mobile app that redefines interview prep by stimulating mock interview sessions, recording and analyzing a users response, and providing personalized feedback through data visualization.
 
 ## Getting Started
 
