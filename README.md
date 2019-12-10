@@ -15,6 +15,39 @@ Visit https://expo.io/@malkam/InterviewCoach and scan the QR code seen on the ri
 
 ## Features
 
+**Logging In / Signing Up**
+
+Upon opening the app, you will be brought to our sign up and log in page. If you are new user, choose the sign up option. If you are a returning user, please choose the login option. 
+
+If this your first time using the app, you wil prompted to accept permissions for the app to use your microphone. 
+
+**Starting a Session**
+
+Click the 'Start Session' to start your interview session. Upon clicking the button, the interviewer will introduce herself and ask you about yourself. The app will start recording the session. 
+
+**Next Question**
+
+After answering a question, you can choose to receieve another question. Keep clicking the 'Next Question' button until you are ready to complete your session. 
+
+**End Session**
+
+Clicking the 'End Session' button will complete your session. You will then be taken to your report, where you will see a clear data visualization of your results. For our, our app focuses on giving you feedback on commonly used filler words. Here, you can conveniently click 'New Session' to continue practicing. 
+
+**Navigating The App**
+
+Click on the menu button on the top left corner of the app to open the app's navigation. In here, you will see ...
+
+**New Session**
+
+**History Session**
+
+**About Page**
+
+**Log Out**
+
+
+
+
 
 ## Tech Stack
 
