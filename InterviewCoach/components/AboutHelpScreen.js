@@ -3,15 +3,14 @@ import { StyleSheet, View, Image, Text, TouchableOpacity, Button } from 'react-n
 import logo from '../components/logo.png';
 import hamburger from '../components/hamburgerBlack.png';
 
+// About component where a user can get helpful information about using the app
 export default class AboutHelpScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
         <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer} >
           <Image source={hamburger} />
         </TouchableOpacity>
-        {/* </View> */}
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text style={styles.title}> INTERVIEW COACH </Text>
@@ -44,12 +43,6 @@ export default class AboutHelpScreen extends React.Component {
             Charts will be provided to show your usage of common filler words in your interview responses across all of the sessions you have recorded.{' '}
           </Text>
         </View>
-        {/* <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => this.props.navigation.navigate('Home')}
-        >
-          <Text style={styles.buttonText}>HOME</Text>
-        </TouchableOpacity> */}
       </View>
     );
   }
