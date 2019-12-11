@@ -1,17 +1,20 @@
 import * as React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import logo from '../components/logo.png';
 import hamburger from '../components/hamburgerBlack.png';
 
+// About component where a user can get helpful information about using the app
 export default class AboutHelpScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
 
+        {/* drawer navigation */}
         <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer} >
           <Image source={hamburger} />
         </TouchableOpacity>
-        {/* </View> */}
+
+        {/* about information */}
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text style={styles.title}> INTERVIEW COACH </Text>
@@ -44,12 +47,6 @@ export default class AboutHelpScreen extends React.Component {
             Charts will be provided to show your usage of common filler words in your interview responses across all of the sessions you have recorded.{' '}
           </Text>
         </View>
-        {/* <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => this.props.navigation.navigate('Home')}
-        >
-          <Text style={styles.buttonText}>HOME</Text>
-        </TouchableOpacity> */}
       </View>
     );
   }
@@ -71,7 +68,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 100,
-    borderRadius: 30
+    borderRadius: 30,
   },
   title: {
     color: 'black',
@@ -100,18 +97,12 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     opacity: 0.8,
   },
-  // buttonContainer: {
-  //   backgroundColor: 'aqua',
-  //   paddingVertical: 10,
-  //   marginBottom: 15,
-  //   padding: 10,
-  // },
   buttonContainer: {
     backgroundColor: '#bdecb6',
     paddingVertical: 20,
     paddingHorizontal: 20,
     marginBottom: 15,
-    borderRadius: 12
+    borderRadius: 12,
   },
   buttonText: {
     textAlign: 'center',
@@ -121,6 +112,6 @@ const styles = StyleSheet.create({
   },
   burger: {
     marginTop: 10,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   }
 });
