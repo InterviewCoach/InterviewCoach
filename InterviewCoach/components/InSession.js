@@ -221,13 +221,15 @@ class InSession extends React.Component {
           <Text style={styles.question}>{this.state.currentQuestion}</Text>
         </View>
 
-        {/* buttons to start session, render new question, and end session, and recording information */}
         <View>
+          {/* recording information */}
           <Text style={styles.recordingText}>
             {this.state.isRecording
               ? `Recording ${this.state.recordingDuration}`
               : ''}
           </Text>
+
+          {/* button to start session */}
           {!this.state.sessionStarted ? (
             <TouchableOpacity
               style={styles.buttonContainer}
@@ -236,6 +238,8 @@ class InSession extends React.Component {
               <Text style={styles.buttonText}>START SESSION</Text>
             </TouchableOpacity>
           ) : null}
+
+          {/* button to render next question */}
           {this.state.sessionStarted ? (
             <TouchableOpacity
               style={styles.buttonContainer}
@@ -244,6 +248,8 @@ class InSession extends React.Component {
               <Text style={styles.buttonText}>NEXT QUESTION</Text>
             </TouchableOpacity>
           ) : null}
+
+          {/* button to end session */}
           {this.state.sessionStarted ? (
             <TouchableOpacity
               style={styles.buttonContainer}
