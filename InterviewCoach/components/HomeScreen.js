@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import logo from '../components/logo.png';
 
+// Home screen the user sees when they start using our app. Gives the user the options of logging in or signing up.
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     drawerLockMode: 'locked-closed',
@@ -10,39 +11,38 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
+        {/* Logo and heading */}
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text
             onPress={() => this.props.navigation.navigate('New Session')}
-            style={styles.title}
-          >
-            INTERVIEW COACH
+            style={styles.title}>INTERVIEW COACH
           </Text>
+
           <Text style={styles.subtitle}>
             The perfect platform to help you prep for your next interview!
           </Text>
         </View>
+
+        {/* Log in button that brings the user to a Log In screen */}
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => this.props.navigation.navigate('Login')}
-        >
+          onPress={() => this.props.navigation.navigate('Login')}>
           <Text style={styles.buttonText}>LOG IN</Text>
         </TouchableOpacity>
+
+        {/* Sign up button that brings the user to a Sign Up screen */}
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => this.props.navigation.navigate('Signup')}
-        >
+          onPress={() => this.props.navigation.navigate('Signup')}>
           <Text style={styles.buttonText}>SIGN UP</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('About')}
-        >
-          <Text style={styles.buttonText}>LEARN MORE</Text>
-        </TouchableOpacity> */}
       </View>
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -78,11 +78,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     opacity: 0.8,
   },
-  // buttonContainer: {
-  //   backgroundColor: 'aqua',
-  //   paddingVertical: 20,
-  //   marginBottom: 15,
-  // },
   buttonContainer: {
     backgroundColor: '#bdecb6',
     paddingVertical: 20,
