@@ -6,7 +6,7 @@ import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis } from 'victory-nat
 import Constants from 'expo-constants';
 import hamburger from '../assets/hamburgerBlack.png';
 
-// History component where a user cna see data visualizations of their past interview sessions
+// History component where a user can see data visualizations of their past interview sessions
 class HistorySessionScreen extends React.Component {
   constructor() {
     super();

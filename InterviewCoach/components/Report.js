@@ -1,12 +1,46 @@
 import React from 'react';
 import axios from 'axios';
 import Splash from './Splash'
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis, VictoryPie, VictoryLabel } from 'victory-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+  Button,
+  Image
+} from 'react-native';
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryTheme,
+  VictoryAxis,
+  VictoryPie,
+  VictoryLabel,
+} from 'victory-native';
 import Constants from 'expo-constants';
 import hamburger from '../assets/hamburgerBlack.png';
 
-// Report component which displays data visualizaton of a users most recent session
+const data = [
+  {
+    x: 'actually',
+    y: 4
+  },
+  {
+    x: 'like',
+    y: 5
+  },
+  {
+    x: 'basically',
+    y: 3
+  },
+  {
+    x: 'other',
+    y: 88,
+  },
+]
+
 class Report extends React.Component {
   constructor(props) {
     super(props);
@@ -24,16 +58,26 @@ class Report extends React.Component {
     await this.loadSessionData();
   }
 
-  // load data form database and set to state
   loadSessionData = async () => {
     try {
-      const { data } = await axios.get('https://interview-coach-server.herokuapp.com/api/sessions/latest/1');
+      const { data } = await axios.get(
+        'https://interview-coach-server.herokuapp.com/api/sessions/latest/1'
+      );
+      console.log('latest', data)
+      // console.log('sessions', data)
+      // const dataSessionQuestionCount = data[0].questionCount;
+      const dataSessionLikeWordCount = data[0].likeWordCount;
+      const dataSessionActuallyWordCount = data[0].actuallyWordCount;
+      const dataSessionBasicallyWordCount = data[0].basicallyWordCount;
+      const dataSessionTotalWordCount = data[0].totalWordCount;
+      // console.log('dataSessionQuestionCount', dataSessionQuestionCount)
       this.setState({
         gotData: true,
-        likeWordCount: data[0].likeWordCount,
-        actuallyWordCount: data[0].actuallyWordCount,
-        basicallyWordCount: data[0].basicallyWordCount,
-        totalWordCount: data[0].totalWordCount,
+        // questionCount: dataSessionQuestionCount,
+        likeWordCount: dataSessionLikeWordCount,
+        actuallyWordCount: dataSessionActuallyWordCount,
+        basicallyWordCount: dataSessionBasicallyWordCount,
+        totalWordCount: dataSessionTotalWordCount,
       });
     } catch (error) {
       console.error(error);
@@ -41,20 +85,21 @@ class Report extends React.Component {
   };
 
   render() {
-    
-    // render spalsh while waiting for data
+   
     if (!this.state.gotData)
       return <Splash message={'loading your report'} />
 
     return (
       <View style={styles.container}>
-        {/* drawer navigation */}
+
         <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer}>
           <Image source={hamburger} />
         </TouchableOpacity>
 
-        {/* data visualization */}
         <Text style={styles.title}> PERFORMANCE RESULTS </Text>
+        {/* <SafeAreaView style={styles.scrollContainer}>
+          <ScrollView style={styles.scrollView}> */}
+        {/* <Text style={styles.transcriptionText}>{transcription}</Text> */}
 
         {((this.state.actuallyWordCount +
           this.state.likeWordCount +
@@ -67,6 +112,14 @@ class Report extends React.Component {
             <Text style={styles.databold}></Text>
 
             <Text style={styles.databold}>Congratulations, your responses did not contain many common filler words:</Text>
+
+            {/* <Text style={styles.data}>
+                  # questions answered:{' '}
+                  {this.state.questionCount}
+                </Text> */}
+            {/* <Text style={styles.databold}>
+              Your results:
+                </Text> */}
             <Text style={styles.data}>
               # 'actually': {this.state.actuallyWordCount}
             </Text>
@@ -88,7 +141,6 @@ class Report extends React.Component {
               data={data}
               labels={({ datum }) => `${datum.x}: ${datum.y}%`}
               colorScale={['gold', '#DDA0DD', '#20B2AA', '#B0E0E6']}
-
               padding={{ left: 100, right: 100 }}
               style={{ labels: { fontSize: 10, fill: 'black' } }}
               labelComponent={<VictoryLabel angle={325} />}
@@ -96,7 +148,6 @@ class Report extends React.Component {
           </View>
           :
           <View style={styles.chartContainer}>
-
             <Text style={styles.databold}>
               Your results:
                 </Text>
@@ -114,7 +165,6 @@ class Report extends React.Component {
                   this.state.likeWordCount +
                   this.state.basicallyWordCount)}
             </Text>
-
             <VictoryChart
               width={350}
               theme={VictoryTheme.material}
@@ -132,14 +182,12 @@ class Report extends React.Component {
                   axisLabel: { padding: 100 }
                 }}
               />
-
               <VictoryBar
                 data={[
                   { word: 1, totalWordCount: this.state.likeWordCount },
                   { word: 2, totalWordCount: this.state.actuallyWordCount },
                   { word: 3, totalWordCount: this.state.basicallyWordCount },
                 ]}
-
                 x="word"
                 y="totalWordCount"
                 style={{
@@ -148,14 +196,68 @@ class Report extends React.Component {
                   },
                 }}
                 categories={{
-                  x: ['like', 'actually', 'basically'],
-                  y: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                  x: [`like`, `actually`, `basically`
+                  ],
+                  y: [
+                    `1`,
+                    `2`,
+                    `3`,
+                    `4`,
+                    `5`,
+                    '6',
+                    '7',
+                    '8',
+                    '9',
+                    '10',
+                  ],
                 }}
               />
             </VictoryChart>
+            {/* <VictoryPie
+              data={[
+                {
+                  x: 'actually',
+                  y: Math.round(
+                    (this.state.actuallyWordCount / this.state.totalWordCount) *
+                    100
+                  ),
+                },
+                {
+                  x: 'like',
+                  y: Math.round(
+                    (this.state.likeWordCount / this.state.totalWordCount) * 100
+                  ),
+                },
+                {
+                  x: 'basically',
+                  y: Math.round(
+                    (this.state.basicallyWordCount / this.state.totalWordCount) *
+                    100
+                  ),
+                },
+                {
+                  x: 'other',
+                  y: Math.round(
+                    ((this.state.totalWordCount -
+                      (this.state.actuallyWordCount +
+                        this.state.likeWordCount +
+                        this.state.basicallyWordCount)) /
+                      this.state.totalWordCount) *
+                    100
+                  ),
+                },
+              ]}
+              labels={({ datum }) => {
+                `${datum.x}: ${datum.y}%`
+              }}
+              colorScale={['gold', '#B0E0E6', '#20B2AA', '#DDA0DD']}
+              padding={{ left: 100, right: 100 }}
+              style={{ labels: { fontSize: 10, fill: 'black' } }}
+              labelComponent={<VictoryLabel angle={325} />}
+            /> */}
           </View>}
-
-        {/* button to start new session - takes a user back to the in session component */}
+        {/* </ScrollView>
+        </SafeAreaView> */}
         <View>
           <TouchableOpacity
             style={styles.buttonContainer}
@@ -164,6 +266,14 @@ class Report extends React.Component {
             <Text style={styles.buttonText}>NEW SESSION</Text>
           </TouchableOpacity>
         </View>
+        {/* <View>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => this.props.navigation.navigate('History')}
+          >
+            <Text style={styles.buttonText}>SESSION HISTORY</Text>
+          </TouchableOpacity>
+        </View> */}
       </View>
     );
   }
@@ -177,6 +287,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // chartContainer: {
+  //   flex: 1,
+  //   fontSize: 10,
+  //   backgroundColor: '#fff',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   marginTop: 10,
+  //   marginBottom: 10,
+  // },
   chartContainer: {
     display: "flex",
     flex: 1,

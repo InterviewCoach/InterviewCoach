@@ -1,6 +1,7 @@
+
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native';
 import coach from '../assets/coach.png';
 import * as Speech from 'expo-speech';
 import * as FileSystem from 'expo-file-system';
@@ -26,20 +27,22 @@ const recordingOptions = {
     linearPCMBitDepth: 16,
     linearPCMIsBigEndian: false,
     linearPCMIsFloat: false,
-  }
+  },
 };
 
 // In session compoment where a user can practice for their upcoming interview
 class InSession extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      recording: null,
       sessionStarted: false,
       questions: [],
       currentQuestion: 'Hi, I am Jolie, your interview coach! Press START SESSION to start a new interview and audio recording. I will then begin asking you questions.',
       isRecording: false,
-      recording: null,
       recordingDuration: 0,
+      transcript: null,
       questionCount: 1
     };
   }
@@ -69,7 +72,6 @@ class InSession extends React.Component {
   };
 
   startSessionSpeak = async () => {
-
     // get audio permissions
     const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
     if (status !== 'granted') {
@@ -116,35 +118,35 @@ class InSession extends React.Component {
   };
 
   endSessionSpeak = async () => {
-    // set state to outro
+    //set state to outro
     this.setState({
       currentQuestion:
         'Thanks for taking the time to interview with me. Here is your feedback.',
     });
 
-    // speak outro
+    //speak outro
     Speech.speak(this.state.currentQuestion, {
       language: 'en',
       pitch: 1.1,
       rate: 0.9,
     });
 
-    // stop recording and get transcription
-    await this._stopRecording();
-    await this.getTranscription();
-
-    //reset state 
+    //reset state
     this.setState({
       sessionStarted: false,
       currentQuestion: '',
       questionCount: 1
     });
 
-    // navigate to report
-    this.props.navigation.navigate('Report', {
-      transcription: transcription,
-    });
-  };
+    // stop recording
+    await this._stopRecording();
+
+    // get transcription
+    await this.getTranscription();
+
+    //navigate to report
+    this.props.navigation.navigate('Report')
+  }
 
   _startRecording = async () => {
 
@@ -169,13 +171,14 @@ class InSession extends React.Component {
     recording.setOnRecordingStatusUpdate(this._updateRecordingStatus);
 
     // put recording on state
-    this.state.recording = recording;
+    this.setState({ recording })
 
     // start recording
     await recording.startAsync();
   };
 
-  // update the state with recording meta data when recording state updates
+  // updates the state with recording meta data
+  // when recording state updates
   _updateRecordingStatus = status => {
     this.setState({
       isRecording: status.isRecording,
@@ -183,7 +186,6 @@ class InSession extends React.Component {
     });
   };
 
-  // stop recording
   _stopRecording = async () => {
     try {
       await this.state.recording.stopAndUnloadAsync();
@@ -192,11 +194,10 @@ class InSession extends React.Component {
     }
   };
 
-  // transcribe the recording
   getTranscription = async () => {
     try {
-      const { uri } = await FileSystem.getInfoAsync(this.state.recording.getURI());
-      const string = await FileSystem.readAsStringAsync(uri, {
+      const info = await FileSystem.getInfoAsync(this.recording.getURI());
+      const string = await FileSystem.readAsStringAsync(info.uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
       await axios.post('https://interview-coach-server.herokuapp.com/api/sessions', { string, audioFileURI: uri })
@@ -264,6 +265,7 @@ class InSession extends React.Component {
   }
 }
 export default InSession;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
