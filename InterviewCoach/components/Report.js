@@ -1,16 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import Splash from './Splash'
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  Button,
-  Image
-} from 'react-native';
+import Splash from './Splash';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import {
   VictoryBar,
   VictoryChart,
@@ -22,24 +13,25 @@ import {
 import Constants from 'expo-constants';
 import hamburger from './hamburgerBlack.png';
 
+//data to display most common filler words used on the pie chart.
 const data = [
   {
     x: 'actually',
-    y: 4
+    y: 4,
   },
   {
     x: 'like',
-    y: 5
+    y: 5,
   },
   {
     x: 'basically',
-    y: 3
+    y: 3,
   },
   {
     x: 'other',
     y: 88,
   },
-]
+];
 
 class Report extends React.Component {
   constructor(props) {
@@ -58,22 +50,20 @@ class Report extends React.Component {
     await this.loadSessionData();
   }
 
+  //axios request will grab the new session and will set state with new data to be rendered.
   loadSessionData = async () => {
     try {
       const { data } = await axios.get(
         'https://interview-coach-server.herokuapp.com/api/sessions/latest/1'
       );
-      console.log('latest', data)
-      // console.log('sessions', data)
-      // const dataSessionQuestionCount = data[0].questionCount;
+
       const dataSessionLikeWordCount = data[0].likeWordCount;
       const dataSessionActuallyWordCount = data[0].actuallyWordCount;
       const dataSessionBasicallyWordCount = data[0].basicallyWordCount;
       const dataSessionTotalWordCount = data[0].totalWordCount;
-      // console.log('dataSessionQuestionCount', dataSessionQuestionCount)
+
       this.setState({
         gotData: true,
-        // questionCount: dataSessionQuestionCount,
         likeWordCount: dataSessionLikeWordCount,
         actuallyWordCount: dataSessionActuallyWordCount,
         basicallyWordCount: dataSessionBasicallyWordCount,
@@ -85,48 +75,47 @@ class Report extends React.Component {
   };
 
   render() {
+    //block to get transcription and displaying splash component.
     const { params } = this.props.navigation.state;
     const transcription = params.transcription
       ? params.transcription.join(' ')
       : null;
-    if (!this.state.gotData)
-      return <Splash message={'loading your report'} />
+    if (!this.state.gotData) return <Splash message="loading your report" />;
 
     return (
+      //block to display the hamburger component.
       <View style={styles.container}>
-
-        <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer}>
+        <TouchableOpacity
+          style={styles.burger}
+          onPress={this.props.navigation.toggleDrawer}
+        >
           <Image source={hamburger} />
         </TouchableOpacity>
 
         <Text style={styles.title}> PERFORMANCE RESULTS </Text>
-        {/* <SafeAreaView style={styles.scrollContainer}>
-          <ScrollView style={styles.scrollView}> */}
-        {/* <Text style={styles.transcriptionText}>{transcription}</Text> */}
-
+        {/* If the data on state is less than or equals to 2% shows 'congrats statement" and display pie chart.*/}
         {((this.state.actuallyWordCount +
           this.state.likeWordCount +
-          this.state.basicallyWordCount) / this.state.totalWordCount) * 100
-          <= 2 ?
+          this.state.basicallyWordCount) /
+          this.state.totalWordCount) *
+          100 <=
+        2 ? (
           <View style={styles.chartContainer}>
+            <Text style={styles.databold} />
+            <Text style={styles.databold} />
+            <Text style={styles.databold} />
 
-            <Text style={styles.databold}></Text>
-            <Text style={styles.databold}></Text>
-            <Text style={styles.databold}></Text>
+            <Text style={styles.databold}>
+              Congratulations, your responses did not contain many common filler
+              words:
+            </Text>
 
-            <Text style={styles.databold}>Congratulations, your responses did not contain many common filler words:</Text>
-
-            {/* <Text style={styles.data}>
-                  # questions answered:{' '}
-                  {this.state.questionCount}
-                </Text> */}
-            {/* <Text style={styles.databold}>
-              Your results:
-                </Text> */}
             <Text style={styles.data}>
               # 'actually': {this.state.actuallyWordCount}
             </Text>
-            <Text style={styles.data}># 'like': {this.state.likeWordCount}</Text>
+            <Text style={styles.data}>
+              # 'like': {this.state.likeWordCount}
+            </Text>
             <Text style={styles.data}>
               # 'basically': {this.state.basicallyWordCount}
             </Text>
@@ -137,29 +126,26 @@ class Report extends React.Component {
                   this.state.likeWordCount +
                   this.state.basicallyWordCount)}
             </Text>
-            <Text style={styles.databold}>
-              Other users' results:
-        </Text>
+            <Text style={styles.databold}>Other users' results:</Text>
             <VictoryPie
               data={data}
               labels={({ datum }) => `${datum.x}: ${datum.y}%`}
               colorScale={['gold', '#DDA0DD', '#20B2AA', '#B0E0E6']}
-
               padding={{ left: 100, right: 100 }}
               style={{ labels: { fontSize: 10, fill: 'black' } }}
               labelComponent={<VictoryLabel angle={325} />}
             />
           </View>
-          :
+        ) : (
           <View style={styles.chartContainer}>
-
-            <Text style={styles.databold}>
-              Your results:
-                </Text>
+            {/* Otherwise, display the result for counter words and a bar chart to show performance.*/}
+            <Text style={styles.databold}>Your results:</Text>
             <Text style={styles.data}>
               # 'actually': {this.state.actuallyWordCount}
             </Text>
-            <Text style={styles.data}># 'like': {this.state.likeWordCount}</Text>
+            <Text style={styles.data}>
+              # 'like': {this.state.likeWordCount}
+            </Text>
             <Text style={styles.data}>
               # 'basically': {this.state.basicallyWordCount}
             </Text>
@@ -177,7 +163,7 @@ class Report extends React.Component {
               domainPadding={15}
             >
               <VictoryAxis
-                label={`Session Performance`}
+                label="Session Performance"
                 style={{ axisLabel: { padding: 100 } }}
               />
               <VictoryAxis
@@ -185,7 +171,7 @@ class Report extends React.Component {
                 label="Word Count"
                 angle={325}
                 style={{
-                  axisLabel: { padding: 100 }
+                  axisLabel: { padding: 100 },
                 }}
               />
 
@@ -195,81 +181,24 @@ class Report extends React.Component {
                   { word: 2, totalWordCount: this.state.actuallyWordCount },
                   { word: 3, totalWordCount: this.state.basicallyWordCount },
                 ]}
-
                 x="word"
                 y="totalWordCount"
                 style={{
                   data: {
-                    fill: data => ('#B0E0E6'),
+                    fill: data => '#B0E0E6',
                   },
                 }}
                 categories={{
-                  x: [`like`, `actually`, `basically`
-                  ],
+                  x: [`like`, `actually`, `basically`],
 
-                  y: [
-                    `1`,
-                    `2`,
-                    `3`,
-                    `4`,
-                    `5`,
-                    '6',
-                    '7',
-                    '8',
-                    '9',
-                    '10',
-                  ],
+                  y: [`1`, `2`, `3`, `4`, `5`, '6', '7', '8', '9', '10'],
                 }}
               />
             </VictoryChart>
-
-            {/* <VictoryPie
-              data={[
-                {
-                  x: 'actually',
-                  y: Math.round(
-                    (this.state.actuallyWordCount / this.state.totalWordCount) *
-                    100
-                  ),
-                },
-                {
-                  x: 'like',
-                  y: Math.round(
-                    (this.state.likeWordCount / this.state.totalWordCount) * 100
-                  ),
-                },
-                {
-                  x: 'basically',
-                  y: Math.round(
-                    (this.state.basicallyWordCount / this.state.totalWordCount) *
-                    100
-                  ),
-                },
-                {
-                  x: 'other',
-                  y: Math.round(
-                    ((this.state.totalWordCount -
-                      (this.state.actuallyWordCount +
-                        this.state.likeWordCount +
-                        this.state.basicallyWordCount)) /
-                      this.state.totalWordCount) *
-                    100
-                  ),
-                },
-              ]}
-              labels={({ datum }) => {
-                `${datum.x}: ${datum.y}%`
-              }}
-              colorScale={['gold', '#B0E0E6', '#20B2AA', '#DDA0DD']}
-              padding={{ left: 100, right: 100 }}
-              style={{ labels: { fontSize: 10, fill: 'black' } }}
-              labelComponent={<VictoryLabel angle={325} />}
-            /> */}
-          </View>}
-
-        {/* </ScrollView>
-        </SafeAreaView> */}
+          </View>
+        )}
         <View>
+          {/* block to render the 'New Session' button which redirects the user to a new session. */}
           <TouchableOpacity
             style={styles.buttonContainer}
             onPress={() => this.props.navigation.navigate('New Session')}
@@ -277,14 +206,6 @@ class Report extends React.Component {
             <Text style={styles.buttonText}>NEW SESSION</Text>
           </TouchableOpacity>
         </View>
-        {/* <View>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={() => this.props.navigation.navigate('History')}
-          >
-            <Text style={styles.buttonText}>SESSION HISTORY</Text>
-          </TouchableOpacity>
-        </View> */}
       </View>
     );
   }
@@ -298,17 +219,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // chartContainer: {
-  //   flex: 1,
-  //   fontSize: 10,
-  //   backgroundColor: '#fff',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   marginTop: 10,
-  //   marginBottom: 10,
-  // },
   chartContainer: {
-    display: "flex",
+    display: 'flex',
     flex: 1,
     fontSize: 10,
     backgroundColor: '#fff',
@@ -316,7 +228,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 10,
     height: 'auto',
-    width: '100%'
+    width: '100%',
   },
   title: {
     color: 'black',
@@ -338,7 +250,7 @@ const styles = StyleSheet.create({
   },
   databold: {
     color: 'black',
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 5,
     width: 300,
     fontSize: 14,
@@ -351,7 +263,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
     marginBottom: 15,
-    borderRadius: 12
+    borderRadius: 12,
   },
   buttonText: {
     textAlign: 'center',
@@ -375,6 +287,6 @@ const styles = StyleSheet.create({
   },
   burger: {
     marginTop: 10,
-    alignSelf: 'flex-start'
-  }
-})
+    alignSelf: 'flex-start',
+  },
+});
