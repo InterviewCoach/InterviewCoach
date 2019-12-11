@@ -1,16 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native';
-import coach from '../components/coach.png';
+import coach from '../assets/coach.png';
 import * as Speech from 'expo-speech';
 import * as FileSystem from 'expo-file-system';
 import * as Permissions from 'expo-permissions';
-// import * as Speech from '@google-cloud/speech'
-// const speech = require('@google-cloud/speech');
 import { Audio } from 'expo-av';
-// import transcribe from '../transcribe';
-// import * as IntentLauncher from 'expo-intent-launcher';
-import hamburger from '../components/hamburgerBlack.png';
+
+import hamburger from '../assets/hamburgerBlack.png';
 
 const recordingOptions = {
   android: {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-// import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import HomeScreen from './components/HomeScreen';
@@ -10,7 +9,6 @@ import AboutHelpScreen from './components/AboutHelpScreen';
 import { StyleSheet, Text, View, DrawerLayoutAndroid, ToolbarAndroid } from 'react-native';
 import InSession from './components/InSession';
 import Logout from './components/Logout'
-// import Splash from './components/Splash';
 import Report from './components/Report';
 import HistorySessionScreen from './components/HistorySessionScreen';
 

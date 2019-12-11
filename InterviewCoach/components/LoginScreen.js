@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import logo from '../components/logo.png';
+import logo from '../assets/logo.png';
 
 // Log in component where a user can log into an existing account
 export default class LoginScreen extends React.Component {

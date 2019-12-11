@@ -20,7 +20,7 @@ import {
   VictoryLabel,
 } from 'victory-native';
 import Constants from 'expo-constants';
-import hamburger from './hamburgerBlack.png';
+import hamburger from '../assets/hamburgerBlack.png';
 
 const data = [
   {

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, Button } from 'react-native';
-import logo from '../components/logo.png';
-import hamburger from '../components/hamburgerBlack.png';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import logo from '../assets/logo.png';
+import hamburger from '../assets/hamburgerBlack.png';
 
 // About component where a user can get helpful information about using the app
 export default class AboutHelpScreen extends React.Component {

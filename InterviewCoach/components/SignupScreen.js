@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import logo from '../components/logo.png';
+import logo from '../assets/logo.png';
 export default class SignupScreen extends React.Component {
   constructor() {
     super();
