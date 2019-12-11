@@ -121,15 +121,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  // chartContainer: {
-  //   flex: 1,
-  //   fontSize: 10,
-  //   backgroundColor: '#fff',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   marginTop: 10,
-  //   marginBottom: 10,
-  // },
   title: {
     color: 'black',
     marginBottom: 10,
@@ -148,18 +139,12 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     opacity: 0.8,
   },
-  // buttonContainer: {
-  //   marginTop: 10,
-  //   backgroundColor: 'aqua',
-  //   paddingVertical: 20,
-  //   paddingHorizontal: 20,
-  // },
   buttonContainer: {
     backgroundColor: '#bdecb6',
     paddingVertical: 20,
     paddingHorizontal: 20,
     marginBottom: 15,
-    borderRadius: 12
+    borderRadius: 12,
   },
   buttonText: {
     textAlign: 'center',
@@ -177,6 +162,6 @@ const styles = StyleSheet.create({
   },
   burger: {
     marginTop: 10,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   }
 });

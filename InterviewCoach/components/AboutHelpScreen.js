@@ -8,9 +8,13 @@ export default class AboutHelpScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
+        {/* drawer navigation */}
         <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer} >
           <Image source={hamburger} />
         </TouchableOpacity>
+
+        {/* about information */}
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text style={styles.title}> INTERVIEW COACH </Text>
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 100,
-    borderRadius: 30
+    borderRadius: 30,
   },
   title: {
     color: 'black',
@@ -93,18 +97,12 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     opacity: 0.8,
   },
-  // buttonContainer: {
-  //   backgroundColor: 'aqua',
-  //   paddingVertical: 10,
-  //   marginBottom: 15,
-  //   padding: 10,
-  // },
   buttonContainer: {
     backgroundColor: '#bdecb6',
     paddingVertical: 20,
     paddingHorizontal: 20,
     marginBottom: 15,
-    borderRadius: 12
+    borderRadius: 12,
   },
   buttonText: {
     textAlign: 'center',
@@ -114,6 +112,6 @@ const styles = StyleSheet.create({
   },
   burger: {
     marginTop: 10,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   }
 });
