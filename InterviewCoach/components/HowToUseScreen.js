@@ -1,17 +1,21 @@
 import * as React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import logo from '../components/logo.png';
 import hamburger from '../components/hamburgerBlack.png';
 
-export default class AboutHelpScreen extends React.Component {
+//Screen that helps the user understand the features and functionality of the app
+
+export default class HowToUseScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
 
+        {/* Hamburger menu */}
         <TouchableOpacity style={styles.burger} onPress={this.props.navigation.toggleDrawer} >
           <Image source={hamburger} />
         </TouchableOpacity>
-        {/* </View> */}
+
+        {/* Logo and heading */}
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={logo} />
           <Text style={styles.title}> INTERVIEW COACH </Text>
@@ -19,6 +23,8 @@ export default class AboutHelpScreen extends React.Component {
             {' '}
             The perfect platform to help you prep for your next interview!{' '}
           </Text>
+
+          {/* Interview Session Screen Features */}
           <Text style={styles.list}> INTERVIEW SESSION </Text>
           <Text style={styles.list}>
             Start Session Button: Pressing this will start a new interview and audio recording. The coach will begin asking
@@ -32,6 +38,8 @@ export default class AboutHelpScreen extends React.Component {
             End Session Button: Pressing this will end the interview and
             audio recording. Your results will then be analyzed and you will be shown your performance results.{' '}
           </Text>
+
+          {/* Performance Results Screen Features */}
           <Text style={styles.list}> PERFORMANCE RESULTS </Text>
           <Text style={styles.list}>
             Data and charts will be provided to show your usage of common filler words in your interview responses.{' '}
@@ -39,22 +47,17 @@ export default class AboutHelpScreen extends React.Component {
           <Text style={styles.list}>
             New Session Button: Pressing this will return you to the Interview Session screen where you can start a new interview.{' '}
           </Text>
+
+          {/* History Screen Features */}
           <Text style={styles.list}> HISTORY </Text>
           <Text style={styles.list}>
             Charts will be provided to show your usage of common filler words in your interview responses across all of the sessions you have recorded.{' '}
           </Text>
         </View>
-        {/* <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => this.props.navigation.navigate('Home')}
-        >
-          <Text style={styles.buttonText}>HOME</Text>
-        </TouchableOpacity> */}
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -100,12 +103,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     opacity: 0.8,
   },
-  // buttonContainer: {
-  //   backgroundColor: 'aqua',
-  //   paddingVertical: 10,
-  //   marginBottom: 15,
-  //   padding: 10,
-  // },
   buttonContainer: {
     backgroundColor: '#bdecb6',
     paddingVertical: 20,

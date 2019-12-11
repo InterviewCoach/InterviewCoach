@@ -6,7 +6,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import HomeScreen from './components/HomeScreen';
 import LoginScreen from './components/LoginScreen';
 import SignupScreen from './components/SignupScreen';
-import AboutHelpScreen from './components/AboutHelpScreen';
+import HowToUseScreen from './components/HowToUseScreen';
 import { StyleSheet, Text, View, DrawerLayoutAndroid, ToolbarAndroid } from 'react-native';
 import InSession from './components/InSession';
 import Logout from './components/Logout'
@@ -61,7 +61,7 @@ const RootStack = createDrawerNavigator(
       }
     },
     History: HistorySessionScreen,
-    'How To Use': AboutHelpScreen,
+    'How To Use': HowToUseScreen,
     'Logout': HomeScreen
   },
   {
