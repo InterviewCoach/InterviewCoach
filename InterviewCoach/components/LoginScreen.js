@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import logo from '../components/logo.png';
 
-
+// Log in component where a user can log into an existing account
 export default class LoginScreen extends React.Component {
   constructor() {
     super();
@@ -20,34 +20,37 @@ export default class LoginScreen extends React.Component {
     };
   }
 
+  // Disable drawer menu 
   static navigationOptions = {
     drawerLockMode: 'locked-closed',
   }
 
   async login(email, password) {
+
+    //validate credentials
     try {
       if (this.state.password.length < 6) {
         alert('Please enter a password with at least 6 characters');
         return;
       }
       else {
-        const { data } = await axios.post(
+        await axios.post(
           'https://interview-coach-server.herokuapp.com/auth/login',
           { email, password }
         )
       }
+      alert('Logging in with email: ' + this.state.email);
+
+      this.setState({
+        email: '',
+        password: ''
+      })
+
+      // If valid credentials, log a user in
+      this.props.navigation.navigate('New Session');
     } catch (error) {
       alert('Incorrect email or password');
-      // console.error(error);
     }
-    alert('Logging in with email: ' + this.state.email);
-
-    this.setState({
-      email: '',
-      password: ''
-    })
-
-    this.props.navigation.navigate('New Session');
   }
 
   render() {
@@ -137,11 +140,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12
   },
-  // buttonContainer: {
-  //   backgroundColor: 'aqua',
-  //   paddingVertical: 15,
-  //   marginBottom: 15,
-  // },
   buttonContainer: {
     backgroundColor: '#bdecb6',
     paddingVertical: 20,
