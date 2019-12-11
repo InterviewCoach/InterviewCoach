@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { StyleSheet, View, Image, Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import logo from '../assets/logo.png';
 
 // Log in component where a user can log into an existing account
@@ -39,18 +31,20 @@ export default class LoginScreen extends React.Component {
           { email, password }
         )
       }
-      alert('Logging in with email: ' + this.state.email);
 
-      this.setState({
-        email: '',
-        password: ''
-      })
-
-      // If valid credentials, log a user in
-      this.props.navigation.navigate('New Session');
     } catch (error) {
       alert('Incorrect email or password');
     }
+
+    alert('Logging in with email: ' + this.state.email);
+
+    this.setState({
+      email: '',
+      password: ''
+    })
+    
+    // If valid credentials, log a user in
+    this.props.navigation.navigate('New Session');
   }
 
   render() {
