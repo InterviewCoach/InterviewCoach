@@ -20,9 +20,6 @@ If this is your first time using the app, you will be asked to give the app perm
 
 Upon opening the app, you will be brought to our sign up and log in page. If you are a new user, choose the sign up option. If you are a returning user, please choose the login option. 
 
-<iframe src="https://giphy.com/embed/cKiK1bC891112Pz33f" width="246" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cKiK1bC891112Pz33f">via GIPHY</a></p>
-
-
 **Starting a Session**
 
 Upon signing up or logging in, you will be taken to our Interview Session screen. Click the 'Start Session' button to start your interview session. Upon clicking the button, the interviewer will start the interview and ask you about yourself. The app will start recording the session. 
