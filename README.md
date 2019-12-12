@@ -8,9 +8,9 @@ Android devices are fully supported. At this time, our app is not supported on I
 
 #### How to Install
 
-Beta Release 0.0.1
-Download the Expo Client app from the app store: https://apps.apple.com/us/app/expo-client/id982107779.
-Upon opening the app, click on the tab 'Scan QR Code'. 
+Beta Release 0.0.1  
+Download the Expo Client app from the app store: https://apps.apple.com/us/app/expo-client/id982107779.  
+Upon opening the app, click on the tab 'Scan QR Code'.   
 Visit https://expo.io/@malkam/InterviewCoach and scan the QR code seen on the right side of the screen. 
 
 ## Features
