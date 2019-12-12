@@ -61,7 +61,7 @@ Front-end: React Native, Expo, Victory Charts
 Back-end: PostgreSQL, Sequelize, Google Cloud, Express, Node, Heroku  
 
 ## Creators 
-- [Svetlana Shammasova](https://github.com/GNz11), 
-- [Malka Moskowicz](https://github.com/malkamoskowicz), 
-- [Chia-Li-Chen](https://github.com/Chia-Li-Chen), 
+- [Svetlana Shammasova](https://github.com/GNz11) 
+- [Malka Moskowicz](https://github.com/malkamoskowicz)
+- [Chia-Li-Chen](https://github.com/Chia-Li-Chen)
 - [Carina Lopez](https://github.com/CarinaLR)
