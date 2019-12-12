@@ -17,7 +17,7 @@ Visit https://expo.io/@malkam/InterviewCoach and scan the QR code seen on the ri
 
 **Getting Started**
 
-If this is your first time using the app, you will be asked to give the app permission to use your microphone. 
+If this is your first time using the app, you will be asked to give the app permission to use your microphone.    
 
 Upon opening the app, you will be brought to our sign up and log in page. If you are a new user, choose the sign up option. If you are a returning user, please choose the login option. 
 
@@ -57,7 +57,11 @@ Clicking on this option simply logs the user out and takes them back to the sign
 
 ## Tech Stack
 
-Front-end: React Native, Expo, Victory Charts
-Back-end: PostgreSQL, Sequelize, Google Cloud, Express, Node, Heroku
+Front-end: React Native, Expo, Victory Charts  
+Back-end: PostgreSQL, Sequelize, Google Cloud, Express, Node, Heroku  
 
-## Creators [Svetlana Shammasova](https://github.com/GNz11), [Malka Moskowicz](https://github.com/malkamoskowicz), [Chia-Li-Chen](https://github.com/Chia-Li-Chen), [Carina Lopez](https://github.com/CarinaLR)
+## Creators 
+- [Svetlana Shammasova](https://github.com/GNz11), 
+- [Malka Moskowicz](https://github.com/malkamoskowicz), 
+- [Chia-Li-Chen](https://github.com/Chia-Li-Chen), 
+- [Carina Lopez](https://github.com/CarinaLR)
