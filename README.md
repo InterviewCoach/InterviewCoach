@@ -8,19 +8,17 @@ Android devices are fully supported. At this time, our app is not supported on I
 
 #### How to Install
 
-Beta Release 0.0.1
-Download the Expo Client app from the app store: https://apps.apple.com/us/app/expo-client/id982107779.
-Upon opening the app, click on the tab 'Scan QR Code'. 
+Download the Expo Client app from the app store: https://apps.apple.com/us/app/expo-client/id982107779.  
+Upon opening the app, click on the tab 'Scan QR Code'.   
 Visit https://expo.io/@malkam/InterviewCoach and scan the QR code seen on the right side of the screen. 
 
 ## Features
 
 **Getting Started**
 
-If this is your first time using the app, you will be asked to give the app permission to use your microphone. 
+If this is your first time using the app, you will be asked to give the app permission to use your microphone.    
 
 Upon opening the app, you will be brought to our sign up and log in page. If you are a new user, choose the sign up option. If you are a returning user, please choose the login option. 
-
 
 **Starting a Session**
 
@@ -57,7 +55,11 @@ Clicking on this option simply logs the user out and takes them back to the sign
 
 ## Tech Stack
 
-Front-end: React Native, Expo, Victory Charts
-Back-end: PostgreSQL, Sequelize, Google Cloud, Express, Node, Heroku
+Front-end: React Native, Expo, Victory Charts  
+Back-end: PostgreSQL, Sequelize, Google Cloud, Express, Node, Heroku  
 
-## Creators [Svetlana Shammasova](https://github.com/GNz11), [Malka Moskowicz](https://github.com/malkamoskowicz), [Chia-Li-Chen](https://github.com/Chia-Li-Chen), [Carina Lopez](https://github.com/CarinaLR)
+## Creators 
+- [Svetlana Shammasova](https://github.com/GNz11) 
+- [Malka Moskowicz](https://github.com/malkamoskowicz)
+- [Chia-Li-Chen](https://github.com/Chia-Li-Chen)
+- [Carina Lopez](https://github.com/CarinaLR)
