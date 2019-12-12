@@ -109,7 +109,7 @@ class InSession extends React.Component {
       questionCount: this.state.questionCount++
     });
 
-    Speech.speak(this.state.currentQuestion, {
+    Speech.speak(this.state.questions[questionIndex], {
       language: 'en',
       pitch: 1.1,
       rate: 0.9,
